@@ -1,5 +1,6 @@
 package com.application.simplyrugby;
 
+import com.application.simplyrugby.Control.DBTools;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,6 +11,8 @@ import java.io.IOException;
 public class SimplyRugbySystem extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        DBTools.databaseConnect();
+        DBTools.createTables();
         FXMLLoader fxmlLoader = new FXMLLoader(SimplyRugbySystem.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");

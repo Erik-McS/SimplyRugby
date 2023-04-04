@@ -1,6 +1,7 @@
 module com.application.simplyrugby {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens com.application.simplyrugby to javafx.fxml;
