@@ -37,7 +37,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox fx:id="mainVBox" prefHeight="589.0" prefWidth="449.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.Control.MainMenuController">
+<VBox fx:id="mainVBox" prefHeight="589.0" prefWidth="449.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.MainMenuController">
   <children>
     <AnchorPane fx:id="mainPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
@@ -60,7 +60,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="exitButton" layoutX="383.0" layoutY="550.0" mnemonicParsing="false" text="Exit">
+            <Button fx:id="exitButton" layoutX="383.0" layoutY="550.0" mnemonicParsing="false" onAction="#exitApp" text="Exit">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
