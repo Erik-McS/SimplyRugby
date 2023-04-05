@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.MembershipMenuController">
+    <children>
+        <MenuBar>
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <HBox prefHeight="601.0" prefWidth="834.0">
+            <children>
+                <Pane fx:id="menuPane" prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <ImageView fitHeight="204.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@logo2.png" />
+                            </image>
+                        </ImageView>
+                        <Button fx:id="addPlayer" layoutX="23.0" layoutY="253.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="155.0" text="Add Player">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="deletePlayer" layoutX="23.0" layoutY="313.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="155.0" text="Delete Player">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="addMember" layoutX="23.0" layoutY="374.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="155.0" text="Add Club Member">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="deleteMember" layoutX="23.0" layoutY="437.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="155.0" text="Delete Club Member">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="mainMenu" layoutX="52.0" layoutY="536.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Main Menu">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </Pane>
+                <Pane fx:id="mainPane" prefHeight="575.0" prefWidth="601.0" />
+            </children>
+        </HBox>
+    </children>
+</VBox>
