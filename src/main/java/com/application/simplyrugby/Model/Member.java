@@ -1,4 +1,4 @@
 package com.application.simplyrugby.Model;
 
-public class Member {
+public interface Member {
 }

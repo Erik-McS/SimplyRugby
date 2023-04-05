@@ -1,4 +1,4 @@
 package com.application.simplyrugby.Model;
 
-public class NonPlayingMember {
+public class NonPlayingMember implements Member{
 }
