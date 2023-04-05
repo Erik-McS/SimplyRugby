@@ -17,7 +17,6 @@ public class DBTools {
      */
     private DBTools(){}
     private static final String DBURL="JDBC:sqlite:SimplyRugbyDB.db";
-    //private static String dbURL="JDBC:sqlite:SimplyRugbyDB";
     public static void databaseConnect(){
 
         try {

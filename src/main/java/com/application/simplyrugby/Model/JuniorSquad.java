@@ -1,4 +1,4 @@
 package com.application.simplyrugby.Model;
 
-public class JuniorSquad {
+public class JuniorSquad implements Squad{
 }
