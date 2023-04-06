@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.GamesController">
+    <children>
+        <MenuBar>
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <HBox prefHeight="794.0" prefWidth="1254.0">
+            <children>
+                <Pane fx:id="menuPane" prefWidth="240.0">
+                    <children>
+                        <ImageView fitHeight="233.0" fitWidth="240.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@logo2.png" />
+                            </image>
+                        </ImageView>
+                        <Button fx:id="mainMenu" layoutX="69.0" layoutY="731.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Main Menu">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Button>
+                  <VBox fx:id="buttonBox" layoutX="43.0" layoutY="301.0" prefHeight="200.0" prefWidth="149.0" spacing="30.0">
+                     <children>
+                              <Button fx:id="addGame" mnemonicParsing="false" prefHeight="43.0" prefWidth="155.0" text="Add Game">
+                                  <font>
+                                      <Font name="System Bold" size="14.0" />
+                                  </font>
+                              </Button>
+                              <Button fx:id="updateGame" mnemonicParsing="false" prefHeight="43.0" prefWidth="155.0" text="Update Game">
+                                  <font>
+                                      <Font name="System Bold" size="14.0" />
+                                  </font>
+                              </Button>
+                     </children>
+                  </VBox>
+                    </children>
+                </Pane>
+                <Pane fx:id="mainPane" prefHeight="775.0" prefWidth="974.0" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

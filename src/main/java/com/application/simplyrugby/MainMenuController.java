@@ -44,6 +44,7 @@ public class MainMenuController {
                 Scene scene=new Scene(root);
                 scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css"),"CSS File not found").toExternalForm());
                 Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setTitle("Simply Rugby Club: Member Management");
                 stage.setScene(scene);
                 stage.show();
 
@@ -53,6 +54,42 @@ public class MainMenuController {
 
         });
 
-    }
+        gamesMgntButton.setOnAction((event)->{
+            try{
 
+                FXMLLoader loader=new FXMLLoader(MainMenuController.class.getResource("games.fxml"));
+                Parent root=loader.load();
+
+                Scene scene=new Scene(root);
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css"),"CSS File not found").toExternalForm());
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setTitle("Simply Rugby Club: Games Management");
+                stage.setScene(scene);
+                stage.show();
+
+            }
+            catch(IOException e){e.printStackTrace();}
+        });
+
+        playerMgntButton.setOnAction((event)->{
+            try{
+
+                FXMLLoader loader=new FXMLLoader(MainMenuController.class.getResource("players.fxml"));
+                Parent root=loader.load();
+
+                Scene scene=new Scene(root);
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css"),"CSS File not found").toExternalForm());
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setTitle("Simply Rugby Club: Games Management");
+                stage.setScene(scene);
+                stage.show();
+
+            }
+            catch(IOException e){e.printStackTrace();}
+        });
+    }
 }
+
+
+
+

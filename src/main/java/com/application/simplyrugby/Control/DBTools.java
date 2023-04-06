@@ -35,23 +35,10 @@ public class DBTools {
         }catch (SQLException e){e.printStackTrace();}
     }
 
-    public static void createTables() {
 
-        try{
-            Scanner sc = new Scanner(new File("CreateDatabase.csv"));
-            sc.useDelimiter(";");
-            while (sc.hasNext()) {
-                String s = sc.next();
-                System.out.println("Created: \n" + s);
-                executeQuery(s);
-            }
-        }
-        catch (FileNotFoundException e){e.printStackTrace();}
-
-    }
-    private static void executeQuery(String query){
+    public static void executeQuery(String query){
         databaseConnect();
-        //PreparedStatement statement;
+        //reparedStatement statement;
 
         try{
             Connection connect=DriverManager.getConnection(DBURL);
@@ -68,6 +55,28 @@ public class DBTools {
 
         }
         catch (SQLException e){e.printStackTrace();}
+    }
+
+    public static ResultSet executeSelectQuery(String query){
+        ResultSet result;
+        try{
+            Connection connect=DriverManager.getConnection(DBURL);
+            PreparedStatement statement=connect.prepareStatement(query);
+            try{
+                result=statement.executeQuery();
+                statement.close();
+                return result;
+            }
+            catch (SQLException e){e.printStackTrace();}
+            finally {
+                statement.close();
+                connect.close();
+            }
+
+        }
+        catch (SQLException e){e.printStackTrace();}
+        return null;
+
     }
 // END OF CLASS
 }

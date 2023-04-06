@@ -12,39 +12,21 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class MembershipMenuController {
+public class playersController{
 
     @FXML
-    Button addPlayer,deletePlayer,addMember,deleteMember,mainMenu;
+    Pane mainPane,menuPane;
     @FXML
-    Pane menuPane,mainPane;
+    Button squadMgnt,playerMgnt,createSession,mainMenu;
+
     public void initialize(){
 
         menuPane.getStyleClass().add("bckg1");
         mainPane.getStyleClass().add("bckg1");
-        addPlayer.getStyleClass().add("bckg5");
-        deletePlayer.getStyleClass().add("bckg5");
-        addMember.getStyleClass().add("bckg5");
-        deleteMember.getStyleClass().add("bckg5");
+        squadMgnt.getStyleClass().add("bckg5");
+        playerMgnt.getStyleClass().add("bckg5");
+        createSession.getStyleClass().add("bckg5");
         mainMenu.getStyleClass().add("bckg5");
-
-        addPlayer.setOnAction((event)->{
-
-            try{
-                // clear the main area
-                mainPane.getChildren().clear();
-                // create a loader to store the add player pane
-                FXMLLoader loader =new FXMLLoader(MembershipMenuController.class.getResource("addPlayer.fxml"));
-                // lood the add player pane into a node
-                Parent root=loader.load();
-                // add the pane
-                mainPane.getChildren().add(root);
-            }
-            catch(IOException e){e.printStackTrace();}
-
-        });
-
-
 
         mainMenu.setOnAction((event)->{
             try{
@@ -65,3 +47,5 @@ public class MembershipMenuController {
 
     }
 }
+
+
