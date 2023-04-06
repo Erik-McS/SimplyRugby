@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.playersController">
+    <children>
+        <MenuBar>
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <HBox prefHeight="799.0" prefWidth="1231.0">
+            <children>
+                <Pane fx:id="menuPane" prefHeight="775.0" prefWidth="240.0">
+                    <children>
+                        <ImageView fitHeight="230.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@logo2.png" />
+                            </image>
+                        </ImageView>
+                        <Button fx:id="mainMenu" layoutX="72.0" layoutY="731.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Main Menu">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Button>
+                  <VBox fx:id="buttonBox" layoutX="27.0" layoutY="306.0" prefHeight="212.0" prefWidth="187.0" spacing="30.0">
+                     <children>
+                              <Button fx:id="squadMgnt" mnemonicParsing="false" prefHeight="43.0" prefWidth="179.0" text="Squad Management">
+                                  <font>
+                                      <Font name="System Bold" size="14.0" />
+                                  </font>
+                              </Button>
+                              <Button fx:id="createSession" mnemonicParsing="false" prefHeight="43.0" prefWidth="179.0" text="Create Training Session">
+                                  <font>
+                                      <Font name="System Bold" size="14.0" />
+                                  </font>
+                              </Button>
+                              <Button fx:id="playerMgnt" mnemonicParsing="false" prefHeight="43.0" prefWidth="179.0" text="Player Management">
+                                  <font>
+                                      <Font name="System Bold" size="14.0" />
+                                  </font>
+                              </Button>
+                     </children>
+                  </VBox>
+                    </children>
+                </Pane>
+                <Pane fx:id="mainPane" prefHeight="775.0" prefWidth="978.0" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

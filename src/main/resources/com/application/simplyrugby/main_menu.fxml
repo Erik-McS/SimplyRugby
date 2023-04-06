@@ -41,30 +41,34 @@
   <children>
     <AnchorPane fx:id="mainPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <ImageView fx:id="mainLogo" accessibleText="Logo" fitHeight="150.0" fitWidth="200.0" layoutX="150.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="mainLogo" accessibleText="Logo" fitHeight="280.0" fitWidth="270.0" layoutX="90.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@logo2.png" />
                </image></ImageView>
-            <Button fx:id="memberMgtButton" layoutX="87.0" layoutY="209.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="276.0" text="Membership Management">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="playerMgntButton" layoutX="87.0" layoutY="311.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="276.0" text="Player Management">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="gamesMgntButton" layoutX="87.0" layoutY="414.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="276.0" text="Games Management">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
             <Button fx:id="exitButton" layoutX="383.0" layoutY="550.0" mnemonicParsing="false" onAction="#exitApp" text="Exit">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
+            <VBox layoutX="91.0" layoutY="323.0" prefHeight="200.0" prefWidth="270.0" spacing="30.0">
+               <children>
+                  <Button fx:id="memberMgtButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="270.0" text="Membership Management">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="playerMgntButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="270.0" text="Player Management">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="gamesMgntButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="270.0" text="Games Management">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
       </children>
     </AnchorPane>
   </children>

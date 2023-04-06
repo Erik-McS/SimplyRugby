@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="mainPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.addPlayerController">
+   <children>
+      <HBox layoutY="59.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="967.0">
+         <children>
+            <Pane fx:id="leftPane" prefHeight="697.0" prefWidth="604.0">
+               <children>
+                  <Label layoutX="230.0" layoutY="14.0" text="Player Details" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txName" layoutX="58.0" layoutY="109.0" prefWidth="170.0" />
+                  <TextField fx:id="txSurname" layoutX="288.0" layoutY="109.0" prefWidth="170.0" />
+                  <TextArea fx:id="txAddress" layoutX="58.0" layoutY="188.0" prefHeight="130.0" prefWidth="402.0" />
+                  <TextField fx:id="txTelephone" layoutX="58.0" layoutY="380.0" />
+                  <TextField fx:id="txEmail" layoutX="288.0" layoutY="380.0" />
+                  <TextField fx:id="txScrumsNumber" layoutX="58.0" layoutY="596.0" />
+                  <DatePicker fx:id="dpDateOfBirth" layoutX="58.0" layoutY="451.0" />
+                  <RadioButton fx:id="rbMale" layoutX="288.0" layoutY="455.0" mnemonicParsing="false" text="Male" textFill="WHITE" />
+                  <RadioButton fx:id="rbFemale" layoutX="288.0" layoutY="485.0" mnemonicParsing="false" text="Female" textFill="WHITE" />
+                  <Button fx:id="bCreatePlayer" layoutX="143.0" layoutY="656.0" mnemonicParsing="false" text="Create Player">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="bCancel" layoutX="314.0" layoutY="656.0" mnemonicParsing="false" text="Cancel">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="58.0" layoutY="84.0" text="Name" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="288.0" layoutY="84.0" text="Surname" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="58.0" layoutY="158.0" text="Address" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="58.0" layoutY="338.0" text="Telephone" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="288.0" layoutY="338.0" text="Email" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="62.0" layoutY="421.0" text="Date of Birth" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="288.0" layoutY="421.0" text="Gender" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="58.0" layoutY="563.0" text="SCRUMS number" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="bAddConsentForm" layoutX="58.0" layoutY="509.0" mnemonicParsing="false" text="Add Consent Form" />
+               </children>
+            </Pane>
+            <VBox prefHeight="774.0" prefWidth="364.0">
+               <children>
+                  <Pane fx:id="nokPane" prefHeight="339.0" prefWidth="364.0">
+                     <children>
+                        <Label layoutX="134.0" layoutY="14.0" text="Next of Kin" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbNOK" layoutX="18.0" layoutY="87.0" prefWidth="150.0" />
+                        <ToggleButton fx:id="tbAddNOK" layoutX="206.0" layoutY="87.0" mnemonicParsing="false" text="Add" />
+                        <ToggleButton fx:id="tbCreateNOK" layoutX="193.0" layoutY="262.0" mnemonicParsing="false" text="Create Next of Kin" />
+                        <Label layoutX="18.0" layoutY="54.0" text="Select from existing" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txNameNOK" layoutX="19.0" layoutY="196.0" />
+                        <TextField fx:id="txSurnameNOK" layoutX="193.0" layoutY="196.0" />
+                        <TextField fx:id="txTelNOK" layoutX="18.0" layoutY="262.0" />
+                        <Label layoutX="18.0" layoutY="178.0" text="Name" textFill="WHITE" />
+                        <Label layoutX="193.0" layoutY="178.0" text="Surname" textFill="WHITE" />
+                        <Label layoutX="18.0" layoutY="245.0" text="Telephone" textFill="WHITE" />
+                        <Label layoutX="18.0" layoutY="132.0" text="Or create a new record" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="docPane" prefHeight="382.0" prefWidth="364.0">
+                     <children>
+                        <Label layoutX="118.0" layoutY="14.0" text="Player's Doctor" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbDoctor" layoutX="18.0" layoutY="83.0" prefWidth="150.0" />
+                        <ToggleButton fx:id="tbAddDoctor" layoutX="206.0" layoutY="83.0" mnemonicParsing="false" text="Add" />
+                        <ToggleButton fx:id="tbCreateDoctor" layoutX="206.0" layoutY="257.0" mnemonicParsing="false" text="Create Doctor" />
+                        <Label layoutX="18.0" layoutY="59.0" text="Select from existing" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txNameDoctor" layoutX="18.0" layoutY="197.0" />
+                        <TextField fx:id="txSurnameDoctor" layoutX="206.0" layoutY="197.0" />
+                        <TextField fx:id="txTelDoctor" layoutX="18.0" layoutY="257.0" />
+                        <Label layoutX="18.0" layoutY="176.0" text="Name" textFill="WHITE" />
+                        <Label layoutX="206.0" layoutY="176.0" text="Surname" textFill="WHITE" />
+                        <Label layoutX="18.0" layoutY="236.0" text="Telephone" textFill="WHITE" />
+                        <Label layoutX="18.0" layoutY="141.0" text="Or create a new record" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Label layoutX="386.0" layoutY="14.0" text="Add a new Player" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
