@@ -34,12 +34,12 @@
                   <Font size="13.0" />
                </font>
             </RadioButton>
-            <Button fx:id="bUpdateGame" layoutX="617.0" layoutY="609.0" mnemonicParsing="false" text="Update Game Record" textFill="WHITE">
+            <Button fx:id="bUpdateGame" layoutX="617.0" layoutY="609.0" mnemonicParsing="false" text="Update Game Record">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="bCancel" layoutX="859.0" layoutY="609.0" mnemonicParsing="false" text="Cancel" textFill="WHITE">
+            <Button fx:id="bCancel" layoutX="859.0" layoutY="609.0" mnemonicParsing="false" text="Cancel">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
