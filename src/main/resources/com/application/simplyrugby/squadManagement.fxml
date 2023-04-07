@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="774.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutY="94.0" prefHeight="686.0" prefWidth="967.0" />
+      <Button layoutX="132.0" layoutY="14.0" mnemonicParsing="false" prefWidth="180.0" text="Create Senior Squad" />
+      <Button layoutX="377.0" layoutY="14.0" mnemonicParsing="false" prefWidth="180.0" text="Update Senior Squad" />
+      <Button layoutX="634.0" layoutY="14.0" mnemonicParsing="false" prefWidth="180.0" text="Delete Senior Squad" />
+      <Button layoutX="132.0" layoutY="51.0" mnemonicParsing="false" prefWidth="180.0" text="Create Junior Squad" />
+      <Button layoutX="377.0" layoutY="51.0" mnemonicParsing="false" prefWidth="180.0" text="Update Junior Squad" />
+      <Button layoutX="634.0" layoutY="51.0" mnemonicParsing="false" prefWidth="180.0" text="Delete Junior Squad" />
+   </children>
+</Pane>
