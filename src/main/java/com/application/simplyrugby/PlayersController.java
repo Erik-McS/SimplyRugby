@@ -12,12 +12,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class playersController{
+public class PlayersController {
 
     @FXML
-    Pane mainPane,menuPane;
+    private Pane mainPane,menuPane;
     @FXML
-    Button squadMgnt,playerMgnt,createSession,mainMenu;
+    private Button squadMgnt,playerMgnt,createSession,mainMenu;
 
     public void initialize(){
 

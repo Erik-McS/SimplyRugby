@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="775.0" prefWidth="968.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.AddMemberController">
+   <children>
+      <Pane fx:id="secondPane" layoutY="60.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="968.0">
+         <children>
+            <Label layoutX="39.0" layoutY="55.0" text="Name" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <Label layoutX="228.0" layoutY="55.0" text="Surname" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <Label layoutX="39.0" layoutY="130.0" text="Address" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <Label layoutX="39.0" layoutY="257.0" text="Telephone" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <Label layoutX="228.0" layoutY="257.0" text="Email" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <ComboBox fx:id="cbRole" layoutX="39.0" layoutY="354.0" prefWidth="150.0" />
+            <Button fx:id="bCreateMember" layoutX="39.0" layoutY="447.0" mnemonicParsing="false" text="Create Member">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Button>
+            <Button fx:id="bCancel" layoutX="228.0" layoutY="447.0" mnemonicParsing="false" text="Cancel">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Button>
+            <TextField fx:id="txName" layoutX="39.0" layoutY="80.0" />
+            <TextField fx:id="txSurname" layoutX="228.0" layoutY="80.0" />
+            <TextArea fx:id="taAddress" layoutX="39.0" layoutY="147.0" prefHeight="83.0" prefWidth="257.0" />
+            <Label layoutX="39.0" layoutY="337.0" text="Role in the Club" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <TextField fx:id="txTel" layoutX="39.0" layoutY="277.0" />
+            <TextField fx:id="txEmail" layoutX="228.0" layoutY="277.0" />
+         </children>
+      </Pane>
+      <Label layoutX="373.0" layoutY="14.0" text="Add a new Member" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

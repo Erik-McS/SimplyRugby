@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="mainPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.addPlayerController">
+<Pane fx:id="mainPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.AddPlayerController">
    <children>
       <HBox layoutY="59.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="967.0">
          <children>
@@ -139,7 +139,7 @@
             </VBox>
          </children>
       </HBox>
-      <Label layoutX="386.0" layoutY="14.0" text="Add a new Player" textFill="WHITE">
+      <Label layoutX="386.0" layoutY="14.0" text="Add a new Player">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

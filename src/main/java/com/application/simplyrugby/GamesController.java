@@ -16,9 +16,9 @@ public class GamesController {
 
 
     @FXML
-    Button addGame,updateGame,mainMenu;
+    private Button addGame,updateGame,mainMenu;
     @FXML
-    Pane mainPane,menuPane;
+    private Pane mainPane,menuPane;
 
     public void initialize(){
 
@@ -46,5 +46,30 @@ public class GamesController {
             catch(IOException e){e.printStackTrace();}
         });
 
+        addGame.setOnAction((event)->{
+
+            try{
+                mainPane.getChildren().clear();
+                // create a loader to store the add player pane
+                FXMLLoader loader =new FXMLLoader(MembershipMenuController.class.getResource("addGame.fxml"));
+                // lood the add player pane into a node
+                Parent root=loader.load();
+                // add the pane
+                mainPane.getChildren().add(root);
+            }catch (IOException e){e.printStackTrace();}
+        });
+
+        updateGame.setOnAction((event)->{
+            try{
+                mainPane.getChildren().clear();
+                // create a loader to store the add player pane
+                FXMLLoader loader =new FXMLLoader(MembershipMenuController.class.getResource("updateGame.fxml"));
+                // lood the add player pane into a node
+                Parent root=loader.load();
+                // add the pane
+                mainPane.getChildren().add(root);
+            }catch (IOException e){e.printStackTrace();}
+
+        });
     }
 }

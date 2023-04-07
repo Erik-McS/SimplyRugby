@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="182.0" prefWidth="247.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.DeletePlayerController">
+   <children>
+      <Label layoutX="15.0" layoutY="35.0" text="Please select the player to delete" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbPlayer" layoutX="15.0" layoutY="78.0" prefHeight="25.0" prefWidth="217.0" />
+      <Button fx:id="bDeletePlayer" layoutX="15.0" layoutY="122.0" mnemonicParsing="false" text="Delete Player">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="bCancel" layoutX="174.0" layoutY="122.0" mnemonicParsing="false" text="Cancel">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>

@@ -16,3 +16,6 @@
 .bckgWhite{
     -fx-background-color: #FFFFFF;
 }
+.borderBlack{
+    -fx-border-color: black;
+}
