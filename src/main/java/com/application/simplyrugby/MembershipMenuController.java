@@ -81,6 +81,7 @@ public class MembershipMenuController {
 
             try{
 
+
                 FXMLLoader loader =new FXMLLoader(MembershipMenuController.class.getResource("deleteMember.fxml"));
                 Parent root=loader.load();
                 Scene scene=new Scene(root);
@@ -91,7 +92,6 @@ public class MembershipMenuController {
                 stage.getIcons().add(new Image(getClass().getResourceAsStream("logo.png")));
                 stage.setScene(scene);
                 stage.show();
-
             }catch(IOException e){e.printStackTrace();}
         });
         mainMenu.setOnAction((event)->{

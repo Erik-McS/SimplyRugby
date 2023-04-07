@@ -31,7 +31,7 @@ public class PlayersController {
         mainMenu.setOnAction((event)->{
             try{
 
-                FXMLLoader loader=new FXMLLoader(MainMenuController.class.getResource("main_menu.fxml"));
+                FXMLLoader loader=new FXMLLoader(PlayersController.class.getResource("main_menu.fxml"));
                 Parent root=loader.load();
 
                 Scene scene=new Scene(root);
@@ -45,6 +45,17 @@ public class PlayersController {
             catch(IOException e){e.printStackTrace();}
         });
 
+        squadMgnt.setOnAction((event)->{
+
+            try{
+
+                mainPane.getChildren().clear();
+                FXMLLoader loader=new FXMLLoader(PlayersController.class.getResource("squadManagement.fxml"));
+                Parent root=loader.load();
+                mainPane.getChildren().add(root);
+
+            }catch(IOException e){e.printStackTrace();}
+        });
     }
 }
 

@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class DatabaseCreation {
 
     // https://dba.stackexchange.com/questions/223267/in-sqlite-how-to-check-the-table-is-empty-or-not
-    String tableTest = "SELECT count(*) FROM (select 1 from players limit 1)";
+    // String tableTest = "SELECT count(*) FROM (select 1 from players limit 1)";
 
     public DatabaseCreation() {
 
@@ -21,24 +21,21 @@ public class DatabaseCreation {
             createTables();
             insertData();
         }
-
     }
 
     private void insertData() {
 
-                try {
-                    Scanner sc = new Scanner(new File("insertData.csv"));
-                    sc.useDelimiter(";");
-                    while (sc.hasNext()) {
-                        String s = sc.next();
-
-                        DBTools.executeQuery(s);
-                        //System.out.println("Database Created: \n");
-                    }
-                } catch (FileNotFoundException e) {
-                    e.getMessage();
-                }
-
+        try {
+            Scanner sc = new Scanner(new File("insertData.csv"));
+            sc.useDelimiter(";");
+            while (sc.hasNext()) {
+                String s = sc.next();
+                DBTools.executeQuery(s);
+                //System.out.println("Database Created: \n");
+            }
+        } catch (FileNotFoundException e) {
+            e.getMessage();
+        }
     }
 
     private void createTables() {
@@ -47,10 +44,9 @@ public class DatabaseCreation {
             sc.useDelimiter(";");
             while (sc.hasNext()) {
                 String s = sc.next();
-
                 DBTools.executeQuery(s);
-                System.out.println("Database Created: \n");
             }
+            System.out.println("Database Created\n");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
