@@ -28,11 +28,11 @@ public class DBTools {
             e.printStackTrace();
         }
 
-        try{
+        /*try{
             // connecting to the test database
             // this will create the file if it doesn't exist already
             Connection connection = DriverManager.getConnection(DBURL);
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){e.printStackTrace();}*/
     }
 
 
@@ -57,25 +57,12 @@ public class DBTools {
         catch (SQLException e){e.printStackTrace();}
     }
 
-    public static ResultSet executeSelectQuery(String query){
-        ResultSet result;
-        try{
-            Connection connect=DriverManager.getConnection(DBURL);
-            PreparedStatement statement=connect.prepareStatement(query);
-            try{
-                result=statement.executeQuery();
-                statement.close();
-                return result;
-            }
-            catch (SQLException e){e.printStackTrace();}
-            finally {
-                statement.close();
-                connect.close();
-            }
+    public static ResultSet executeSelectQuery(String query) throws SQLException{
+        databaseConnect();
+        Connection connect=DriverManager.getConnection(DBURL);
+        PreparedStatement stmt=connect.prepareStatement(query);
+        return stmt.executeQuery();
 
-        }
-        catch (SQLException e){e.printStackTrace();}
-        return null;
 
     }
 // END OF CLASS

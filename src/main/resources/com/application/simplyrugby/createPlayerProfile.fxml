@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="273.0" prefWidth="305.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.CreateProfileController">
+   <children>
+      <Label layoutX="56.0" layoutY="38.0" text="Select a Player profile" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="94.0" text="(Only players with no profile are selected)" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbPlayerProfile" layoutX="24.0" layoutY="134.0" prefHeight="25.0" prefWidth="248.0" />
+      <Button fx:id="bCreateProfile" layoutX="28.0" layoutY="195.0" mnemonicParsing="false" text="Create Profile" />
+      <Button fx:id="bCancel" layoutX="220.0" layoutY="195.0" mnemonicParsing="false" text="Cancel" />
+   </children>
+</Pane>
