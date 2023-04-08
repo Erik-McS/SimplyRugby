@@ -19,10 +19,7 @@ import java.util.Objects;
 public class SimplyRugbySystem extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        // connect to the database and create the DB file if not already present
-        //DBTools.databaseConnect();
-        // method to create the database tables if not already present.
-        //DBTools.createTables();
+        // Database creation object will test DB presence and create it if it doesn't exists
         DatabaseCreation db=new DatabaseCreation();
         // load the main menu fxml file
         FXMLLoader fxmlLoader = new FXMLLoader(SimplyRugbySystem.class.getResource("main_menu.fxml"));

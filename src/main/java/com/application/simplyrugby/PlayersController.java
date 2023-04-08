@@ -56,6 +56,20 @@ public class PlayersController {
 
             }catch(IOException e){e.printStackTrace();}
         });
+
+        playerMgnt.setOnAction((event)->{
+
+            try{
+
+                mainPane.getChildren().clear();
+                FXMLLoader loader=new FXMLLoader(PlayersController.class.getResource("playerManagement.fxml"));
+                Parent root=loader.load();
+                mainPane.getChildren().add(root);
+
+            }catch(IOException e){e.printStackTrace();}
+        });
+
+
     }
 }
 

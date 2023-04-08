@@ -31,7 +31,7 @@ public class DatabaseCreation {
             while (sc.hasNext()) {
                 String s = sc.next();
                 DBTools.executeQuery(s);
-                //System.out.println("Database Created: \n");
+                //System.out.println("Database Created:  \n"+s);
             }
         } catch (FileNotFoundException e) {
             e.getMessage();

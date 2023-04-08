@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="firstPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="686.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.ConsultProfileController">
+   <children>
+      <Label layoutX="61.0" layoutY="40.0" text="Select a Player" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <ComboBox fx:id="cbPlayer" layoutX="228.0" layoutY="41.0" prefHeight="25.0" prefWidth="270.0" />
+      <Pane fx:id="skillsPane" layoutX="61.0" layoutY="179.0" prefHeight="157.0" prefWidth="840.0">
+         <children>
+            <Label layoutX="16.0" layoutY="50.0" prefHeight="20.0" prefWidth="69.0" text="Running:" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="16.0" layoutY="100.0" text="Decision-Making:" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="327.0" layoutY="50.0" text="Passing:" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="327.0" layoutY="100.0" text="Tackling:" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="601.0" layoutY="50.0" text="Support:" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="lRunning" layoutX="168.0" layoutY="50.0" text="Label" textFill="WHITE" />
+            <Label fx:id="lDecision" layoutX="168.0" layoutY="100.0" text="Label" textFill="WHITE" />
+            <Label fx:id="lPassing" layoutX="420.0" layoutY="50.0" text="Label" textFill="WHITE" />
+            <Label fx:id="lTackling" layoutX="420.0" layoutY="100.0" text="Label" textFill="WHITE" />
+            <Label fx:id="lSupport" layoutX="696.0" layoutY="50.0" text="Label" textFill="WHITE" />
+         </children>
+      </Pane>
+      <Label layoutX="61.0" layoutY="138.0" text="Core Skills" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="61.0" layoutY="354.0" text="Training Session attended" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="461.0" layoutY="354.0" text="Game Performances" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="bUpdtProfile" layoutX="844.0" layoutY="634.0" mnemonicParsing="false" text="Exit">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <TableView fx:id="tvTrainingSessions" layoutX="61.0" layoutY="387.0" prefHeight="240.0" prefWidth="350.0">
+        <columns>
+          <TableColumn prefWidth="125.0" text="Type" />
+          <TableColumn prefWidth="91.0" text="Date" />
+            <TableColumn prefWidth="133.0" text="Facility" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tvGamePerfs" layoutX="461.0" layoutY="387.0" prefHeight="240.0" prefWidth="436.0">
+        <columns>
+          <TableColumn prefWidth="96.0" text="Date" />
+          <TableColumn prefWidth="121.0" text="vs Team" />
+            <TableColumn prefWidth="92.0" text="Where" />
+            <TableColumn prefWidth="126.0" text="Performance" />
+        </columns>
+      </TableView>
+   </children>
+</Pane>

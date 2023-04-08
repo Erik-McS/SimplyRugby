@@ -88,7 +88,7 @@
                         </Label>
                         <ComboBox fx:id="cbNOK" layoutX="18.0" layoutY="87.0" prefWidth="150.0" />
                         <ToggleButton fx:id="tbAddNOK" layoutX="206.0" layoutY="87.0" mnemonicParsing="false" text="Add" />
-                        <ToggleButton fx:id="tbCreateNOK" layoutX="193.0" layoutY="262.0" mnemonicParsing="false" text="Create Next of Kin" />
+                        <ToggleButton fx:id="tbCreateNOK" layoutX="194.0" layoutY="262.0" mnemonicParsing="false" text="Create Next of Kin" />
                         <Label layoutX="18.0" layoutY="54.0" text="Select from existing" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
@@ -97,10 +97,10 @@
                         <TextField fx:id="txNameNOK" layoutX="19.0" layoutY="196.0" />
                         <TextField fx:id="txSurnameNOK" layoutX="193.0" layoutY="196.0" />
                         <TextField fx:id="txTelNOK" layoutX="18.0" layoutY="262.0" />
-                        <Label layoutX="18.0" layoutY="178.0" text="Name" textFill="WHITE" />
-                        <Label layoutX="193.0" layoutY="178.0" text="Surname" textFill="WHITE" />
-                        <Label layoutX="18.0" layoutY="245.0" text="Telephone" textFill="WHITE" />
-                        <Label layoutX="18.0" layoutY="132.0" text="Or create a new record" textFill="WHITE">
+                        <Label fx:id="lNameNoK" layoutX="18.0" layoutY="178.0" text="Name" textFill="WHITE" />
+                        <Label fx:id="lSurnameNoK" layoutX="193.0" layoutY="178.0" text="Surname" textFill="WHITE" />
+                        <Label fx:id="lTelNoK" layoutX="18.0" layoutY="245.0" text="Telephone" textFill="WHITE" />
+                        <Label fx:id="lTitleNOK" layoutX="18.0" layoutY="132.0" text="Or create a new record" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -125,10 +125,10 @@
                         <TextField fx:id="txNameDoctor" layoutX="18.0" layoutY="197.0" />
                         <TextField fx:id="txSurnameDoctor" layoutX="206.0" layoutY="197.0" />
                         <TextField fx:id="txTelDoctor" layoutX="18.0" layoutY="257.0" />
-                        <Label layoutX="18.0" layoutY="176.0" text="Name" textFill="WHITE" />
-                        <Label layoutX="206.0" layoutY="176.0" text="Surname" textFill="WHITE" />
-                        <Label layoutX="18.0" layoutY="236.0" text="Telephone" textFill="WHITE" />
-                        <Label layoutX="18.0" layoutY="141.0" text="Or create a new record" textFill="WHITE">
+                        <Label fx:id="lNameDoc" layoutX="18.0" layoutY="176.0" text="Name" textFill="WHITE" />
+                        <Label fx:id="lSurnameDoc" layoutX="206.0" layoutY="176.0" text="Surname" textFill="WHITE" />
+                        <Label fx:id="lTelDoc" layoutX="18.0" layoutY="236.0" text="Telephone" textFill="WHITE" />
+                        <Label fx:id="lTitleDoc" layoutX="18.0" layoutY="141.0" text="Or create a new record" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
