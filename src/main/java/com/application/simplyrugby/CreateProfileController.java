@@ -1,6 +1,6 @@
 package com.application.simplyrugby;
 
-import com.application.simplyrugby.Control.DBTools;
+import com.application.simplyrugby.System.DBTools;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;

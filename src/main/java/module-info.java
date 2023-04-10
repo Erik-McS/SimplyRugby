@@ -8,4 +8,6 @@ module com.application.simplyrugby {
     exports com.application.simplyrugby;
     exports com.application.simplyrugby.Control;
     opens com.application.simplyrugby.Control to javafx.fxml;
+    exports com.application.simplyrugby.System;
+    opens com.application.simplyrugby.System to javafx.fxml;
 }

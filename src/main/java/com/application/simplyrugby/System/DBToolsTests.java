@@ -1,4 +1,6 @@
-package com.application.simplyrugby.Control;
+package com.application.simplyrugby.System;
+
+import com.application.simplyrugby.System.DBTools;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
