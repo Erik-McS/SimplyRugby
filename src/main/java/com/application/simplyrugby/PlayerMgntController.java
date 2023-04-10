@@ -35,7 +35,7 @@ public class PlayerMgntController {
                 scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css"),"CSS not found").toExternalForm());
                 Stage stage=new Stage();
                 //Stage stage=(Stage) ((Node)event.getSource()).getScene().getWindow();
-                stage.setTitle("Create a Player Profile");
+                stage.setTitle("Create a Member Profile");
                 stage.getIcons().add(new Image(getClass().getResourceAsStream("logo.png")));
                 stage.setScene(scene);
                 stage.show();

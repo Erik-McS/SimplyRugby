@@ -1,6 +1,6 @@
 package com.application.simplyrugby;
 
-import com.application.simplyrugby.Control.DBTools;
+import com.application.simplyrugby.System.DBTools;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * This class manages the Add Player function.it allows to add a player,its next of kin and doctor.<br>
+ * This class manages the Add Member function.it allows to add a player,its next of kin and doctor.<br>
  * it is linked to the addPlayer.fxml file.
  * @author Erik McSeveney
  */

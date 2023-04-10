@@ -1,9 +1,7 @@
-package com.application.simplyrugby.Control;
+package com.application.simplyrugby.System;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 public class DatabaseCreation {

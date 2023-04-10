@@ -1,4 +1,7 @@
-package com.application.simplyrugby.Control;
+package com.application.simplyrugby.System;
+
+import com.application.simplyrugby.Control.Member;
+import com.application.simplyrugby.Control.ThirdParty;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -65,5 +68,14 @@ public class DBTools {
 
 
     }
+
+    public static void insertMember(Member member){}
+
+    public static Member selectMember(){return null;}
+
+    public static void insertContact(ThirdParty person){}
+
+    public static ThirdParty selectContact(){return null;}
+
 // END OF CLASS
 }

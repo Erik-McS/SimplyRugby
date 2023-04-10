@@ -55,7 +55,7 @@ public class MembershipMenuController {
                 scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css"),"CSS not found").toExternalForm());
                 Stage stage=new Stage();
                 //Stage stage=(Stage) ((Node)event.getSource()).getScene().getWindow();
-                stage.setTitle("Delete a Player");
+                stage.setTitle("Delete a Member");
                 stage.getIcons().add(new Image(getClass().getResourceAsStream("logo.png")));
                 stage.setScene(scene);
                 stage.show();

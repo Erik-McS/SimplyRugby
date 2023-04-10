@@ -1,13 +1,11 @@
 package com.application.simplyrugby;
 
-import com.application.simplyrugby.Control.DBTools;
-import com.application.simplyrugby.Control.DatabaseCreation;
+import com.application.simplyrugby.System.DatabaseCreation;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.Objects;
