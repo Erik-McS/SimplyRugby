@@ -48,4 +48,14 @@ public class Doctor implements ThirdParty{
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "doctorID=" + doctorID +
+                ", firstName='" + firstName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", telephone='" + telephone + '\'' +
+                '}';
+    }
 }

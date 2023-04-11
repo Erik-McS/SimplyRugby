@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="confirmMainPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.newPlayerConfirmController">
+   <children>
+      <HBox layoutY="59.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="967.0">
+         <children>
+            <Pane fx:id="leftCPane" prefHeight="697.0" prefWidth="604.0">
+               <children>
+                  <Label layoutX="230.0" layoutY="14.0" text="Player Details" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="bConfirmedPCreation" layoutX="143.0" layoutY="656.0" mnemonicParsing="false" text="Confirm">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="bConfirmCancel" layoutX="314.0" layoutY="656.0" mnemonicParsing="false" text="Cancel">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="58.0" layoutY="84.0" text="Name" textFill="#d8f2f0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="288.0" layoutY="84.0" text="Surname" textFill="#d8f2f0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="58.0" layoutY="158.0" text="Address" textFill="#D8F2F0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="58.0" layoutY="338.0" text="Telephone" textFill="#D8F2F0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="288.0" layoutY="338.0" text="Email" textFill="#D8F2F0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="58.0" layoutY="421.0" text="Date of Birth" textFill="#D8F2F0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="288.0" layoutY="421.0" text="Gender" textFill="#D8F2F0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="58.0" layoutY="517.0" text="SCRUMS number" textFill="#D8F2F0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lName" layoutX="58.0" layoutY="114.0" text="Name" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lSurname" layoutX="288.0" layoutY="114.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lAddress" layoutX="58.0" layoutY="178.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lTel" layoutX="58.0" layoutY="358.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lEmail" layoutX="288.0" layoutY="358.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lDoB" layoutX="58.0" layoutY="441.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lGender" layoutX="288.0" layoutY="441.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lScrums" layoutX="58.0" layoutY="537.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <VBox prefHeight="774.0" prefWidth="364.0">
+               <children>
+                  <Pane fx:id="nokPaneC" prefHeight="339.0" prefWidth="364.0">
+                     <children>
+                        <Label layoutX="134.0" layoutY="14.0" text="Next of Kin" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="46.0" layoutY="80.0" text="Name" textFill="#D8F2F0">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font></Label>
+                        <Label layoutX="46.0" layoutY="150.0" text="Surname" textFill="#D8F2F0">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font></Label>
+                        <Label layoutX="46.0" layoutY="220.0" text="Telephone" textFill="#D8F2F0">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font></Label>
+                        <Label fx:id="lCNameNOK" layoutX="175.0" layoutY="80.0" text="Label" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lCSurnameNOK" layoutX="175.0" layoutY="150.0" text="Label" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lCTelNOK" layoutX="175.0" layoutY="220.0" text="Label" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="CdocPane" prefHeight="382.0" prefWidth="364.0">
+                     <children>
+                        <Label layoutX="118.0" layoutY="14.0" text="Player's Doctor" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="46.0" layoutY="80.0" text="Name" textFill="#D8F2F0">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font></Label>
+                        <Label layoutX="46.0" layoutY="220.0" text="Telephone" textFill="#D8F2F0">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font></Label>
+                        <Label layoutX="46.0" layoutY="150.0" text="Surname" textFill="#D8F2F0">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font></Label>
+                        <Label fx:id="lCNameDoc" layoutX="175.0" layoutY="80.0" text="Label" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lCSurnameDoc" layoutX="175.0" layoutY="150.0" text="Label" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lCTelDoc" layoutX="175.0" layoutY="220.0" text="Label" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Label layoutX="332.0" layoutY="14.0" text="Confirm new Player details">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
