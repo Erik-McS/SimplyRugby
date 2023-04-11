@@ -48,4 +48,14 @@ public class NextOfKin implements ThirdParty{
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
+
+    @Override
+    public String toString() {
+        return "NextOfKin{" +
+                "kinID=" + kinID +
+                ", firstName='" + firstName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", telephone='" + telephone + '\'' +
+                '}';
+    }
 }
