@@ -18,4 +18,8 @@
 }
 .borderBlack{
     -fx-border-color: black;
+    -fx-border-width: 2px;
+}
+.whiteText{
+    -fx-text-fill: WHITE;
 }

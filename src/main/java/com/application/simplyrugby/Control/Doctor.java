@@ -1,5 +1,11 @@
 package com.application.simplyrugby.Control;
 
+import com.application.simplyrugby.System.DBTools;
+
+/**
+ * Class to hold a player's doctor information.<br>
+ * It inherits from the ThirdParty Interface and provide methods to insert and select a doctor from the database.
+ */
 public class Doctor implements ThirdParty{
 
     private int doctorID;
@@ -8,13 +14,19 @@ public class Doctor implements ThirdParty{
     private String telephone;
 
     @Override
-    public void saveContact(ThirdParty person) {
-
+    public boolean saveContact() {
+        return DBTools.insertContact(this);
     }
 
     @Override
     public ThirdParty loadContact() {
         return null;
+    }
+
+    @Override
+    public ThirdParty loadContact(int index) {
+        Doctor temp=(Doctor) DBTools.selectContact(this,index);
+        return temp;
     }
 
     public int getDoctorID() {

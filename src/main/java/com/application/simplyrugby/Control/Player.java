@@ -3,10 +3,13 @@ package com.application.simplyrugby.Control;
 import com.application.simplyrugby.System.DBTools;
 import com.application.simplyrugby.System.ValidationException;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
- * Class to manipulate teh players records<br>
- * uses the Builder design pattern, the constructor will be private and a nested class with a Builder<br>
- * will create the object
+ * Class to manipulate the players records.<br>
+ * It uses the Builder design pattern, the constructor will be private and a nested class with a Builder.<br>
+ * It will create the object and check the data.
  */
 public class Player implements Member{
 
@@ -23,7 +26,7 @@ public class Player implements Member{
     private int doctorID;
     private int kinID;
     private int profileID;
-    private boolean isAssignedToSquad;
+    private String isAssignedToSquad;
 
     // Constructor of the player class. it will take the Builder object and assign its field.
 
@@ -72,7 +75,7 @@ public class Player implements Member{
         private int doctorID;
         private int kinID;
         private int profileID;
-        private boolean isAssignedToSquad;
+        private String isAssignedToSquad;
 
         /**
          * function to set the firstname
@@ -252,25 +255,29 @@ public class Player implements Member{
          * @param isAssignedToSquad The player's status
          * @return The builder object
          */
-        public PlayerBuilder setIsAssignedToSquad(boolean isAssignedToSquad){
+        public PlayerBuilder setIsAssignedToSquad(String isAssignedToSquad) throws ValidationException{
+            isAssignedToSquad=isAssignedToSquad.toUpperCase();
+            if (isAssignedToSquad.equals("YES"))
                 this.isAssignedToSquad=isAssignedToSquad;
-                return this;
+            else if (isAssignedToSquad.equals("NO"))
+                this.isAssignedToSquad=isAssignedToSquad;
+            else
+                throw new ValidationException("Incorrect squad assignment flag value");
+            return this;
         }
 
         /**
          * This function build the Player object and returns it to the caller.
          * @return The player object
-         * @throws ValidationException
+         * @throws ValidationException throws an error if any problems
          */
         public Player Builder() throws ValidationException
         {
-
-            this.isAssignedToSquad=false;
+            // set the default values for the non-mandatory fields
+            this.isAssignedToSquad="No";
             this.profileID=0;
             this.playerID=0;
             return new Player(this);
-
-
         }
 
     }
@@ -278,28 +285,39 @@ public class Player implements Member{
     @Override
     public String toString() {
         return "Player{" +
-                "firstName='" + firstName + '\'' +
-                ", surname='" + surname + '\'' +
-                ", address='" + address + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", email='" + email + '\'' +
-                ", gender='" + gender + '\'' +
-                ", dateOfBirth='" + dateOfBirth + '\'' +
-                ", scrumsNumber=" + scrumsNumber +
-                ", playerID=" + playerID +
-                ", doctorID=" + doctorID +
-                ", kinID=" + kinID +
-                ", profileID=" + profileID +
-                ", isAssignedToSquad=" + isAssignedToSquad +
+                "firstName='" + firstName +
+                "\nsurname='" + surname +
+                "\naddress='" + address +
+                "\ntelephone='" + telephone +
+                "\nemail='" + email +
+                "\ngender='" + gender +
+                "\ndateOfBirth='" + dateOfBirth +
+                "\nscrumsNumber=" + scrumsNumber +
+                "\nplayerID=" + playerID +
+                "\ndoctorID=" + doctorID +
+                "\nkinID=" + kinID +
+                "\nprofileID=" + profileID +
+                "\nisAssignedToSquad=" + isAssignedToSquad +
                 '}';
     }
 
+    /**
+     * Method to set the player firstname
+      * @param firstName First name of the player
+     * @throws ValidationException exception if the format is invalid or the field empty
+     */
     public void setFirstName(String firstName) throws ValidationException{
+        // test if the field is empty
         if (firstName.equals("")){
             throw new ValidationException("Name cannot be empty");
         }
+        // if not, test the data format, if invalid, will throw an exception
         else{
-            this.firstName=firstName;
+            String nameValidation="(\\p{Upper})(\\p{Lower}){1,12}";
+            if (firstName.matches(nameValidation))
+                this.firstName = firstName;
+            else
+                throw new ValidationException("Invalid Name format, please enter a valid name.");
         }
     }
 
@@ -312,7 +330,13 @@ public class Player implements Member{
         if (surname.equals(""))
             throw new ValidationException("Surname cannot be empty");
         else{
-            this.surname=surname;
+
+            String nameValidation="(\\p{Upper})(\\p{Lower}){1,15}";
+
+            if (surname.matches(nameValidation))
+                this.surname = surname;
+            else
+                throw new ValidationException("Invalid Surname Format, please enter a valid surname");
         }
     }
 
@@ -338,11 +362,17 @@ public class Player implements Member{
         if (telephone.equals(""))
             throw new ValidationException("Telephone cannot be empty");
         else{
-            this.telephone=telephone;
+            // testing if the tel format is valid
+            String regex="[0-9]{9,10}";
+            if (telephone.matches(regex))
+                this.telephone=telephone;
+            else
+                throw new ValidationException("Phone numbers can only contains 9-10 digits");
         }
     }
     /**
-     * Function to set the player's email
+     * Function to set the player's email<br>
+     * @see <a href="https://www.baeldung.com/java-email-validation-regex">Regex for emails</a>
      * @param email The player's email
      * @throws ValidationException Email cannot be empty
      */
@@ -350,7 +380,13 @@ public class Player implements Member{
         if (email.equals(""))
             throw new ValidationException("Email cannot be empty");
         else{
-            this.email=email;
+            String validation="^[\\w-\\.\\_]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+            Pattern pattern=Pattern.compile(validation);
+            Matcher matcher=pattern.matcher(email);
+            if (matcher.matches())
+                this.email=email;
+            else
+                throw new ValidationException("Invalid email.");
         }
     }
 
@@ -442,59 +478,116 @@ public class Player implements Member{
      * Function to set the player's status. set to False by default.
      * @param isAssignedToSquad The player's status
      */
-    public void setIsAssignedToSquad(boolean isAssignedToSquad){
-        this.isAssignedToSquad=isAssignedToSquad;
+    public void setIsAssignedToSquad(String isAssignedToSquad) throws ValidationException{
+        if (isAssignedToSquad.equals("YES"))
+            this.isAssignedToSquad=isAssignedToSquad;
+        else if (isAssignedToSquad.equals("NO"))
+            this.isAssignedToSquad=isAssignedToSquad;
+        else
+            throw new ValidationException("Incorrect squad assignment flag value");
     }
 
+    /**
+     * Function to get the player's name.
+     * @return Player's name.
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Function to get the player's surname.
+     * @return Player's surname.
+     */
     public String getSurname() {
         return surname;
     }
 
+    /**
+     * Function to get the player's address.
+     * @return Player's address.
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Function to get the player's telephone.
+     * @return Player's telephone.
+     */
     public String getTelephone() {
         return telephone;
     }
 
+    /**
+     * Function to get the player's email.
+     * @return Player's email.
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Function to get the player's gender.
+     * @return Player's gender.
+     */
     public String getGender() {
         return gender;
     }
 
+    /**
+     * Function to get the player's date of birth.
+     * @return Player's date of birth.
+     */
     public String getDateOfBirth() {
         return dateOfBirth;
     }
 
+    /**
+     * Function to get the player's SCRUMS number.
+     * @return Player's SCRUMS number.
+     */
     public int getScrumsNumber() {
         return scrumsNumber;
     }
 
+    /**
+     * Function to get the player's ID.
+     * @return Player's ID.
+     */
     public int getPlayerID() {
         return playerID;
     }
 
+    /**
+     * Function to get the player's doctor ID.
+     * @return Doctor's ID
+     */
     public int getDoctorID() {
         return doctorID;
     }
 
+    /**
+     * Function to get the player's next of kin ID.
+     * @return NoK ID
+     */
     public int getKinID() {
         return kinID;
     }
 
+    /**
+     * Function to get the player's profile ID.
+     * @return Profile ID
+     */
     public int getProfileID() {
         return profileID;
     }
 
-    public boolean isAssignedToSquad() {
+    /**
+     * Function to return the Squad's status of the player.
+     * @return Squad status-
+     */
+    public String isAssignedToSquad() {
         return isAssignedToSquad;
     }
 

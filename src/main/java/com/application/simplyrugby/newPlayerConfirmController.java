@@ -5,7 +5,6 @@ import com.application.simplyrugby.Control.NextOfKin;
 import com.application.simplyrugby.Control.Player;
 import javafx.fxml.FXML;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -23,17 +22,38 @@ public class newPlayerConfirmController {
                     lCSurnameNOK,lCTelNOK,lCNameDoc,lCSurnameDoc,lCTelDoc;
     @FXML
     private Player newPlayer;
+    private Doctor doc;
+    private NextOfKin nok;
 
-    public void receivePlayerObject(Player newPlayer, NextOfKin nok, Doctor doc){
+    public void receivePlayerObjects(Player newPlayer, NextOfKin nok, Doctor doc){
 
         if (newPlayer==null)
             System.out.println("newPlayer is empty");
+        else if (nok==null)
+            System.out.println("NoK is empty");
+        else if (doc==null)
+            System.out.println("Doc is empty");
         else {
             this.newPlayer=newPlayer;
+            this.doc=doc;
+            this.nok=nok;
             System.out.println("New Controller, received here properly: "+newPlayer.getFirstName());
+            System.out.println(newPlayer.toString());
+            System.out.println(nok.toString());
+            System.out.println(doc.toString());
             updateLabels();
             bConfirmedPCreation.setOnAction((event)->{
                 System.out.println("ca marche");
+                newPlayer.saveMember(newPlayer);
+                /*
+                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("The following record has been created:\n"+newPlayer.toString());
+                alert.showAndWait();
+                 */
+                CustomAlert cs=new CustomAlert("Record Created",newPlayer.toString());
+                cs.showAndWait();
+                Stage stage=(Stage) bConfirmedPCreation.getScene().getWindow();
+                stage.close();
             });
         }
     }
@@ -47,14 +67,19 @@ public class newPlayerConfirmController {
         lEmail.setText(newPlayer.getEmail());
         lGender.setText(newPlayer.getGender());
         lScrums.setText(Integer.toString(newPlayer.getScrumsNumber()));
-
+        lCNameNOK.setText(nok.getFirstName());
+        lCSurnameNOK.setText(nok.getSurname());
+        lCTelNOK.setText(nok.getTelephone());
+        lCNameDoc.setText(doc.getFirstName());
+        lCSurnameDoc.setText(doc.getSurname());
+        lCTelDoc.setText(doc.getTelephone());
     }
     public void initialize(){
 
-        confirmMainPane.getStyleClass().add("bckg5");
-        leftCPane.getStyleClass().add("bckg2");
-        nokPaneC.getStyleClass().add("bckg3");
-        CdocPane.getStyleClass().add("bckg4");
+        confirmMainPane.getStyleClass().addAll("bckg5","borderBlack");
+        leftCPane.getStyleClass().addAll("bckg2","borderBlack");
+        nokPaneC.getStyleClass().addAll("bckg3","borderBlack");
+        CdocPane.getStyleClass().addAll("bckg4","borderBlack");
         bConfirmCancel.getStyleClass().add("bckg5");
         bConfirmedPCreation.getStyleClass().add("bckg5");
 
