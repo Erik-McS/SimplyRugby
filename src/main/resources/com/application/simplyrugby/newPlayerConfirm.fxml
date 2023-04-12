@@ -67,42 +67,42 @@
                   </Label>
                   <Label fx:id="lName" layoutX="58.0" layoutY="114.0" text="Name" textFill="WHITE">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
                   <Label fx:id="lSurname" layoutX="288.0" layoutY="114.0" text="Label" textFill="WHITE">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lAddress" layoutX="58.0" layoutY="178.0" text="Label" textFill="WHITE">
+                  <Label fx:id="lAddress" layoutX="58.0" layoutY="188.0" text="Label" textFill="WHITE">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lTel" layoutX="58.0" layoutY="358.0" text="Label" textFill="WHITE">
+                  <Label fx:id="lTel" layoutX="58.0" layoutY="368.0" text="Label" textFill="WHITE">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lEmail" layoutX="288.0" layoutY="358.0" text="Label" textFill="WHITE">
+                  <Label fx:id="lEmail" layoutX="288.0" layoutY="368.0" text="Label" textFill="WHITE">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lDoB" layoutX="58.0" layoutY="441.0" text="Label" textFill="WHITE">
+                  <Label fx:id="lDoB" layoutX="58.0" layoutY="451.0" text="Label" textFill="WHITE">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lGender" layoutX="288.0" layoutY="441.0" text="Label" textFill="WHITE">
+                  <Label fx:id="lGender" layoutX="288.0" layoutY="451.0" text="Label" textFill="WHITE">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lScrums" layoutX="58.0" layoutY="537.0" text="Label" textFill="WHITE">
+                  <Label fx:id="lScrums" layoutX="58.0" layoutY="547.0" text="Label" textFill="WHITE">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
                </children>
@@ -130,17 +130,17 @@
                            </font></Label>
                         <Label fx:id="lCNameNOK" layoutX="175.0" layoutY="80.0" text="Label" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
                         <Label fx:id="lCSurnameNOK" layoutX="175.0" layoutY="150.0" text="Label" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
                         <Label fx:id="lCTelNOK" layoutX="175.0" layoutY="220.0" text="Label" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
                      </children>
@@ -166,17 +166,17 @@
                            </font></Label>
                         <Label fx:id="lCNameDoc" layoutX="175.0" layoutY="80.0" text="Label" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
                         <Label fx:id="lCSurnameDoc" layoutX="175.0" layoutY="150.0" text="Label" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
                         <Label fx:id="lCTelDoc" layoutX="175.0" layoutY="220.0" text="Label" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
                      </children>

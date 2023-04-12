@@ -17,7 +17,7 @@ import java.util.Objects;
 public class SimplyRugbySystem extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        // Database creation object will test DB presence and create it if it doesn't exists
+        // Database creation object will test DB presence and create it if it doesn't exist
         DatabaseCreation db=new DatabaseCreation();
         // load the main menu fxml file
         FXMLLoader fxmlLoader = new FXMLLoader(SimplyRugbySystem.class.getResource("main_menu.fxml"));

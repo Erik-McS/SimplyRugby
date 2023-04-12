@@ -1,5 +1,7 @@
 package com.application.simplyrugby.Control;
 
+import com.application.simplyrugby.System.DBTools;
+
 public class NextOfKin implements ThirdParty{
 
     private int kinID;
@@ -8,13 +10,20 @@ public class NextOfKin implements ThirdParty{
     private String telephone;
 
     @Override
-    public void saveContact(ThirdParty person) {
-
+    public boolean saveContact() {
+        return DBTools.insertContact(this);
     }
 
     @Override
     public ThirdParty loadContact() {
         return null;
+    }
+
+    @Override
+    public ThirdParty loadContact(int index) {
+        NextOfKin temp=(NextOfKin) DBTools.selectContact(this,index);
+        return temp;
+
     }
 
     public int getKinID() {
