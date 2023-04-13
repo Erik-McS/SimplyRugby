@@ -45,11 +45,30 @@ public class Player implements Member{
         this.profileID=build.profileID;
         this.isAssignedToSquad=build.isAssignedToSquad;
     }
+    // empty constructor
+    private Player(){
+        this.playerID=0;
+        this.firstName="Dummy";
+        this.surname="Dummy";
+        this.address="dummy";
+        this.dateOfBirth="";
+        this.gender="Male";
+        this.email="q@q.qqq";
+        this.scrumsNumber=1111111111;
+        this.telephone="1111111111";
+        this.kinID=0;
+        this.doctorID=0;
+        this.profileID=0;
+        this.isAssignedToSquad="NO";
+    }
 
+    public static Player dummyPlayer(){
+        return new Player();
+    }
     //function to add a player record in the database.
     @Override
-    public void saveMember(Member member) {
-        DBTools.insertMember(member);
+    public boolean saveMember(Member member) {
+        return DBTools.insertMember(member);
     }
     // get a player record from the database.
     @Override
@@ -58,7 +77,7 @@ public class Player implements Member{
     }
 
     /**
-     * this Buildr class will build a player object. <br>
+     * this Builder class will build a player object. <br>
      * it is in charge of the data validation.
      */
     public static class PlayerBuilder{
@@ -88,24 +107,40 @@ public class Player implements Member{
             if (firstName.equals("")){
                 throw new ValidationException("Name cannot be empty");
             }
+            // if not, test the data format, if invalid, will throw an exception
             else{
-                this.firstName=firstName;
-                return this;
+                String nameValidation="(\\p{Upper})(\\p{Lower}){1,12}";
+                if (firstName.matches(nameValidation)) {
+                    this.firstName = firstName;
+                    return this;
+                }
+                else
+                    throw new ValidationException("Invalid Name format, please enter a valid name.");
             }
+
         }
 
         /**
          * Function to set the Surname
          * @param surname The player's surname
-         * @return Th builder object
+         * @return The builder object
          * @throws ValidationException Surname cannot be empty
          */
         public PlayerBuilder setSurname(String surname)throws ValidationException{
             if (surname.equals(""))
                 throw new ValidationException("Surname cannot be empty");
             else{
-                this.surname=surname;
-                return this;
+
+                String validation="(\\p{Upper})(\\p{Alpha}){1,15}";
+                //Pattern pattern=Pattern.compile(validation);
+               // Matcher matcher=pattern.matcher(surname);
+
+                if (surname.matches(validation)) {
+                    this.surname = surname;
+                    return this;
+                }
+                else
+                    throw new ValidationException("Invalid Surname Format, please enter a valid surname");
             }
         }
 
@@ -134,8 +169,14 @@ public class Player implements Member{
             if (telephone.equals(""))
                 throw new ValidationException("Telephone cannot be empty");
             else{
-                this.telephone=telephone;
-                return this;
+                // testing if the tel format is valid
+                String regex="[0-9]{9,11}";
+                if (telephone.matches(regex)) {
+                    this.telephone = telephone;
+                    return this;
+                }
+                else
+                    throw new ValidationException("Phone numbers can only contains 9-11 digits");
             }
         }
 
@@ -143,14 +184,21 @@ public class Player implements Member{
          * Function to set the player's email
          * @param email The player's email
          * @return The builder object
-         * @throws ValidationException Email cannot be empty
+         * @throws ValidationException Email cannot be empty or of incorrect format
          */
         public PlayerBuilder setEmail(String email)throws ValidationException{
             if (email.equals(""))
                 throw new ValidationException("Email cannot be empty");
             else{
-                this.email=email;
-                return this;
+                String validation="^[\\w-\\.\\_]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+                Pattern pattern=Pattern.compile(validation);
+                Matcher matcher=pattern.matcher(email);
+                if (matcher.matches()) {
+                    this.email = email;
+                    return this;
+                }
+                else
+                    throw new ValidationException("Invalid email.");
             }
         }
 
@@ -276,7 +324,7 @@ public class Player implements Member{
             // set the default values for the non-mandatory fields
             this.isAssignedToSquad="No";
             this.profileID=0;
-            this.playerID=0;
+
             return new Player(this);
         }
 
@@ -327,17 +375,10 @@ public class Player implements Member{
      * @throws ValidationException Surname cannot be empty
      */
     public void setSurname(String surname)throws ValidationException{
-        if (surname.equals(""))
-            throw new ValidationException("Surname cannot be empty");
-        else{
 
-            String nameValidation="(\\p{Upper})(\\p{Lower}){1,15}";
-
-            if (surname.matches(nameValidation))
                 this.surname = surname;
-            else
-                throw new ValidationException("Invalid Surname Format, please enter a valid surname");
-        }
+
+
     }
 
     /**
@@ -363,11 +404,11 @@ public class Player implements Member{
             throw new ValidationException("Telephone cannot be empty");
         else{
             // testing if the tel format is valid
-            String regex="[0-9]{9,10}";
+            String regex="[0-9]{9,11}";
             if (telephone.matches(regex))
                 this.telephone=telephone;
             else
-                throw new ValidationException("Phone numbers can only contains 9-10 digits");
+                throw new ValidationException("Phone numbers can only contains 9-11 digits");
         }
     }
     /**

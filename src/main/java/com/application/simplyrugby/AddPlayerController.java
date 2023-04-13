@@ -47,7 +47,7 @@ public class AddPlayerController {
     @FXML
     private TextArea txAddress;
     @FXML
-    private Label lNameNoK,lSurnameNoK,lTelNoK,lTitleNOK,lTitleDoc,lNameDoc,lSurnameDoc,lTelDoc;
+    private Label lNameNoK,lSurnameNoK,lTelNoK,lTitleNOK,lTitleDoc,lNameDoc,lSurnameDoc,lTelDoc,nokSelect,docSelect;
     private ResultSet queryResult;
     private NextOfKin nok1;
     private Doctor doc1;
@@ -101,8 +101,8 @@ public class AddPlayerController {
                 String name=queryResult.getString(1)+" "+queryResult.getString(2);
                 cbNOK.getItems().add(name);
             }
-
-        }catch (SQLException e){e.printStackTrace();}
+            DBTools.closeConnections();
+        }catch (SQLException e){e.printStackTrace();DBTools.closeConnections();}
 
         // we are listening to the ComboBoxes to see if an entry is selected.
         // if so, we hide the textfields used to create a NoK
@@ -145,6 +145,7 @@ public class AddPlayerController {
                 String name=queryResult.getString(1)+" "+queryResult.getString(2);
                 cbDoctor.getItems().add(name);
             }
+            DBTools.closeConnections();
         }
         catch (SQLException e){e.printStackTrace();}
 
@@ -313,12 +314,12 @@ public class AddPlayerController {
                     testing whih exception is raised. the NumberFormatException is raised by the SCRUMS number textfield.
                      */
                     if (e instanceof NumberFormatException){
-                        // creating a Javafx alert.
+                        // creating a custom alert.
                         CustomAlert alert=new CustomAlert("Error","Invalid or empty SCRUMS number");
                         alert.showAndWait();
                     }
                     if (e instanceof ValidationException){
-                        // creating a Javafx alert.
+                        // creating a custom alert.
                         CustomAlert alert=new CustomAlert("Error",e.getMessage());
                         alert.showAndWait();
                     }
@@ -340,7 +341,7 @@ public class AddPlayerController {
                         newPlayerConfirmController newPlayerConfirmController = loader1.getController();
                         newPlayerConfirmController.receivePlayerObjects(nPlayer,nok1,doc1);
 
-                        // seeting the next view
+                        // steting the next view
                         Scene scene = new Scene(root);
                         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css"), "CSS not found").toExternalForm());
                         Stage stage = new Stage();
@@ -361,6 +362,7 @@ public class AddPlayerController {
     private void displayOfNOKFields(int toggle){
 
         if (toggle==0){
+            nokSelect.setVisible(false);
             tbAddNOK.setVisible(false);
             tbCreateNOK.setVisible(false);
             cbNOK.setVisible(false);
@@ -371,10 +373,11 @@ public class AddPlayerController {
             lSurnameNoK.setVisible(false);
             lTelNoK.setVisible(false);
             tbCreateNOK.setVisible(false);
-            //lTitleNOK.setVisible(false);
+
 
         }
         else if (toggle==1){
+            nokSelect.setVisible(true);
             tbCreateNOK.setVisible(true);
             tbAddNOK.setVisible(true);
             cbNOK.setVisible(true);
@@ -391,13 +394,14 @@ public class AddPlayerController {
     }
     private void displayOfDocFields(int toggle){
         if (toggle==0){
+            docSelect.setVisible(false);
             tbAddDoctor.setVisible(false);
             tbCreateDoctor.setVisible(false);
             cbDoctor.setVisible(false);
             txNameDoctor.setVisible(false);
             txSurnameDoctor.setVisible(false);
             txTelDoctor.setVisible(false);
-            //lTitleDoc.setVisible(false);
+
             lNameDoc.setVisible(false);
             lSurnameDoc.setVisible(false);
             lTelDoc.setVisible(false);
@@ -416,7 +420,7 @@ public class AddPlayerController {
             lSurnameDoc.setVisible(true);
             lTelDoc.setVisible(true);
             tbCreateDoctor.setVisible(true);
-            //docListChanged=false;
+            docSelect.setVisible(true);
         }
     }
 

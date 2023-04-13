@@ -43,6 +43,7 @@ public class DatabaseCreation {
                 DBTools.executeQuery(s);
                 //System.out.println("Database Created:  \n"+s);
             }
+
         } catch (FileNotFoundException e) {
             e.getMessage();
         }
@@ -64,8 +65,7 @@ public class DatabaseCreation {
             e.printStackTrace();
         }
     }
-    private String getTestString(String table){
-        return "SELECT count(*) FROM (select 1 from "+table+" limit 1)";
-    }
+
+
 // END of CLASS
 }

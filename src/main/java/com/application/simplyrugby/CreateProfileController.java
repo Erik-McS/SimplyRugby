@@ -37,8 +37,8 @@ public class CreateProfileController {
                 cbPlayerProfile.getItems().add(result.getString(1));
             }
             cbPlayerProfile.getSelectionModel().select(1);
-        }catch (SQLException e){e.printStackTrace();}
-
+        }catch (SQLException e){e.printStackTrace();DBTools.closeConnections();}
+        DBTools.closeConnections();
 
     }
 }
