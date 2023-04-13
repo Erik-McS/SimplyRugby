@@ -97,7 +97,7 @@
                         <ComboBox fx:id="cbNOK" layoutX="18.0" layoutY="87.0" prefWidth="150.0" />
                         <Button fx:id="tbAddNOK" layoutX="206.0" layoutY="87.0" mnemonicParsing="false" text="Add" />
                         <Button fx:id="tbCreateNOK" layoutX="194.0" layoutY="262.0" mnemonicParsing="false" text="Create Next of Kin" />
-                        <Label layoutX="18.0" layoutY="54.0" text="Select from existing" textFill="WHITE">
+                        <Label fx:id="nokSelect" layoutX="18.0" layoutY="54.0" text="Select from existing" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -125,7 +125,7 @@
                         <ComboBox fx:id="cbDoctor" layoutX="18.0" layoutY="83.0" prefWidth="150.0" />
                         <Button fx:id="tbAddDoctor" layoutX="206.0" layoutY="83.0" mnemonicParsing="false" text="Add" />
                         <Button fx:id="tbCreateDoctor" layoutX="206.0" layoutY="257.0" mnemonicParsing="false" text="Create Doctor" />
-                        <Label layoutX="18.0" layoutY="59.0" text="Select from existing" textFill="WHITE">
+                        <Label fx:id="docSelect" layoutX="18.0" layoutY="59.0" text="Select from existing" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

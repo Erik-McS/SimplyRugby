@@ -10,7 +10,7 @@ public interface Member {
      * Insert a member in the database
      * @param member Member to insert
      */
-    abstract void saveMember(Member member);
+    abstract boolean saveMember(Member member);
 
     /**
      * Select a member from the database

@@ -4,12 +4,14 @@ import com.application.simplyrugby.Control.Doctor;
 import com.application.simplyrugby.Control.NextOfKin;
 import com.application.simplyrugby.Control.Player;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * THis class controls the Confirmation window for the Create Player function.
+ */
 public class newPlayerConfirmController {
 
     @FXML
@@ -25,8 +27,18 @@ public class newPlayerConfirmController {
     private Doctor doc;
     private NextOfKin nok;
 
+    /**
+     * This method is an important method after initialize()<br>
+     * it is called by the previous view to pass 3 objects to this controller, so it can use it to display additional <br>
+     * information.
+     * due to initialisation and visibility between this method and initialize(), the create player button will be coded <br>
+     * in this method. as the objects cannot be seen by initialize().
+     * @param newPlayer The player object created in the previous form.
+     * @param nok The Next of Kin selected or created in the previous form.
+     * @param doc The Doctor created or selected in the previous form.
+     */
     public void receivePlayerObjects(Player newPlayer, NextOfKin nok, Doctor doc){
-
+        // testing the objects exit
         if (newPlayer==null)
             System.out.println("newPlayer is empty");
         else if (nok==null)
@@ -34,29 +46,37 @@ public class newPlayerConfirmController {
         else if (doc==null)
             System.out.println("Doc is empty");
         else {
+            // assigning the passed objects to local variables.
             this.newPlayer=newPlayer;
             this.doc=doc;
             this.nok=nok;
-            System.out.println("New Controller, received here properly: "+newPlayer.getFirstName());
-            System.out.println(newPlayer.toString());
-            System.out.println(nok.toString());
-            System.out.println(doc.toString());
+            // calling the function to update all the labels with the data provided by the 3 objects.
             updateLabels();
+            // setting the event handler of the create Player button
             bConfirmedPCreation.setOnAction((event)->{
-                System.out.println("ca marche");
-                newPlayer.saveMember(newPlayer);
-                /*
-                Alert alert=new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("The following record has been created:\n"+newPlayer.toString());
-                alert.showAndWait();
-                 */
-                CustomAlert cs=new CustomAlert("Record Created",newPlayer.toString());
-                cs.showAndWait();
-                Stage stage=(Stage) bConfirmedPCreation.getScene().getWindow();
-                stage.close();
+                // saving the new player in the database, the saveMember() will return true no error happened
+                if (newPlayer.saveMember(newPlayer)){
+                    // create a confirmation window
+                    CustomAlert cs=new CustomAlert("Record Created",newPlayer.toString());
+                    cs.showAndWait();
+                    Stage stage=(Stage) bConfirmedPCreation.getScene().getWindow();
+                    stage.close();
+                }
+                // if error, display a message
+                else {
+                    // create a confirmation window""
+                    CustomAlert cs=new CustomAlert("Error","Error: the record could not be created");
+                    cs.showAndWait();
+                    Stage stage=(Stage) bConfirmedPCreation.getScene().getWindow();
+                    stage.close();
+                }
             });
         }
     }
+
+    /**
+     * Function to display the info received by the controller.
+     */
     public void updateLabels(){
 
         lName.setText(newPlayer.getFirstName());
@@ -74,27 +94,25 @@ public class newPlayerConfirmController {
         lCSurnameDoc.setText(doc.getSurname());
         lCTelDoc.setText(doc.getTelephone());
     }
-    public void initialize(){
 
+    /**
+     * the initialize() function set up the styles of the different elements inside it. <br>
+     * It also add the event handler of the cancel button.
+     */
+    public void initialize(){
+           // set the styles from the assigned css file
         confirmMainPane.getStyleClass().addAll("bckg5","borderBlack");
         leftCPane.getStyleClass().addAll("bckg2","borderBlack");
         nokPaneC.getStyleClass().addAll("bckg3","borderBlack");
         CdocPane.getStyleClass().addAll("bckg4","borderBlack");
         bConfirmCancel.getStyleClass().add("bckg5");
         bConfirmedPCreation.getStyleClass().add("bckg5");
-
-
-       if (newPlayer!=null)
-           System.out.println("Object is here ");
-        else
-           System.out.println("Not here");
-
+        // event handler for the cancel button.
         bConfirmCancel.setOnAction((event)->{
-            Stage stage=(Stage) bConfirmCancel.getScene().getWindow();
-            stage.close();
+        Stage stage=(Stage) bConfirmCancel.getScene().getWindow();
+        stage.close();
         });
-        //setName();
     }
 
-
+// END OF CLASS
 }

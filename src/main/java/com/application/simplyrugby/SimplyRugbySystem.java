@@ -23,7 +23,6 @@ public class SimplyRugbySystem extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(SimplyRugbySystem.class.getResource("main_menu.fxml"));
         // set the scene for the menu
         Scene scene = new Scene(fxmlLoader.load(), 449, 589);
-        // stage.initStyle(StageStyle.UNDECORATED);
         // add a css style file to use with the main menu window
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css"),"CSS file not found").toExternalForm());
         // add the logo as an icon to the application.
