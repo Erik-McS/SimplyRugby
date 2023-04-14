@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.application.simplyrugby","l":"com.application.simplyrugby"},{"m":"com.application.simplyrugby","l":"com.application.simplyrugby.Model"},{"m":"com.application.simplyrugby","l":"com.application.simplyrugby.System"}];updateSearchResults();

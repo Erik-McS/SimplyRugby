@@ -8,7 +8,7 @@
 
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="686.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-         fx:controller="com.application.simplyrugby.UpdateJuniorSquadController">
+         fx:controller="com.application.simplyrugby.Control.UpdateJuniorSquadController">
    <children>
       <Pane fx:id="choicePane" prefHeight="109.0" prefWidth="967.0">
          <children>

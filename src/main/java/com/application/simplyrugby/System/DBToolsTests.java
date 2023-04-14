@@ -1,7 +1,6 @@
 package com.application.simplyrugby.System;
 
-import com.application.simplyrugby.Control.Player;
-import com.application.simplyrugby.CustomAlert;
+import com.application.simplyrugby.Model.Player;
 
 public class DBToolsTests {
     public static void main(String[] args) {
