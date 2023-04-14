@@ -1,7 +1,6 @@
 package com.application.simplyrugby.System;
 
-import com.application.simplyrugby.Control.Player;
-import javafx.scene.control.Alert;
+import com.application.simplyrugby.Model.Player;
 
 public class UnitTesting {
     public static void main(String[] args) {
