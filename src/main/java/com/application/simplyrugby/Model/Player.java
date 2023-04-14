@@ -72,8 +72,8 @@ public class Player implements Member{
     }
     // get a player record from the database.
     @Override
-    public Member loadMember() {
-        return null;
+    public Member loadMember(Member member,int id) {
+        return DBTools.loadMember(member,id);
     }
 
     /**

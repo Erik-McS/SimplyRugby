@@ -25,6 +25,7 @@ public class ObsListFactory {
     /**
      * The function takes an object in parameter and will test it<br>
      * If the object is a Player, NonPLayer, Doctor or NextOfKIn, it will create and return a list from the database.<br>
+     * It can also take a String that will act as a 'command', for example to get a list of non-player roles from the DB.
      * otherwise, it will display an error message.
      * @param o The object to get a list for.
      * @return The compiled list.
@@ -50,7 +51,7 @@ public class ObsListFactory {
                 return oList;
             }
             catch (SQLException e){
-                CustomAlert alert=new CustomAlert("Error creating the ComboBox",e.getMessage());
+                CustomAlert alert=new CustomAlert("Error creating the Obs List",e.getMessage());
                 DBTools.closeConnections();
                 alert.showAndWait();
                 e.printStackTrace();return null;}
@@ -58,18 +59,18 @@ public class ObsListFactory {
 
         if (o instanceof NonPlayer){
             try {
-                queryResult =DBTools.executeSelectQuery("SELECT first_name,surname FROM non_players");
+                queryResult =DBTools.executeSelectQuery("SELECT first_name,surname,role_id,role_description FROM non_players NATURAL JOIN non_players_roles");
                 oList.add("Select from list");
 
                 while (queryResult.next()){
-                    String name= queryResult.getString(1)+" "+ queryResult.getString(2);
+                    String name= queryResult.getString(1)+" "+ queryResult.getString(2)+" : "+queryResult.getString(4);
                     oList.add(name);
                 }
                 DBTools.closeConnections();
                 return oList;
             }
             catch (SQLException e){
-                CustomAlert alert=new CustomAlert("Error creating the ComboBox",e.getMessage());
+                CustomAlert alert=new CustomAlert("Error creating the Obs List",e.getMessage());
                 DBTools.closeConnections();
                 alert.showAndWait();
                 e.printStackTrace();return null;}
@@ -91,7 +92,7 @@ public class ObsListFactory {
                 DBTools.closeConnections();
                 return oList;
             }catch (SQLException e){
-                CustomAlert alert=new CustomAlert("Error creating the ComboBox",e.getMessage());
+                CustomAlert alert=new CustomAlert("Error creating the Obs List",e.getMessage());
                 DBTools.closeConnections();
                 alert.showAndWait();
                 e.printStackTrace();DBTools.closeConnections();return null;}
@@ -109,13 +110,37 @@ public class ObsListFactory {
                 return oList;
             }
             catch (SQLException e){
-                CustomAlert alert=new CustomAlert("Error creating the ComboBox",e.getMessage());
+                CustomAlert alert=new CustomAlert("Error creating the Obs List",e.getMessage());
                 alert.showAndWait();
                 DBTools.closeConnections();
                 e.printStackTrace();return null;}
         }
+        if (o instanceof String s){
+            if(s.equals("NonPlayerRoles")){
+                try {
+                    queryResult =DBTools.executeSelectQuery("SELECT role_description FROM non_players_roles");
+                    oList.add("Select from list");
+                    while (queryResult.next()){
+
+                        oList.add(queryResult.getString(1));
+                    }
+                    DBTools.closeConnections();
+                    return oList;
+                }
+                catch (SQLException e){
+                    CustomAlert alert=new CustomAlert("Error creating the Obs List",e.getMessage());
+                    alert.showAndWait();
+                    DBTools.closeConnections();
+                    e.printStackTrace();return null;}
+            }
+            else{
+                CustomAlert alert=new CustomAlert("Error creating the Obs List","Invalid Command passed to the function");
+                alert.showAndWait();
+                DBTools.closeConnections();
+            }
+        }
         // if the object isn't a valid one, error message:
-        CustomAlert alert=new CustomAlert("Error creating the ComboBox","Invalid Object passed to the function");
+        CustomAlert alert=new CustomAlert("Error creating the Obs List","Invalid Object passed to the function");
         alert.showAndWait();
         DBTools.closeConnections();
         return null;

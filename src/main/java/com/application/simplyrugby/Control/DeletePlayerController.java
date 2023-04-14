@@ -26,47 +26,29 @@ public class DeletePlayerController {
     private Pane mainPane;
     @FXML
     private ComboBox <String> cbPlayer;
-    ResultSet queryResult;
-    Player player;
+    private ResultSet queryResult;
+
      public void initialize(){
 
          mainPane.getStyleClass().add("bckg1");
          bDeletePlayer.getStyleClass().add("bckg5");
          bCancel.getStyleClass().add("bckg5");
          cbPlayer.getStyleClass().add("bckg5");
-
+         // event for the cancel button.
          bCancel.setOnAction((event)->{
-             // https://9to5answer.com/how-to-close-a-java-window-with-a-button-click-javafx-project
              Stage stage=(Stage) bCancel.getScene().getWindow();
              stage.close();
          });
          cbPlayer.setItems(ObsListFactory.createObsList(Player.dummyPlayer()));
          cbPlayer.getSelectionModel().select(0);
-/*
-         try {
-             // we get the table content in the resultset
-             queryResult= DBTools.executeSelectQuery("SELECT first_name,surname FROM players");
-             // add the first entry of the list.
-             cbPlayer.getItems().add("Select from list");
-             // set it as the default entry
-             cbPlayer.getSelectionModel().select(0);
-             // adding every entry of the NoK table
-             while (queryResult.next()){
-                 String name=queryResult.getString(1)+" "+queryResult.getString(2);
-                 cbPlayer.getItems().add(name);
-             }
-             DBTools.closeConnections();
-         }catch (SQLException e){
-             CustomAlert alert=new CustomAlert("Error",e.getMessage());
-             alert.showAndWait();
-             DBTools.closeConnections();}
- */
+
 
          bDeletePlayer.setOnAction((event)->{
 
              if (cbPlayer.getSelectionModel().getSelectedIndex()!=0){
 
                  try {
+                     Player player;
                      FXMLLoader loader =new FXMLLoader(getClass().getResource("/com/application/simplyrugby/confirmMemberDeletion.fxml"));
                      Parent root=loader.load();
 

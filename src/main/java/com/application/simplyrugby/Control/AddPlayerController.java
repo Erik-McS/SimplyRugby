@@ -235,8 +235,7 @@ public class AddPlayerController {
 
         bCreatePlayer.setOnAction((event)->{
             Player nPlayer;
-            //NextOfKin nok=nok1;
-            Doctor doc=doc1;
+
             boolean formIsValid=false;
             String gender="";
             LocalDate date;
@@ -253,8 +252,8 @@ public class AddPlayerController {
                 }
             }catch (ValidationException e){
                 nPlayer=null;
-                CustomAlert alert=new CustomAlert("Error",e.getMessage());
-                System.out.println(e.getMessage());
+                CustomAlert alert=new CustomAlert("Error ",e.getMessage());
+                e.printStackTrace();
                 alert.showAndWait();
             }
 
@@ -326,7 +325,7 @@ public class AddPlayerController {
                         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/application/simplyrugby/styles.css"), "CSS not found").toExternalForm());
                         Stage stage = new Stage();
                         stage.setTitle("Confirm Player Details");
-                        stage.getIcons().add(new Image(getClass().getResourceAsStream("logo.png")));
+                        stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/application/simplyrugby/logo.png")));
                         stage.setScene(scene);
                         stage.showAndWait();
                         mainPane.getChildren().clear();

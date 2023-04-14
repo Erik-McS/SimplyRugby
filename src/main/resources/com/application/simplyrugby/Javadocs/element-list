@@ -1,4 +1,5 @@
 module:com.application.simplyrugby
 com.application.simplyrugby
+com.application.simplyrugby.Control
 com.application.simplyrugby.Model
 com.application.simplyrugby.System

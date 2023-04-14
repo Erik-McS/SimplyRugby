@@ -20,10 +20,10 @@ public class MemberDeletionController {
 
     public void deleteMember(Member member){
 
-        if (member instanceof Player){
-            Player player=(Player) member;
+        if (member instanceof Player player){
+
             lMemberName.setText(player.getFirstName()+" "+player.getSurname());
-            //System.out.println("Del:\n"+player.toString());
+
             bConfirmDeletion.setOnAction((event)->{
                 DBTools.executeQuery("DELETE FROM players WHERE player_id="+player.getPlayerID());
                 Stage stage=(Stage) bConfirmDeletion.getScene().getWindow();
@@ -31,9 +31,14 @@ public class MemberDeletionController {
             });
         }
 
-        if (member instanceof NonPlayer){
-            NonPlayer nonPlayer=(NonPlayer) member;
+        if (member instanceof NonPlayer nonPlayer){
+
             lMemberName.setText(nonPlayer.getFirstName()+" "+nonPlayer.getSurname());
+            bConfirmDeletion.setOnAction((event)->{
+                DBTools.executeQuery("DELETE FROM non_players WHERE member_id="+nonPlayer.getMember_id());
+                Stage stage=(Stage) bConfirmDeletion.getScene().getWindow();
+                stage.close();
+            });
         }
 
     }

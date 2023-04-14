@@ -17,11 +17,10 @@ public class newPlayerConfirmController {
 
     @FXML
     private Pane confirmMainPane,nokPaneC,CdocPane,leftCPane;
-            ;
     @FXML
     private Button bConfirmedPCreation,bConfirmCancel;
     @FXML
-    private Label lName,lSurname,lAddress,lTel,lEmail,lDoB,lGender,lScrums,lCNameNoK,lCSurnameNoK,lCTelNoK,lCNameNOK,
+    private Label lName,lSurname,lAddress,lTel,lEmail,lDoB,lGender,lScrums,lCNameNOK,
                     lCSurnameNOK,lCTelNOK,lCNameDoc,lCSurnameDoc,lCTelDoc;
     @FXML
     private Player newPlayer;
@@ -58,7 +57,8 @@ public class newPlayerConfirmController {
                 // saving the new player in the database, the saveMember() will return true no error happened
                 if (newPlayer.saveMember(newPlayer)){
                     // create a confirmation window
-                    CustomAlert cs=new CustomAlert("Record Created",newPlayer.toString());
+                    CustomAlert cs=new CustomAlert("Player Record Created",
+                            "Player : "+newPlayer.getFirstName()+" "+newPlayer.getSurname());
                     cs.showAndWait();
                     Stage stage=(Stage) bConfirmedPCreation.getScene().getWindow();
                     stage.close();

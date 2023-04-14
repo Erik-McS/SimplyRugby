@@ -16,7 +16,7 @@ public interface Member {
      * Select a member from the database
      * @return the selected member
      */
-    abstract Member loadMember();
+    abstract Member loadMember(Member member,int id);
 
 
 }

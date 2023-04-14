@@ -31,14 +31,14 @@ public class CustomAlert extends Stage {
         vbox.setPadding(new Insets(0,20,0,20));
 
         Scene scene=new Scene(vbox);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css"), "CSS not found").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/application/simplyrugby/styles.css"), "CSS not found").toExternalForm());
         vbox.getStyleClass().add("bckg3");
         //vbox.setAlignment(Pos.CENTER);
         okButton.getStyleClass().add("bckg5");
         lTitle.getStyleClass().add("whiteText");
         lTitle.setMinSize(15,15);
         lMessage.getStyleClass().add("whiteText");
-        this.getIcons().add(new Image(getClass().getResourceAsStream("logo.png")));
+        this.getIcons().add(new Image(getClass().getResourceAsStream("/com/application/simplyrugby/logo.png")));
         //setMinWidth(400);
         setMinHeight(150);
 

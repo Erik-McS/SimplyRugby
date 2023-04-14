@@ -171,14 +171,15 @@ public class DBTools {
             }
             catch (SQLException | ValidationException e){
                 // if any issue, display an error message
-                CustomAlert alert=new CustomAlert("Error while trying to create a Member object.",e.getMessage());
+                CustomAlert alert=new CustomAlert("Error while trying to create a Member Player object.",e.getMessage());
+                e.printStackTrace();
                 alert.showAndWait();
                 return null;}
         }
         // if the record to search for is a NonPlayer.
         if (member instanceof NonPlayer){
             String query="SELECT member_id,first_name,surname,address,telephone" +
-                    ",email,role_id FROM players WHERE member_id="+memberID;
+                    ",email,role_id FROM non_players WHERE member_id="+memberID;
             try(
                     Connection connection = DriverManager.getConnection(DBURL);
                     PreparedStatement statement = connection.prepareStatement(query)
@@ -188,8 +189,9 @@ public class DBTools {
              return new NonPlayer(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4)
                      ,rs.getString(5),rs.getString(6),rs.getInt(7));
             }
-            catch (SQLException e){
-                CustomAlert alert=new CustomAlert("Error",e.getMessage());
+            catch (SQLException | ValidationException e){
+                CustomAlert alert=new CustomAlert("Error while trying to create a Member object.",e.getMessage());
+                e.printStackTrace();
                 alert.showAndWait();
             }
         }
@@ -269,7 +271,7 @@ public class DBTools {
 
     /**
      * Same usage as selectContact(ThirdParty,SQL query), but this version look for a record by the person ID.
-     * @param tp the object type to look for
+     * @param tp the object type to look for.
      * @param index the ID to look for.
      * @return the found record.
      */
@@ -323,8 +325,29 @@ public class DBTools {
             if (statement!=null)
                 statement.close();
         }catch (SQLException e){
-            CustomAlert alert=new CustomAlert("Error",e.getMessage());
+            CustomAlert alert=new CustomAlert("Error Closing the connections",e.getMessage());
             alert.showAndWait();
+        }
+    }
+
+    /**
+     * Function to get the role description of a non-player member from its ID.
+     * @param roleID The role ID to search for.
+     * @return The role description.
+     */
+    public static String getRole(int roleID){
+
+        try(
+                Connection connection = DriverManager.getConnection(DBURL);
+                PreparedStatement statement = connection.prepareStatement("SELECT role_description FROM non_players_roles WHERE role_id="+roleID)
+                ){
+            ResultSet rs=statement.executeQuery();
+            return rs.getString(1);
+        }
+        catch (SQLException e){
+            CustomAlert alert=new CustomAlert("Error getting the Role description",e.getMessage());
+            alert.showAndWait();
+            return null;
         }
     }
 // END OF CLASS

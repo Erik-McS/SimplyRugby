@@ -36,7 +36,7 @@ public class PlayerMgntController {
                 Stage stage=new Stage();
                 //Stage stage=(Stage) ((Node)event.getSource()).getScene().getWindow();
                 stage.setTitle("Create a Member Profile");
-                stage.getIcons().add(new Image(getClass().getResourceAsStream("logo.png")));
+                stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/application/simplyrugby/logo.png")));
                 stage.setScene(scene);
                 stage.show();
 
