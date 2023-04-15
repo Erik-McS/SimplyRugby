@@ -22,16 +22,13 @@ CREATE TABLE IF NOT EXISTS players (
 	TELEPHONE TEXT,
 	EMAIL TEXT NOT NULL,
 	SCRUMS_NUMBER INTEGER NOT NULL UNIQUE,
+	IS_ASSIGNED_TO_SQUAD TEXT NOT NULL,
 	DOCTOR_ID INTEGER NOT NULL,
 	KIN_ID INTEGER NOT NULL,
-	IS_ASSIGNED_TO_SQUAD TEXT NOT NULL,
-	PROFILE_ID INTEGER,
 	FOREIGN KEY(DOCTOR_ID)
 		REFERENCES player_doctors(DOCTOR_ID),
 	FOREIGN KEY(KIN_ID)
-		REFERENCES next_of_kin(KIN_ID),
-	FOREIGN KEY(PROFILE_ID)
-	    REFERENCES training_profiles(PROFILE_ID)
+		REFERENCES next_of_kin(KIN_ID)
 );
 
 CREATE TABLE IF NOT EXISTS non_players_roles(
@@ -229,11 +226,13 @@ CREATE TABLE IF NOT EXISTS training_profiles(
     SUPPORT_SKILL INTEGER NOT NULL,
     TACKLING_SKILL INTEGER NOT NULL,
     DECISION_SKILL INTEGER NOT NULL,
+    PLAYER_ID INTEGER NOT NULL UNIQUE,
     FOREIGN KEY(PASSING_SKILL) REFERENCES performance_levels(LEVEL_ID),
     FOREIGN KEY(RUNNING_SKILL) REFERENCES performance_levels(LEVEL_ID),
     FOREIGN KEY(SUPPORT_SKILL) REFERENCES performance_levels(LEVEL_ID),
     FOREIGN KEY(TACKLING_SKILL) REFERENCES performance_levels(LEVEL_ID),
-    FOREIGN KEY(DECISION_SKILL) REFERENCES performance_levels(LEVEL_ID)
+    FOREIGN KEY(DECISION_SKILL) REFERENCES performance_levels(LEVEL_ID),
+    FOREIGN KEY(PLAYER_ID) REFERENCES players(PLAYER_ID)
 );
 
 CREATE TABLE IF NOT EXISTS player_training_logs(
@@ -251,3 +250,26 @@ CREATE TABLE IF NOT EXISTS game_performances(
     FOREIGN KEY(PROFILE_ID) REFERENCES training_profiles(PROFILE_ID),
     FOREIGN KEY(SESSION_ID) REFERENCES training_sessions(SESSION_ID)
 );
+INSERT INTO performance_levels(level_description) VALUES ('Poor');
+INSERT INTO performance_levels(level_description) VALUES ('Developing');
+INSERT INTO performance_levels(level_description) VALUES ('Proficient');
+INSERT INTO performance_levels(level_description) VALUES ('Advanced');
+INSERT INTO performance_levels(level_description) VALUES ('Leading');
+INSERT INTO non_players_roles(role_description) VALUES ('Coach');
+INSERT INTO non_players_roles(role_description) VALUES ('Chairman');
+INSERT INTO non_players_roles(role_description) VALUES ('Fixture Secretary');
+INSERT INTO training_locations(description) VALUES ('Main Field');
+INSERT INTO training_locations(description) VALUES ('Fitness Suite');
+INSERT INTO training_locations(description) VALUES ('Swimming Pool');
+INSERT INTO training_session_types(type) VALUES ('Strength');
+INSERT INTO training_session_types(type) VALUES ('Endurance');
+INSERT INTO training_session_types(type) VALUES ('Core');
+INSERT INTO training_session_types(type) VALUES ('Team play');
+INSERT INTO training_session_types(type) VALUES ('Tactics');
+INSERT INTO game_location(description) VALUES ('Home');
+INSERT INTO game_location(description) VALUES ('Away');
+INSERT INTO game_outcomes(outcome) VALUES ('Won');
+INSERT INTO game_outcomes(outcome) VALUES ('Lost');
+INSERT INTO game_outcomes(outcome) VALUES ('Won by Forfeit');
+INSERT INTO game_outcomes(outcome) VALUES ('Lost by Forfeit');
+INSERT INTO game_outcomes(outcome) VALUES ('Cancelled');

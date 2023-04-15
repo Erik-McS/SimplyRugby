@@ -13,7 +13,7 @@ public class deleteSnrSquadController {
     @FXML
     private Pane mainPane;
     @FXML
-    private ComboBox cbSquad;
+    private ComboBox <String>cbSquad;
 
     public void initialize(){
 

@@ -1,6 +1,10 @@
 package com.application.simplyrugby.Control;
 
+import com.application.simplyrugby.Model.Player;
+import com.application.simplyrugby.Model.TrainingProfile;
+import com.application.simplyrugby.System.CustomAlert;
 import com.application.simplyrugby.System.DBTools;
+import com.application.simplyrugby.System.ValidationException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -15,7 +19,7 @@ public class CreateProfileController {
     @FXML
     private Pane mainPane;
     @FXML
-    private ComboBox cbPlayerProfile;
+    private ComboBox<String > cbPlayerProfile;
     @FXML
     private Button bCreateProfile,bCancel;
 
@@ -32,13 +36,53 @@ public class CreateProfileController {
         });
 
         try{
-            result= DBTools.executeSelectQuery("SELECT FIRST_NAME|| ' ' || SURNAME FROM players WHERE PROFILE_ID IS NULL");
+            cbPlayerProfile.getItems().add("Select a player from the list");
+
+            result= DBTools.executeSelectQuery("SELECT PLAYER_ID,FIRST_NAME|| ' ' || SURNAME FROM players " +
+                    "WHERE NOT EXISTS (" +
+                    "SELECT * FROM training_profiles WHERE training_profiles.player_id=players.player_id)");
             while (result.next()){
-                cbPlayerProfile.getItems().add(result.getString(1));
+                cbPlayerProfile.getItems().add(result.getString(2));
             }
-            cbPlayerProfile.getSelectionModel().select(1);
+            cbPlayerProfile.getSelectionModel().select(0);
         }catch (SQLException e){e.printStackTrace();DBTools.closeConnections();}
-        DBTools.closeConnections();
+        finally {DBTools.closeConnections();}
+
+        bCreateProfile.setOnAction((event)->{
+
+            if (cbPlayerProfile.getSelectionModel().getSelectedIndex()!=0){
+
+                String[] pl=cbPlayerProfile.getValue().split(" ");
+                Player selectedPlayer=(Player) DBTools.loadMember(Player.dummyPlayer(),
+                        DBTools.getID("SELECT player_id FROM players WHERE first_name='"+pl[0]+"' AND surname='"+pl[1]+"'"));
+
+                try{
+                    TrainingProfile newTP=new TrainingProfile(selectedPlayer);
+
+                    newTP.saveTrainingProfile();
+                    CustomAlert alert=new CustomAlert("Training Profile","The training profile for "+selectedPlayer.getFirstName()+" "+selectedPlayer.getSurname()+" has been created.");
+
+                    alert.showAndWait();
+                    Stage stage=(Stage) cbPlayerProfile.getScene().getWindow();
+                    stage.close();
+                }catch(ValidationException e){
+                    CustomAlert alert=new CustomAlert("Error: Training Profile Creation",e.getMessage());
+                    e.printStackTrace();
+                    alert.showAndWait();
+                }
+                finally {
+                    DBTools.closeConnections();
+                }
+            }
+            else {
+
+                CustomAlert alert=new CustomAlert("Error","Please select a Player form the list");
+                alert.showAndWait();
+            }
+
+        });
 
     }
+
+
 }

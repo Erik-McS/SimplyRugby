@@ -25,7 +25,7 @@ public class Player implements Member{
     private int playerID;
     private int doctorID;
     private int kinID;
-    private int profileID;
+    //private int profileID;
     private String isAssignedToSquad;
 
     // Constructor of the player class. it will take the Builder object and assign its field.
@@ -42,7 +42,7 @@ public class Player implements Member{
         this.telephone=build.telephone;
         this.kinID=build.kinID;
         this.doctorID=build.doctorID;
-        this.profileID=build.profileID;
+        //this.profileID=build.profileID;
         this.isAssignedToSquad=build.isAssignedToSquad;
     }
     // empty constructor
@@ -58,7 +58,6 @@ public class Player implements Member{
         this.telephone="1111111111";
         this.kinID=0;
         this.doctorID=0;
-        this.profileID=0;
         this.isAssignedToSquad="NO";
     }
 
@@ -93,7 +92,6 @@ public class Player implements Member{
         private int playerID;
         private int doctorID;
         private int kinID;
-        private int profileID;
         private String isAssignedToSquad;
 
         /**
@@ -119,7 +117,6 @@ public class Player implements Member{
             }
 
         }
-
         /**
          * Function to set the Surname
          * @param surname The player's surname
@@ -140,7 +137,6 @@ public class Player implements Member{
                     throw new ValidationException("Invalid Surname Format, please enter a valid surname");
             }
         }
-
         /**
          * Function to set the address
          * @param address The Player's address
@@ -155,7 +151,6 @@ public class Player implements Member{
                 return this;
             }
         }
-
         /**
          * Function to set the player's telephone
          * @param telephone The player's telephone
@@ -176,7 +171,6 @@ public class Player implements Member{
                     throw new ValidationException("Phone numbers can only contains 9-11 digits");
             }
         }
-
         /**
          * Function to set the player's email
          * @param email The player's email
@@ -198,7 +192,6 @@ public class Player implements Member{
                     throw new ValidationException("Invalid email.");
             }
         }
-
         /**
          * Function to set the player's gender
          * @param gender The player's gender
@@ -213,7 +206,6 @@ public class Player implements Member{
                 return this;
             }
         }
-
         /**
          * Function to set the Date of Birth
          * @param dateOfBirth The player's date of birth
@@ -228,7 +220,6 @@ public class Player implements Member{
                 return this;
             }
         }
-
         /**
          * Function to set the SCRUMS cumber
          * @param scrumsNumber The player's SCRUMS number
@@ -243,7 +234,6 @@ public class Player implements Member{
                 return this;
             }
         }
-
         /**
          * Function to set the doctor ID
          * @param doctorID The player's doctor ID
@@ -258,7 +248,6 @@ public class Player implements Member{
                 return this;
             }
         }
-
         /**
          * Function to set the Next of Kin
          * @param kinID The player's Next of Kin ID
@@ -284,17 +273,6 @@ public class Player implements Member{
                 this.playerID=playerID;
                 return this;
         }
-
-        /**
-         * Function to set the player's ID, it is usually set to 0 as the profile is created later.
-         * @param profileID The player's ID
-         * @return The builder object
-         */
-        public PlayerBuilder setProfileID(int profileID){
-                this.profileID=profileID;
-                return this;
-        }
-
         /**
          * Function to set the player's status. set to False by default.
          * @param isAssignedToSquad The player's status
@@ -320,7 +298,7 @@ public class Player implements Member{
         {
             // set the default values for the non-mandatory fields
             this.isAssignedToSquad="No";
-            this.profileID=0;
+            //this.profileID=0;
 
             return new Player(this);
         }
@@ -341,7 +319,6 @@ public class Player implements Member{
                 "\nplayerID=" + playerID +
                 "\ndoctorID=" + doctorID +
                 "\nkinID=" + kinID +
-                "\nprofileID=" + profileID +
                 "\nisAssignedToSquad=" + isAssignedToSquad +
                 '}';
     }
@@ -516,9 +493,7 @@ public class Player implements Member{
      * Function to set the player's ID, it is usually set to 0 as the profile is created later.
      * @param profileID The player's ID
      */
-    public void setProfileID(int profileID){
-        this.profileID=profileID;
-    }
+
 
     /**
      * Function to set the player's status. set to False by default.
@@ -621,13 +596,7 @@ public class Player implements Member{
         return kinID;
     }
 
-    /**
-     * Function to get the player's profile ID.
-     * @return Profile ID
-     */
-    public int getProfileID() {
-        return profileID;
-    }
+
 
     /**
      * Function to return the Squad's status of the player.
