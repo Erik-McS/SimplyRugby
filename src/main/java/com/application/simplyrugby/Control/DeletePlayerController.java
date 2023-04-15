@@ -27,7 +27,6 @@ public class DeletePlayerController {
     @FXML
     private ComboBox <String> cbPlayer;
     private ResultSet queryResult;
-
      public void initialize(){
 
          mainPane.getStyleClass().add("bckg1");

@@ -277,7 +277,7 @@ public class AddPlayerController {
                          */
                         nPlayer=new Player.PlayerBuilder().setPlayerID(0).setFirstName(txName.getText()).setSurname(txSurname.getText()).setAddress(txAddress.getText())
                                 .setDoB(date.format(dt)).setEmail(txEmail.getText()).setGender(gender).setScrumsNumber(Integer.parseInt(txScrumsNumber.getText()))
-                                .setTelephone(txTelephone.getText()).setIsAssignedToSquad("NO").setDoctorID(doc1.getDoctorID()).setKinID(nok1.getKinID()).setProfileID(0).Builder();
+                                .setTelephone(txTelephone.getText()).setIsAssignedToSquad("NO").setDoctorID(doc1.getDoctorID()).setKinID(nok1.getKinID()).Builder();
                         // if all fine, we set the form flag to true, meaning the all the data is correct and captured for the next step
                         formIsValid=true;
                     }

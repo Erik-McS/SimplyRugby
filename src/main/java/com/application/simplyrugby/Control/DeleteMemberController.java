@@ -24,7 +24,7 @@ public class DeleteMemberController {
     @FXML
     private Button bDeleteMember,bCancel;
     @FXML
-    private ComboBox cbMember;
+    private ComboBox <String >cbMember;
 
     public void initialize(){
 

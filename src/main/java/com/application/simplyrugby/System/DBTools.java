@@ -57,6 +57,7 @@ public class DBTools {
         catch (SQLException e){
             // issue during execution, return false
             CustomAlert alert=new CustomAlert("Error while trying to execute the query.",e.getMessage());
+            e.printStackTrace();
             alert.showAndWait();
             return false;}
     }
@@ -105,11 +106,14 @@ public class DBTools {
             // return the ID found
             return rs.getInt(1);
         } catch (SQLException e) {
-            CustomAlert alert=new CustomAlert("Error while getting the requested ID",e.getMessage());
-            alert.showAndWait();
+            //CustomAlert alert=new CustomAlert("Error while getting the requested ID",e.getMessage());
+            //alert.showAndWait();
+            closeConnections();
+            return 0;
+        }
+        finally {
             closeConnections();
         }
-        return 0;
     }
 
     /**
@@ -126,11 +130,14 @@ public class DBTools {
         // if it is a Player record:
         if (member instanceof Player player){
             // Execute the query and return a boolean.
-            return executeQuery("INSERT INTO players (first_name,surname,address,date_of_birth,gender,telephone,email,scrums_number,doctor_id,kin_id," +
-                    "is_assigned_to_squad,profile_id) " +
-                    "VALUES ('"+player.getFirstName()+"','"+player.getSurname()+"','"+player.getAddress()+"','"+player.getDateOfBirth()
-                    +"','"+player.getGender()+"','"+player.getTelephone()+"','"+player.getEmail()+"','"+player.getScrumsNumber()+
-                    "','"+player.getDoctorID()+"','"+player.getKinID()+"','"+player.isAssignedToSquad()+"','"+player.getProfileID()+"')");
+            System.out.println("INSERT INTO players (first_name,surname,address,date_of_birth,gender,telephone,email,scrums_number,is_assigned_to_squad,doctor_id,kin_id " +
+                    "VALUES " +
+                    "('"+player.getFirstName()+"','"+player.getSurname()+"','"+ player.getAddress()+"','"+player.getDateOfBirth()+"','"+player.getGender()+"','"+player.getTelephone()
+                    +"','"+player.getEmail()+"','"+player.getScrumsNumber()+"','"+player.isAssignedToSquad()+"','"+player.getDoctorID()+"','"+player.getKinID()+"')");
+            return executeQuery("INSERT INTO players (first_name,surname,address,date_of_birth,gender,telephone,email,scrums_number,is_assigned_to_squad,doctor_id,kin_id) " +
+                    "VALUES " +
+                    "('"+player.getFirstName()+"','"+player.getSurname()+"','"+ player.getAddress()+"','"+player.getDateOfBirth()+"','"+player.getGender()+"','"+player.getTelephone()
+                    +"','"+player.getEmail()+"','"+player.getScrumsNumber()+"','"+player.isAssignedToSquad()+"','"+player.getDoctorID()+"','"+player.getKinID()+"')");
         }
         // If it is a nonPlayer record:
         if (member instanceof NonPlayer nonPlayer){
@@ -155,7 +162,7 @@ public class DBTools {
         // if the record to search for is for a player:
         if (member instanceof Player){
             String query="SELECT player_id,first_name,surname,address,date_of_birth,gender,telephone" +
-                    ",email,scrums_number,doctor_id,kin_id,is_assigned_to_squad,profile_id FROM players WHERE player_id="+memberID;
+                    ",email,scrums_number,is_assigned_to_squad,doctor_id,kin_id FROM players WHERE player_id="+memberID;
             try(
                     Connection connection = DriverManager.getConnection(DBURL);
                     PreparedStatement statement = connection.prepareStatement(query)
@@ -165,9 +172,8 @@ public class DBTools {
                 ResultSet rs=statement.executeQuery();
                 return new Player.PlayerBuilder().setPlayerID(rs.getInt(1)).setFirstName(rs.getString(2)).setSurname(rs.getString(3))
                         .setAddress(rs.getString(4)).setDoB(rs.getString(5)).setGender(rs.getString(6)).setTelephone(rs.getString(7))
-                        .setEmail(rs.getString(8)).setScrumsNumber(rs.getInt(9)).setDoctorID(rs.getInt(10)).setKinID(rs.getInt(11))
-                        .setIsAssignedToSquad(rs.getString(12)).setProfileID(rs.getInt(13))
-                        .Builder();
+                        .setEmail(rs.getString(8)).setScrumsNumber(rs.getInt(9)).setIsAssignedToSquad(rs.getString(10)).setDoctorID(rs.getInt(11))
+                        .setKinID(rs.getInt(12)).Builder();
             }
             catch (SQLException | ValidationException e){
                 // if any issue, display an error message
@@ -215,6 +221,17 @@ public class DBTools {
             return executeQuery("INSERT INTO player_doctors (name,surname,telephone) VALUES ('"+doc.getFirstName()+"','"+doc.getSurname()+"','"+doc.getTelephone()+"')");
         }
         return false;
+    }
+
+    /**
+     * Function to create a profile entry in the database and link it to a player
+     * @param tp The training profile
+     * @return true of false, depending on SQL errors or not.
+     */
+    public static boolean insertTrainingProfile(TrainingProfile tp) {
+        // insert the profile in the database. and test if ok
+         return executeQuery("INSERT INTO training_profiles (passing_skill,running_skill,support_skill,tackling_skill,decision_skill,player_id)" +
+                " VALUES ('" + tp.getPassingLevel() + "','" + tp.getRunningLevel() + "','" + tp.getSupportLevel() + "','" + tp.getTacklingLevel() + "','" + tp.getDecisionLevel() + "','"+tp.getPlayerID()+"')");
     }
 
     /**
@@ -349,6 +366,10 @@ public class DBTools {
             alert.showAndWait();
             return null;
         }
+    }
+
+    public static void updatePlayerProfile(Player player){
+
     }
 // END OF CLASS
 }

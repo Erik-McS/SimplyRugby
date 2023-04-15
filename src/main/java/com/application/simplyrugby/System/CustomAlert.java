@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+/**
+ * This is a custom Alert class. Used to create error message windows with the application styles applied to it.
+ */
 public class CustomAlert extends Stage {
 
     private Label lTitle;
