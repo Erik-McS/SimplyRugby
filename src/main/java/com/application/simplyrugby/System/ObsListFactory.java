@@ -133,6 +133,59 @@ public class ObsListFactory {
                     DBTools.closeConnections();
                     e.printStackTrace();return null;}
             }
+            else if(s.equals("TrainingTypes")){
+                try {
+                    queryResult =DBTools.executeSelectQuery("SELECT type FROM training_session_types");
+                    oList.add("Select from list");
+                    while (queryResult.next()){
+
+                        oList.add(queryResult.getString(1));
+                    }
+                    DBTools.closeConnections();
+                    return oList;
+                }
+                catch (SQLException e){
+                    CustomAlert alert=new CustomAlert("Error creating the Obs List",e.getMessage());
+                    alert.showAndWait();
+                    DBTools.closeConnections();
+                    e.printStackTrace();return null;}
+            }
+
+            else if(s.equals("TrainingFacilities")){
+                try {
+                    queryResult =DBTools.executeSelectQuery("SELECT description FROM training_locations");
+                    oList.add("Select from list");
+                    while (queryResult.next()){
+
+                        oList.add(queryResult.getString(1));
+                    }
+                    DBTools.closeConnections();
+                    return oList;
+                }
+                catch (SQLException e){
+                    CustomAlert alert=new CustomAlert("Error creating the Obs List",e.getMessage());
+                    alert.showAndWait();
+                    DBTools.closeConnections();
+                    e.printStackTrace();return null;}
+            }
+            else if(s.equals("AvailablePlayers")){
+                try {
+                    queryResult =DBTools.executeSelectQuery("SELECT first_name,surname FROM players WHERE is_assigned_to_squad='NO'");
+                    oList.add("Select from list");
+
+                    while (queryResult.next()){
+                        String name= queryResult.getString(1)+" "+ queryResult.getString(2);
+                        oList.add(name);
+                    }
+                    DBTools.closeConnections();
+                    return oList;
+                }
+                catch (SQLException e){
+                    CustomAlert alert=new CustomAlert("Error creating the Obs List",e.getMessage());
+                    DBTools.closeConnections();
+                    alert.showAndWait();
+                    e.printStackTrace();return null;}
+            }
             else{
                 CustomAlert alert=new CustomAlert("Error creating the Obs List","Invalid Command passed to the function");
                 alert.showAndWait();

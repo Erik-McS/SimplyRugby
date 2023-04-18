@@ -297,7 +297,7 @@ public class Player implements Member{
         public Player Builder() throws ValidationException
         {
             // set the default values for the non-mandatory fields
-            this.isAssignedToSquad="No";
+            this.setIsAssignedToSquad("NO");
             //this.profileID=0;
 
             return new Player(this);
