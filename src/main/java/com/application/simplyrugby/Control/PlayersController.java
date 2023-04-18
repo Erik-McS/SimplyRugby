@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -69,6 +70,22 @@ public class PlayersController {
             }catch(IOException e){e.printStackTrace();}
         });
 
+        createSession.setOnAction((event)->{
+            try{
+
+                FXMLLoader loader =new FXMLLoader(MembershipMenuController.class.getResource("/com/application/simplyrugby/createTrainingSession.fxml"));
+                Parent root=loader.load();
+                Scene scene=new Scene(root);
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/application/simplyrugby/styles.css"),"CSS not found").toExternalForm());
+                Stage stage=new Stage();
+                stage.setTitle("Create a Training Session");
+                stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/application/simplyrugby/logo.png")));
+                stage.setScene(scene);
+                stage.show();
+
+            }catch(IOException e){e.printStackTrace();}
+
+        });
 
     }
 }
