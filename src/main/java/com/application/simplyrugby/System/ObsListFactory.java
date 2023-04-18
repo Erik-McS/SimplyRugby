@@ -186,6 +186,60 @@ public class ObsListFactory {
                     alert.showAndWait();
                     e.printStackTrace();return null;}
             }
+            else if(s.equals("Coaches")){
+                try {
+                    queryResult =DBTools.executeSelectQuery("SELECT first_name,surname FROM non_players WHERE role_id=1");
+                    oList.add("Select from list");
+
+                    while (queryResult.next()){
+                        String name= queryResult.getString(1)+" "+ queryResult.getString(2);
+                        oList.add(name);
+                    }
+                    DBTools.closeConnections();
+                    return oList;
+                }
+                catch (SQLException e){
+                    CustomAlert alert=new CustomAlert("Error creating the Obs List",e.getMessage());
+                    DBTools.closeConnections();
+                    alert.showAndWait();
+                    e.printStackTrace();return null;}
+            }
+            else if(s.equals("Chairmen")){
+                try {
+                    queryResult =DBTools.executeSelectQuery("SELECT first_name,surname FROM non_players WHERE role_id=2");
+                    oList.add("Select from list");
+
+                    while (queryResult.next()){
+                        String name= queryResult.getString(1)+" "+ queryResult.getString(2);
+                        oList.add(name);
+                    }
+                    DBTools.closeConnections();
+                    return oList;
+                }
+                catch (SQLException e){
+                    CustomAlert alert=new CustomAlert("Error creating the Obs List",e.getMessage());
+                    DBTools.closeConnections();
+                    alert.showAndWait();
+                    e.printStackTrace();return null;}
+            }
+            else if(s.equals("FixtSect")){
+                try {
+                    queryResult =DBTools.executeSelectQuery("SELECT first_name,surname FROM non_players WHERE role_id=3");
+                    oList.add("Select from list");
+
+                    while (queryResult.next()){
+                        String name= queryResult.getString(1)+" "+ queryResult.getString(2);
+                        oList.add(name);
+                    }
+                    DBTools.closeConnections();
+                    return oList;
+                }
+                catch (SQLException e){
+                    CustomAlert alert=new CustomAlert("Error creating the Obs List",e.getMessage());
+                    DBTools.closeConnections();
+                    alert.showAndWait();
+                    e.printStackTrace();return null;}
+            }
             else{
                 CustomAlert alert=new CustomAlert("Error creating the Obs List","Invalid Command passed to the function");
                 alert.showAndWait();
