@@ -1,5 +1,8 @@
 package com.application.simplyrugby.Model;
 
+/**
+ * Interface to describe a Next of  Kin or a Doctor
+ */
 public interface ThirdParty {
     /**
      * Insert a doctor or next of kin in the database

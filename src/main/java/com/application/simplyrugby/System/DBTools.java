@@ -91,7 +91,7 @@ public class DBTools {
     }
 
     /**
-     * This function is used to the get ID from a table, using the provided SQL query string. <br>
+     * This function is used to get an ID from a table, using the provided SQL query string. <br>
      * this is used for example, to get a member ID with the name-surname selected from a combobox.<br>
      * the closeConnections() functions must be called in the calling class after use.
      * @param query the SQL query to search for an ID.
