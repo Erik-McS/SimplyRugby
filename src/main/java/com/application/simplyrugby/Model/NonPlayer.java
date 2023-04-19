@@ -199,4 +199,17 @@ public class NonPlayer implements Member{
                 throw new ValidationException("Invalid email.");
         }
     }
+
+    @Override
+    public String toString() {
+        return "NonPlayer{" +
+                "firstName='" + firstName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", address='" + address + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", member_id=" + member_id +
+                ", role_id=" + role_id +
+                '}';
+    }
 }
