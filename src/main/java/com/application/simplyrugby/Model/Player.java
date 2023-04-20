@@ -2,6 +2,7 @@ package com.application.simplyrugby.Model;
 
 import com.application.simplyrugby.System.DBTools;
 import com.application.simplyrugby.System.ValidationException;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,6 +28,7 @@ public class Player implements Member{
     private int kinID;
     //private int profileID;
     private String isAssignedToSquad;
+
 
     // Constructor of the player class. it will take the Builder object and assign its field.
 
@@ -93,6 +95,7 @@ public class Player implements Member{
         private int doctorID;
         private int kinID;
         private String isAssignedToSquad;
+        // those variables will be used to populate javafx tables
 
         /**
          * function to set the firstname
@@ -110,6 +113,7 @@ public class Player implements Member{
                 String nameValidation="(\\p{Upper})(\\p{Lower}){1,12}";
                 if (firstName.matches(nameValidation)) {
                     this.firstName = firstName;
+
                     return this;
                 }
                 else
@@ -131,6 +135,7 @@ public class Player implements Member{
                 String validation="(\\p{Upper})(\\p{Alpha}){1,15}";
                 if (surname.matches(validation)) {
                     this.surname = surname;
+
                     return this;
                 }
                 else

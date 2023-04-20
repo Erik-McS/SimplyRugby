@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
@@ -51,9 +50,10 @@ public class CreateSeniorSquadController {
             firstPane.getChildren().clear();
         });
         // we create an array list with all the Squad player ComboBoxes of the pane.
+        // they are adding order to match the DB table columns.
         ArrayList<ComboBox<String>> playerBoxes = new ArrayList<>();
-        Collections.addAll(playerBoxes, cblooseHP, cbThightHead, cbHooker, cbLock1, cbLock2, cbBlindside, cbNumber8, cbOpenside, cbLeftwing, cbScrumhalf,
-                cbFlyhalf, cbincentre, cboutcentre, cbrightwing, cbfullback);
+        Collections.addAll(playerBoxes, cblooseHP, cbHooker, cbThightHead, cbLock1, cbLock2, cbBlindside, cbOpenside,cbNumber8, cbScrumhalf,
+                cbFlyhalf, cbLeftwing, cbincentre, cboutcentre, cbrightwing, cbfullback);
         // we create an array list with all the Replacement player ComboBoxes of the pane.
         ArrayList<ComboBox<String>> repPlayerTeam=new ArrayList<>();
         Collections.addAll(repPlayerTeam,cbplayer1, cbplayer2, cbplayer3, cbplayer4, cbplayer5);
@@ -96,9 +96,10 @@ public class CreateSeniorSquadController {
 
         // Event Handler for the Create button.
         bCreateSquad.setOnAction((event)->{
+
             // catching exceptions.
             try {
-
+                   /*
                 // Arraylists to contains the selected persons
                 // Squad player arraylist
                 ArrayList<Player> squadArray=new ArrayList<>();
@@ -174,18 +175,7 @@ public class CreateSeniorSquadController {
                 duplicates.clear();
                 ArrayList<NonPlayer> admins=new ArrayList<>();
 
-                /*
-                                for (ComboBox<String> cbx:adminBoxes){
-                    if (cbx.getSelectionModel().getSelectedIndex()==0)
-                        throw new ValidationException("Missing one of the Coaches.");
-                    else if (!duplicates.contains(cbx.getSelectionModel().getSelectedIndex())){
-                        String name=cbx.getValue();
-                        String[] adminNames=name.split(" ");
-                        NonPlayer np=new NonPlayer();
-                        admins.add((NonPlayer) np.loadMember(np,DBTools.getID("SELECT member_id FROM non_players WHERE first_name='"+adminNames[0]+"' AND surname='"+adminNames[1]+"'")));
-                    }
-                }
-                 */
+
 
                 if (cbChairman.getSelectionModel().getSelectedIndex()!=0 && cbSec.getSelectionModel().getSelectedIndex()!=0){
 
@@ -202,13 +192,45 @@ public class CreateSeniorSquadController {
                 AdminTeam adminTeam=new AdminTeam(admins.get(0),admins.get(1));
 
                 // loading the resources for the confirmation window
-                FXMLLoader loader= new FXMLLoader(getClass().getResource("/com/application/simplyrugby/NewConfirmSeniorSquad.fxml"));
+
+                */
+                //***********test code *******************
+
+                ArrayList<Player> squadTest=new ArrayList<>();
+                ArrayList<Player> repTest=new ArrayList<>();
+                //Player pl=Player.dummyPlayer();
+                for (int i=1;i<=15;i++){
+                    squadTest.add((Player) Player.dummyPlayer().loadMember(Player.dummyPlayer(),i));
+                }
+                SeniorSquad seniorSquadTest =new SeniorSquad(squadTest,"Squadname");
+
+                for (int i=1;i<=5;i++){
+                    repTest.add((Player) Player.dummyPlayer().loadMember(Player.dummyPlayer(),i));
+                }
+
+                ReplacementTeam replacementTeamTest=new ReplacementTeam(repTest);
+
+                NonPlayer c1=new NonPlayer(1,"Name","Surname","address","1111111111","eamil@a.asd",1);
+                NonPlayer c2=new NonPlayer(1,"Name","Surname","address","1111111111","eamil@a.asd",1);
+                NonPlayer c3=new NonPlayer(1,"Name","Surname","address","1111111111","eamil@a.asd",1);
+                NonPlayer c4=new NonPlayer(1,"Name","Surname","address","1111111111","eamil@a.asd",1);
+                NonPlayer c5=new NonPlayer(1,"Name","Surname","address","1111111111","eamil@a.asd",1);
+                NonPlayer c6=new NonPlayer(1,"Name","Surname","address","1111111111","eamil@a.asd",1);
+                NonPlayer c7=new NonPlayer(1,"Name","Surname","address","1111111111","eamil@a.asd",1);
+
+
+                CoachTeam coachTeamTest=new CoachTeam(c1,c2,c3);
+                AdminTeam adminTeamTest=new AdminTeam(c4,c5);
+
+                //***********************************
+
+                FXMLLoader loader= new FXMLLoader(getClass().getResource("/com/application/simplyrugby/ConfirmNewSeniorSquad.fxml"));
                 Parent root=loader.load();
                 // getting the Confirmation window controller. will be used to pass the 3 teams created here.
                 ConfirmSnrSquadCntlr controller=loader.getController();
                 // passing all the teams object to the next window.
-                controller.receiveTeams(seniorSquad,adminTeam,replacementTeam,coachTeam);
-
+                //controller.receiveTeams(seniorSquad,adminTeam,replacementTeam,coachTeam);
+                controller.receiveTeams(seniorSquadTest,adminTeamTest,replacementTeamTest,coachTeamTest);
                 Scene scene=new Scene(root);
                 scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/application/simplyrugby/styles.css"),"CSS not found").toExternalForm());
                 Stage stage=new Stage();
