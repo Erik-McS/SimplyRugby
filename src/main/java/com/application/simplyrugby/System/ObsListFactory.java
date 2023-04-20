@@ -8,8 +8,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
+import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This class will create ObservableList arrays that will be used to populate ComboBoxes.<br>
@@ -239,6 +242,15 @@ public class ObsListFactory {
                     DBTools.closeConnections();
                     alert.showAndWait();
                     e.printStackTrace();return null;}
+            }
+            else if(s.equals("SeniorSquadRoles")){
+                ArrayList<String> roles=new ArrayList<>();
+                roles.addAll(Arrays.asList("LOOSE HEAD PROP","HOOKER","TIGHT HEAD PROP","SECOND ROW","SECOND ROW2","BLIND SIDE FLANKER","OPEN SIDE FLANKER","NUMBER 8",
+                        "SCRUM HALF","FLY HALF","LEFT WING","INSIDE CENTRE","OUTSIDE CENTRE","TIGHT SIDE","FULL BACK"));
+                for (String role:roles){
+                    oList.add(role);
+                }
+                return oList;
             }
             else{
                 CustomAlert alert=new CustomAlert("Error creating the Obs List","Invalid Command passed to the function");

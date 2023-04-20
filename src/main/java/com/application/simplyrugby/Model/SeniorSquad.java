@@ -1,6 +1,8 @@
 package com.application.simplyrugby.Model;
 
 import com.application.simplyrugby.System.ValidationException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
@@ -10,7 +12,7 @@ import java.util.ArrayList;
  */
 public class SeniorSquad implements Squad{
     // the arraylist to contains the squad.
-    ArrayList<Player> squadPlayers=new ArrayList<>();
+    public static ArrayList<Player> squadPlayers=new ArrayList<>();
     // empty constructor, to allow the creation of a null object.
     private String squadName;
     public SeniorSquad(){}
@@ -67,6 +69,15 @@ public class SeniorSquad implements Squad{
 
     }
 
+    public ObservableList<Player> getSquadList(){
+        ObservableList<Player> oList= FXCollections.observableArrayList();
+
+        for(Player pl:squadPlayers){
+            oList.add(pl);
+        }
+        return oList;
+    }
+
     public String getSquadName() {
         return squadName;
     }
@@ -75,3 +86,4 @@ public class SeniorSquad implements Squad{
         this.squadName = squadName;
     }
 }
+

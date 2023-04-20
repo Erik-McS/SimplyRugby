@@ -2,6 +2,7 @@ package com.application.simplyrugby.Model;
 
 import com.application.simplyrugby.System.DBTools;
 import com.application.simplyrugby.System.ValidationException;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,7 +19,6 @@ public class NonPlayer implements Member{
     private String email;
     private int member_id;
     private int role_id;
-
     public NonPlayer(){}
 
     public NonPlayer(int member_id,String firstName,String surname,String address,String telephone,String email,int role_id) throws ValidationException{
@@ -91,8 +91,11 @@ public class NonPlayer implements Member{
         // if not, test the data format, if invalid, will throw an exception
         else{
             String nameValidation="(\\p{Upper})(\\p{Lower}){1,12}";
-            if (firstName.matches(nameValidation))
+            if (firstName.matches(nameValidation)){
                 this.firstName = firstName;
+
+            }
+
             else
                 throw new ValidationException("Invalid Name format, please enter a valid name.");
         }
@@ -119,6 +122,7 @@ public class NonPlayer implements Member{
             String validation="(\\p{Upper})(\\p{Alpha}){1,15}";
             if (surname.matches(validation)) {
                 this.surname = surname;
+
             }
             else
                 throw new ValidationException("Invalid Surname Format, please enter a valid surname");
@@ -199,6 +203,7 @@ public class NonPlayer implements Member{
                 throw new ValidationException("Invalid email.");
         }
     }
+
 
     @Override
     public String toString() {
