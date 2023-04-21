@@ -9,7 +9,7 @@ public class JuniorSquad implements Squad{
     }
 
     @Override
-    public void saveSquad(Squad squad) {
+    public void saveSquad() {
 
     }
 
