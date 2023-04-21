@@ -56,11 +56,12 @@ public class ReplacementTeam implements Squad{
     }
 
     @Override
-    public void saveSquad(Squad squad) {
+    public void saveSquad() {
 
     }
 
-    public ArrayList<Player> getReplacementTeam(){
+    public ArrayList<Player> getReplacements(){
         return replacementTeam;
     }
+    public Player getPlayer(int index){return replacementTeam.get(index);}
 }

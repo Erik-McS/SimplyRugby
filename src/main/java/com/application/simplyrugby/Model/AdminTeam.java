@@ -40,7 +40,7 @@ public class AdminTeam implements MemberTeam{
 
     }
 
-    public ArrayList<NonPlayer> getAdminTeam(){
+    public ArrayList<NonPlayer> getAdmins(){
         return adminTeam;
     }
 }

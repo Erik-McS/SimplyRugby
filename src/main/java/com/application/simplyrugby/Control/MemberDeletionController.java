@@ -25,7 +25,7 @@ public class MemberDeletionController {
             lMemberName.setText(player.getFirstName()+" "+player.getSurname());
 
             bConfirmDeletion.setOnAction((event)->{
-                DBTools.executeQuery("DELETE FROM players WHERE player_id="+player.getPlayerID());
+                DBTools.executeUpdateQuery("DELETE FROM players WHERE player_id="+player.getPlayerID());
                 Stage stage=(Stage) bConfirmDeletion.getScene().getWindow();
                 stage.close();
             });
@@ -35,7 +35,7 @@ public class MemberDeletionController {
 
             lMemberName.setText(nonPlayer.getFirstName()+" "+nonPlayer.getSurname());
             bConfirmDeletion.setOnAction((event)->{
-                DBTools.executeQuery("DELETE FROM non_players WHERE member_id="+nonPlayer.getMember_id());
+                DBTools.executeUpdateQuery("DELETE FROM non_players WHERE member_id="+nonPlayer.getMember_id());
                 Stage stage=(Stage) bConfirmDeletion.getScene().getWindow();
                 stage.close();
             });

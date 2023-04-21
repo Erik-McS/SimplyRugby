@@ -40,7 +40,7 @@ public class DatabaseCreation {
             sc.useDelimiter(";");
             while (sc.hasNext()) {
                 String s = sc.next();
-                DBTools.executeQuery(s);
+                DBTools.executeUpdateQuery(s);
                 //System.out.println("Database Created:  \n"+s);
             }
 
@@ -58,7 +58,7 @@ public class DatabaseCreation {
             sc.useDelimiter(";");
             while (sc.hasNext()) {
                 String s = sc.next();
-                DBTools.executeQuery(s);
+                DBTools.executeUpdateQuery(s);
             }
             System.out.println("Database Created\n");
         } catch (FileNotFoundException e) {

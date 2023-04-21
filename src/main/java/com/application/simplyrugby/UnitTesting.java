@@ -30,7 +30,7 @@ public class UnitTesting extends Application {
             for (int i=1;i<=15;i++){
                 squadTest.add((Player) Player.dummyPlayer().loadMember(Player.dummyPlayer(),i));
             }
-            SeniorSquad seniorSquad =new SeniorSquad(squadTest,"Squadname");
+            //SeniorSquad seniorSquad =new SeniorSquad(squadTest,"Squadname");
 
             for (int i=1;i<=5;i++){
                 repTest.add((Player) Player.dummyPlayer().loadMember(Player.dummyPlayer(),i));
@@ -57,7 +57,7 @@ public class UnitTesting extends Application {
             // getting the Confirmation window controller. will be used to pass the 3 teams created here.
             ConfirmSnrSquadCntlr controller=loader.getController();
             // passing all the teams object to the next window.
-            controller.receiveTeams(seniorSquad,adminTeamTest,replacementTeam,coachTeamTest);
+            //controller.receiveTeams(seniorSquad,adminTeamTest,replacementTeam,coachTeamTest);
 
             Scene scene=new Scene(root);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/application/simplyrugby/styles.css"),"CSS not found").toExternalForm());

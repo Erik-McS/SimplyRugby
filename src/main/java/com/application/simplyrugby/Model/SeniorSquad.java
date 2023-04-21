@@ -1,5 +1,6 @@
 package com.application.simplyrugby.Model;
 
+import com.application.simplyrugby.System.DBTools;
 import com.application.simplyrugby.System.ValidationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,9 +13,13 @@ import java.util.ArrayList;
  */
 public class SeniorSquad implements Squad{
     // the arraylist to contains the squad.
-    public static ArrayList<Player> squadPlayers=new ArrayList<>();
+    private ArrayList<Player> squadPlayers=new ArrayList<>();
     // empty constructor, to allow the creation of a null object.
     private String squadName;
+    private ReplacementTeam replacementTeam;
+    private AdminTeam adminTeam;
+    private CoachTeam coachTeam;
+
     public SeniorSquad(){}
 
     /**
@@ -23,7 +28,7 @@ public class SeniorSquad implements Squad{
      * @param squadPlayers The ArrayList containing the players
      * @throws ValidationException Exception if the validations fail
      */
-    public SeniorSquad(ArrayList<Player> squadPlayers,String squadName) throws ValidationException {
+    public SeniorSquad(ArrayList<Player> squadPlayers,String squadName,ReplacementTeam replacementTeam,AdminTeam adminTeam,CoachTeam coachTeam) throws ValidationException {
         // testing that the array is not empty
         if (squadPlayers!=null){
             // and that it has 15 players in it.
@@ -34,6 +39,9 @@ public class SeniorSquad implements Squad{
                     addPlayer(pl);
                 }
                 this.squadName=squadName;
+                this.replacementTeam=replacementTeam;
+                this.coachTeam=coachTeam;
+                this.adminTeam=adminTeam;
             }
             // otherwise, error message.
             else
@@ -65,8 +73,8 @@ public class SeniorSquad implements Squad{
     }
 
     @Override
-    public void saveSquad(Squad squad) {
-
+    public void saveSquad() {
+        DBTools.saveSquad(this);
     }
 
     public ObservableList<Player> getSquadList(){
@@ -84,6 +92,22 @@ public class SeniorSquad implements Squad{
 
     public void setSquadName(String squadName) {
         this.squadName = squadName;
+    }
+
+    public ReplacementTeam getReplacementTeam() {
+        return replacementTeam;
+    }
+
+    public AdminTeam getAdminTeam() {
+        return adminTeam;
+    }
+
+    public CoachTeam getCoachTeam() {
+        return coachTeam;
+    }
+
+    public ArrayList<Player> getSquadPlayers() {
+        return squadPlayers;
     }
 }
 

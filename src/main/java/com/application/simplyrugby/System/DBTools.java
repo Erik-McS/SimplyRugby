@@ -4,6 +4,7 @@ import com.application.simplyrugby.Model.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
+import java.util.ArrayList;
 
 
 /**
@@ -41,7 +42,7 @@ public class DBTools {
      * @param query The query to execute
      * @return the result of the function
      */
-    public static boolean executeQuery(String query){
+    public static boolean executeUpdateQuery(String query){
         // load the drivers
         databaseConnect();
         // try with the connection and statement as resources
@@ -134,7 +135,7 @@ public class DBTools {
                     "VALUES " +
                     "('"+player.getFirstName()+"','"+player.getSurname()+"','"+ player.getAddress()+"','"+player.getDateOfBirth()+"','"+player.getGender()+"','"+player.getTelephone()
                     +"','"+player.getEmail()+"','"+player.getScrumsNumber()+"','"+player.isAssignedToSquad()+"','"+player.getDoctorID()+"','"+player.getKinID()+"')");
-            return executeQuery("INSERT INTO players (first_name,surname,address,date_of_birth,gender,telephone,email,scrums_number,is_assigned_to_squad,doctor_id,kin_id) " +
+            return executeUpdateQuery("INSERT INTO players (first_name,surname,address,date_of_birth,gender,telephone,email,scrums_number,is_assigned_to_squad,doctor_id,kin_id) " +
                     "VALUES " +
                     "('"+player.getFirstName()+"','"+player.getSurname()+"','"+ player.getAddress()+"','"+player.getDateOfBirth()+"','"+player.getGender()+"','"+player.getTelephone()
                     +"','"+player.getEmail()+"','"+player.getScrumsNumber()+"','"+player.isAssignedToSquad()+"','"+player.getDoctorID()+"','"+player.getKinID()+"')");
@@ -142,7 +143,7 @@ public class DBTools {
         // If it is a nonPlayer record:
         if (member instanceof NonPlayer nonPlayer){
             // execute the query
-            return executeQuery("INSERT INTO non_players (first_name,surname,address,telephone,email,role_id) " +
+            return executeUpdateQuery("INSERT INTO non_players (first_name,surname,address,telephone,email,role_id) " +
                     "VALUES('"+nonPlayer.getFirstName()+"','"+nonPlayer.getSurname()+"','"+nonPlayer.getAddress()+"','"+nonPlayer.getTelephone()+
                     "','"+nonPlayer.getEmail()+"','"+nonPlayer.getRole_id()+"')");
         }
@@ -214,11 +215,11 @@ public class DBTools {
         // testing the kind of record to insert. using pattern variable technique to cast.
         if (person instanceof NextOfKin nok){
             // inserting a Next of Kin record in DB
-            return executeQuery("INSERT INTO next_of_kin (name,surname,telephone) VALUES ('"+nok.getFirstName()+"','"+nok.getSurname()+"','"+nok.getTelephone()+"')");
+            return executeUpdateQuery("INSERT INTO next_of_kin (name,surname,telephone) VALUES ('"+nok.getFirstName()+"','"+nok.getSurname()+"','"+nok.getTelephone()+"')");
         }
         if (person instanceof Doctor doc){
             // inserting a Doctor record in DB
-            return executeQuery("INSERT INTO player_doctors (name,surname,telephone) VALUES ('"+doc.getFirstName()+"','"+doc.getSurname()+"','"+doc.getTelephone()+"')");
+            return executeUpdateQuery("INSERT INTO player_doctors (name,surname,telephone) VALUES ('"+doc.getFirstName()+"','"+doc.getSurname()+"','"+doc.getTelephone()+"')");
         }
         return false;
     }
@@ -230,7 +231,7 @@ public class DBTools {
      */
     public static boolean insertTrainingProfile(TrainingProfile tp) {
         // insert the profile in the database. and test if ok
-         return executeQuery("INSERT INTO training_profiles (passing_skill,running_skill,support_skill,tackling_skill,decision_skill,player_id)" +
+         return executeUpdateQuery("INSERT INTO training_profiles (passing_skill,running_skill,support_skill,tackling_skill,decision_skill,player_id)" +
                 " VALUES ('" + tp.getPassingLevel() + "','" + tp.getRunningLevel() + "','" + tp.getSupportLevel() + "','" + tp.getTacklingLevel() + "','" + tp.getDecisionLevel() + "','"+tp.getPlayerID()+"')");
     }
 
@@ -368,6 +369,97 @@ public class DBTools {
         }
     }
 
+    public static void saveSquad(Squad squad){
+        //databaseConnect();
+        if (squad instanceof SeniorSquad){
+
+
+            try {
+
+                Connection connection = DriverManager.getConnection(DBURL);
+                PreparedStatement statement;
+
+                int cogroup_id;
+                int adteam_id;
+                int repteam_id;
+
+                ArrayList<Integer> repTeam=new ArrayList<>();
+                ArrayList<Integer> coTeam=new ArrayList<>();
+                ArrayList<Integer> adTeam=new ArrayList<>();
+
+                // creating an array with the Player_IDs of the replacement team
+                for (int i = 0; i<((SeniorSquad) squad).getReplacementTeam().getReplacements().size(); i++){
+                    repTeam.add(((SeniorSquad) squad).getReplacementTeam().getReplacements().get(i).getPlayerID());
+                }
+                // preparing the query to insert the rep team
+                statement = connection.prepareStatement("INSERT INTO replacement_team(PLAYER_1,PLAYER_2,PLAYER_3,PLAYER_4,PLAYER_5) VALUES (?,?,?,?,?)");
+                // going through the rep team array to set each statement parameters
+                for (int i=0;i<repTeam.size();i++){
+                    statement.setInt(i+1,repTeam.get(i));
+                }
+                // inserting the rep team
+                statement.executeUpdate();
+                // getting the repteam ID for later use when inserting the squad entry
+                repteam_id=getID("SELECT repteam_id FROM replacement_team WHERE player_1='"+repTeam.get(0)+"' AND player_2='"+repTeam.get(1)+"'");
+
+                // same thing for the coach team, same logic as above.
+                for (int i=0;i<((SeniorSquad) squad).getCoachTeam().getCoaches().size();i++){
+                    coTeam.add(((SeniorSquad) squad).getCoachTeam().getCoaches().get(i).getMember_id());
+                }
+                statement=connection.prepareStatement("INSERT INTO squad_coaches(COACH_1,COACH_2,COACH_3) VALUES (?,?,?)");
+                for (int i=0;i<coTeam.size();i++){
+                    statement.setInt(i+1,coTeam.get(i));
+                }
+                statement.executeUpdate();
+                cogroup_id=getID("SELECT cogroup_id FROM squad_coaches WHERE coach_1='"+coTeam.get(0)+"' AND coach_2='"+coTeam.get(1)+"'");
+
+                // same for the admin team
+
+                for (int i=0;i<((SeniorSquad) squad).getAdminTeam().getAdmins().size();i++){
+                    adTeam.add(((SeniorSquad) squad).getAdminTeam().getAdmins().get(i).getMember_id());
+                }
+                statement=connection.prepareStatement("INSERT INTO squad_admin_team(CHAIRMAN,FIXTURE_SEC) VALUES (?,?)");
+                for (int i=0;i<adTeam.size();i++){
+                    statement.setInt(i+1,adTeam.get(i));
+                }
+                statement.executeUpdate();
+                adteam_id=getID("SELECT adteam_id FROM squad_admin_team WHERE CHAIRMAN='"+adTeam.get(0)+"'");
+
+                //now we insert the squad in the database.
+
+                statement=connection.prepareStatement( "INSERT INTO senior_squads(squad_name,loose_head_prop,hooker,tight_head_prop,second_row,second_row2,blind_side_flanker,open_side_flanker,number_8,scrum_half," +
+                        "fly_half,left_wing,inside_centre,outside_center,right_side,full_back,cogroup_id,adteam_id,repteam_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+                ArrayList<Integer> squadPlayers=new ArrayList<>();
+                for (int i=0;i<((SeniorSquad) squad).getSquadPlayers().size();i++){
+                    squadPlayers.add(((SeniorSquad) squad).getSquadPlayers().get(i).getPlayerID());
+                }
+                statement.setString(1,((SeniorSquad) squad).getSquadName());
+                for (int i=0;i<squadPlayers.size();i++){
+                    statement.setInt(i+2,squadPlayers.get(i));
+                }
+                statement.setInt(17,cogroup_id);
+                statement.setInt(18,adteam_id);
+                statement.setInt(19,repteam_id);
+
+                statement.executeUpdate();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+                closeConnections();
+            }
+            finally {
+                closeConnections();
+            }
+
+        }
+
+        else if(squad instanceof JuniorSquad){}
+
+    }
+    public static void saveAdminTeam(MemberTeam adminTeam){
+
+    }
     public static void updatePlayerProfile(Player player){
 
     }
