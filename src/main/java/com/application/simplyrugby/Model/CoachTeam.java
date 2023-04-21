@@ -52,6 +52,9 @@ public class CoachTeam implements MemberTeam{
 
     @Override
     public void saveTeam(MemberTeam team) {
+    }
 
+    public ArrayList<NonPlayer> getCoaches() {
+        return coaches;
     }
 }

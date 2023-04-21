@@ -252,6 +252,14 @@ public class ObsListFactory {
                 }
                 return oList;
             }
+            else if(s.equals("AdminRoles")){
+                ArrayList<String> roles=new ArrayList<>();
+                roles.addAll(Arrays.asList("CHAIRMAN","FIXTURE SECRETARY"));
+                for (String role:roles){
+                    oList.add(role);
+                }
+                return oList;
+            }
             else{
                 CustomAlert alert=new CustomAlert("Error creating the Obs List","Invalid Command passed to the function");
                 alert.showAndWait();

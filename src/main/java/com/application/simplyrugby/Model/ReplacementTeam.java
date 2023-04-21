@@ -59,4 +59,8 @@ public class ReplacementTeam implements Squad{
     public void saveSquad(Squad squad) {
 
     }
+
+    public ArrayList<Player> getReplacementTeam(){
+        return replacementTeam;
+    }
 }

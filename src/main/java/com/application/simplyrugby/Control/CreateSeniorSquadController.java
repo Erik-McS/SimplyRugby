@@ -99,7 +99,7 @@ public class CreateSeniorSquadController {
 
             // catching exceptions.
             try {
-                   /*
+/*
                 // Arraylists to contains the selected persons
                 // Squad player arraylist
                 ArrayList<Player> squadArray=new ArrayList<>();
@@ -193,7 +193,7 @@ public class CreateSeniorSquadController {
 
                 // loading the resources for the confirmation window
 
-                */
+*/
                 //***********test code *******************
 
                 ArrayList<Player> squadTest=new ArrayList<>();

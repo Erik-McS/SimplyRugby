@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class AdminTeam implements MemberTeam{
 
-    ArrayList<NonPlayer> adminTeam=new ArrayList<>();
+    private ArrayList<NonPlayer> adminTeam=new ArrayList<>();
 
     public AdminTeam(){}
 
@@ -38,5 +38,9 @@ public class AdminTeam implements MemberTeam{
     @Override
     public void saveTeam(MemberTeam team) {
 
+    }
+
+    public ArrayList<NonPlayer> getAdminTeam(){
+        return adminTeam;
     }
 }
