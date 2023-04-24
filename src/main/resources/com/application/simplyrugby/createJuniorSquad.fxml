@@ -17,32 +17,32 @@
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
-      <TextField layoutX="61.0" layoutY="71.0" prefHeight="25.0" prefWidth="399.0" />
-      <ComboBox layoutX="136.0" layoutY="187.0" prefWidth="150.0" />
-      <ComboBox layoutX="136.0" layoutY="222.0" prefWidth="150.0" />
-      <ComboBox layoutX="136.0" layoutY="257.0" prefWidth="150.0" />
-      <ComboBox layoutX="409.0" layoutY="191.0" prefWidth="150.0" />
-      <ComboBox layoutX="409.0" layoutY="226.0" prefWidth="150.0" />
-      <ComboBox layoutX="661.0" layoutY="191.0" prefWidth="150.0" />
-      <ComboBox layoutX="661.0" layoutY="226.0" prefWidth="150.0" />
-      <ComboBox layoutX="136.0" layoutY="446.0" prefWidth="150.0" />
-      <ComboBox layoutX="136.0" layoutY="481.0" prefWidth="150.0" />
-      <ComboBox layoutX="136.0" layoutY="517.0" prefWidth="150.0" />
-      <ComboBox layoutX="136.0" layoutY="551.0" prefWidth="150.0" />
-      <ComboBox layoutX="136.0" layoutY="586.0" prefWidth="150.0" />
-      <ComboBox layoutX="409.0" layoutY="446.0" prefWidth="150.0" />
-      <ComboBox layoutX="409.0" layoutY="517.0" prefWidth="150.0" />
-      <ComboBox layoutX="661.0" layoutY="446.0" prefWidth="150.0" />
-      <ComboBox layoutX="661.0" layoutY="481.0" prefWidth="150.0" />
-      <Button layoutX="711.0" layoutY="607.0" mnemonicParsing="false" text="Create Squad">
+      <TextField fx:id="txSquadName" layoutX="61.0" layoutY="71.0" prefHeight="25.0" prefWidth="399.0" />
+      <ComboBox fx:id="cblooseHP" layoutX="136.0" layoutY="187.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbThightHead" layoutX="136.0" layoutY="222.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbHooker" layoutX="136.0" layoutY="257.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbScrumhalf" layoutX="409.0" layoutY="191.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbFlyhalf" layoutX="409.0" layoutY="226.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbincentre" layoutX="661.0" layoutY="191.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbrightwing" layoutX="661.0" layoutY="226.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbplayer1" layoutX="136.0" layoutY="446.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbplayer2" layoutX="136.0" layoutY="481.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbplayer3" layoutX="136.0" layoutY="517.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbplayer4" layoutX="136.0" layoutY="551.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbplayer5" layoutX="136.0" layoutY="586.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbCoach1" layoutX="409.0" layoutY="446.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbCoach3" layoutX="409.0" layoutY="517.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbChairman" layoutX="661.0" layoutY="446.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbSec" layoutX="661.0" layoutY="481.0" prefWidth="150.0" />
+      <Button fx:id="bCreateSquad" layoutX="711.0" layoutY="607.0" mnemonicParsing="false" text="Create Squad">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Button>
-      <Button layoutX="850.0" layoutY="608.0" mnemonicParsing="false" text="Cancel">
+      <Button fx:id="bCancel" layoutX="850.0" layoutY="608.0" mnemonicParsing="false" text="Cancel">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Button>
-      <ComboBox layoutX="409.0" layoutY="481.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbCoach2" layoutX="409.0" layoutY="481.0" prefWidth="150.0" />
       <Label layoutX="24.0" layoutY="191.0" text="Loose-Head prop" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />

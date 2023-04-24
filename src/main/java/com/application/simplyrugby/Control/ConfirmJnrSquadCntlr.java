@@ -1,6 +1,7 @@
 package com.application.simplyrugby.Control;
 
-import com.application.simplyrugby.Model.*;
+import com.application.simplyrugby.Model.JuniorSquad;
+import com.application.simplyrugby.Model.Squad;
 import com.application.simplyrugby.System.ObsListFactory;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -15,9 +16,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- * Controller for the confirmation of the Senior squad creation.
+ * Controller for the confirmation of the Junior squad creation.
  */
-public class ConfirmSnrSquadCntlr {
+public class ConfirmJnrSquadCntlr {
 
     @FXML
     Pane leftPane,upPane,hPane1,hPane2;
@@ -51,11 +52,11 @@ public class ConfirmSnrSquadCntlr {
         //AdminTeam adminTeam, ReplacementTeam replacementTeam, CoachTeam coachTeam
 
         // here we will create a table view to show the squad.
-        SeniorSquad dSquad=(SeniorSquad)squad;
 
+        JuniorSquad dSquad=(JuniorSquad) squad;
         squadNameLabel.setText("Squad : "+dSquad.getSquadName());
         ObservableList<SquadTableView> squadRoleLines= FXCollections.observableArrayList();
-        ObservableList<String> roles=ObsListFactory.createObsList("SeniorSquadRoles");
+        ObservableList<String> roles= ObsListFactory.createObsList("JuniorSquadRoles");
 
         for (int i=0;i<dSquad.getSquadList().size();i++){
 
@@ -119,12 +120,18 @@ public class ConfirmSnrSquadCntlr {
         // here we handle the insertion of the full squad and team in the DB
         bCreate.getStyleClass().add("bckg5");
         bCreate.setOnAction((event)->{
-            dSquad.saveSquad();
+           // dSquad.saveSquad();
             System.out.println("clicked");
             Stage stage=(Stage) bCreate.getScene().getWindow();
             stage.close();
         });
 
+        bCreate.setOnAction((event)->{
+            dSquad.saveSquad();
+            System.out.println("clicked");
+            Stage stage=(Stage) bCreate.getScene().getWindow();
+            stage.close();
+        });
     }
 
     /**
@@ -271,16 +278,16 @@ public class ConfirmSnrSquadCntlr {
         }
     }
 
-    public static class RepTableView{
+    public static class RepTableView {
 
         private SimpleStringProperty firstname;
-        private  SimpleStringProperty surname;
+        private SimpleStringProperty surname;
 
 
-        public RepTableView(String name, String surname){
+        public RepTableView(String name, String surname) {
 
-            this.firstname=new SimpleStringProperty(name);
-            this.surname=new SimpleStringProperty(surname);
+            this.firstname = new SimpleStringProperty(name);
+            this.surname = new SimpleStringProperty(surname);
         }
 
         public String getFirstname() {
@@ -307,5 +314,4 @@ public class ConfirmSnrSquadCntlr {
             this.surname.set(surname);
         }
     }
-// END OF CLASS
 }

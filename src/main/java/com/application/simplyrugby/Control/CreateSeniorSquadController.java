@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.Objects;
 
 /**
- * Controller class for the Create Squad panel.
+ * Controller class for the Create Senior Squad panel.
  */
 public class CreateSeniorSquadController {
     // declaring all the objects from the fxml.

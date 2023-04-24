@@ -23,7 +23,7 @@ public class SeniorSquad implements Squad{
     public SeniorSquad(){}
 
     /**
-     * Constructor of the class Squad, it will take an arraylist as parameter to create the squad.<br>
+     * Constructor of the class Senior Squad, it will take an arraylist as parameter to create the squad.<br>
      * the ArrayList passed must have 15 players in it.
      * @param squadPlayers The ArrayList containing the players
      * @throws ValidationException Exception if the validations fail

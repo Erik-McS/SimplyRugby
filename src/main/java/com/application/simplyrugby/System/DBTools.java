@@ -369,20 +369,25 @@ public class DBTools {
         }
     }
 
+    /**
+     * Sa ve a Squad(Junior or Senior in the database.
+     * @param squad the Squad to insert.
+     */
     public static void saveSquad(Squad squad){
         //databaseConnect();
         if (squad instanceof SeniorSquad){
 
 
             try {
-
+                // opening the connection
                 Connection connection = DriverManager.getConnection(DBURL);
                 PreparedStatement statement;
+                // variables to save the inner teams IDs.
 
                 int cogroup_id;
                 int adteam_id;
                 int repteam_id;
-
+                // the arraylists to contains them.
                 ArrayList<Integer> repTeam=new ArrayList<>();
                 ArrayList<Integer> coTeam=new ArrayList<>();
                 ArrayList<Integer> adTeam=new ArrayList<>();
@@ -443,6 +448,11 @@ public class DBTools {
                 statement.setInt(19,repteam_id);
 
                 statement.executeUpdate();
+
+                for(Player player:((SeniorSquad) squad).getSquadPlayers()){
+                    statement= connection.prepareStatement("UPDATE players SET is_assigned_to_squad='YES' WHERE player_id='"+player.getPlayerID()+"'");
+                    statement.executeUpdate();
+                }
             }
             catch (SQLException e){
                 e.printStackTrace();
@@ -454,7 +464,93 @@ public class DBTools {
 
         }
 
-        else if(squad instanceof JuniorSquad){}
+        else if(squad instanceof JuniorSquad){
+
+            try{
+                // opening the connection
+                Connection connection = DriverManager.getConnection(DBURL);
+                PreparedStatement statement;
+                // variables to save the inner teams IDs.
+
+                int cogroup_id;
+                int adteam_id;
+                int repteam_id;
+                // the arraylists to contains them.
+                ArrayList<Integer> repTeam=new ArrayList<>();
+                ArrayList<Integer> coTeam=new ArrayList<>();
+                ArrayList<Integer> adTeam=new ArrayList<>();
+
+                // creating an array with the Player_IDs of the replacement team
+                for (int i = 0; i<((JuniorSquad) squad).getReplacementTeam().getReplacements().size(); i++){
+                    repTeam.add(((JuniorSquad) squad).getReplacementTeam().getReplacements().get(i).getPlayerID());
+                }
+                // preparing the query to insert the rep team
+                statement = connection.prepareStatement("INSERT INTO replacement_team(PLAYER_1,PLAYER_2,PLAYER_3,PLAYER_4,PLAYER_5) VALUES (?,?,?,?,?)");
+                // going through the rep team array to set each statement parameters
+                for (int i=0;i<repTeam.size();i++){
+                    statement.setInt(i+1,repTeam.get(i));
+                }
+                // inserting the rep team
+                statement.executeUpdate();
+                // getting the repteam ID for later use when inserting the squad entry
+                repteam_id=getID("SELECT repteam_id FROM replacement_team WHERE player_1='"+repTeam.get(0)+"' AND player_2='"+repTeam.get(1)+"'");
+
+                // same thing for the coach team, same logic as above.
+                for (int i=0;i<((JuniorSquad) squad).getCoachTeam().getCoaches().size();i++){
+                    coTeam.add(((JuniorSquad) squad).getCoachTeam().getCoaches().get(i).getMember_id());
+                }
+                statement=connection.prepareStatement("INSERT INTO squad_coaches(COACH_1,COACH_2,COACH_3) VALUES (?,?,?)");
+                for (int i=0;i<coTeam.size();i++){
+                    statement.setInt(i+1,coTeam.get(i));
+                }
+                statement.executeUpdate();
+                cogroup_id=getID("SELECT cogroup_id FROM squad_coaches WHERE coach_1='"+coTeam.get(0)+"' AND coach_2='"+coTeam.get(1)+"'");
+
+                // same for the admin team
+
+                for (int i=0;i<((JuniorSquad) squad).getAdminTeam().getAdmins().size();i++){
+                    adTeam.add(((JuniorSquad) squad).getAdminTeam().getAdmins().get(i).getMember_id());
+                }
+                statement=connection.prepareStatement("INSERT INTO squad_admin_team(CHAIRMAN,FIXTURE_SEC) VALUES (?,?)");
+                for (int i=0;i<adTeam.size();i++){
+                    statement.setInt(i+1,adTeam.get(i));
+                }
+                statement.executeUpdate();
+                adteam_id=getID("SELECT adteam_id FROM squad_admin_team WHERE CHAIRMAN='"+adTeam.get(0)+"'");
+
+
+                //now we insert the squad in the database.
+
+                statement=connection.prepareStatement( "INSERT INTO junior_squads(squad_name,loose_head_prop,hooker,tight_head_prop,scrum_half," +
+                        "fly_half,centre,wing,cogroup_id,adteam_id,repteam_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+
+
+                ArrayList<Integer> squadPlayers=new ArrayList<>();
+                for (int i=0;i<((JuniorSquad) squad).getSquadPlayers().size();i++){
+                    squadPlayers.add(((JuniorSquad) squad).getSquadPlayers().get(i).getPlayerID());
+                }
+                statement.setString(1,((JuniorSquad) squad).getSquadName());
+                for (int i=0;i<squadPlayers.size();i++){
+                    statement.setInt(i+2,squadPlayers.get(i));
+                }
+                statement.setInt(9,cogroup_id);
+                statement.setInt(10,adteam_id);
+                statement.setInt(11,repteam_id);
+
+                statement.executeUpdate();
+
+                for(Player player:((JuniorSquad) squad).getSquadPlayers()){
+                    statement= connection.prepareStatement("UPDATE players SET is_assigned_to_squad = 'YES' WHERE player_id='"+player.getPlayerID()+"'");
+                    statement.executeUpdate();
+                }
+            }
+            catch (SQLException e){
+                CustomAlert alert=new CustomAlert("Save Squad Error:",e.getMessage());
+                e.printStackTrace();
+                alert.showAndWait();
+            }
+
+        }
 
     }
     public static void saveAdminTeam(MemberTeam adminTeam){

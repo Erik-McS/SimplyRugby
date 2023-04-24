@@ -252,6 +252,14 @@ public class ObsListFactory {
                 }
                 return oList;
             }
+            else if(s.equals("JuniorSquadRoles")){
+                ArrayList<String> roles=new ArrayList<>();
+                roles.addAll(Arrays.asList("LOOSE HEAD PROP","TIGHT HEAD PROP","HOOKER","SCRUM HALF","FLY-HALF","CENTRE","RIGHT WING"));
+                for (String role:roles){
+                    oList.add(role);
+                }
+                return oList;
+            }
             else if(s.equals("AdminRoles")){
                 ArrayList<String> roles=new ArrayList<>();
                 roles.addAll(Arrays.asList("CHAIRMAN","FIXTURE SECRETARY"));
