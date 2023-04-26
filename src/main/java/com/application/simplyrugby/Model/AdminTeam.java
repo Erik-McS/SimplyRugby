@@ -4,16 +4,34 @@ import com.application.simplyrugby.System.ValidationException;
 
 import java.util.ArrayList;
 
+/**
+ * This class will hold and manipulate an admin team object, linked to a squad.
+ */
 public class AdminTeam implements MemberTeam{
 
     private ArrayList<NonPlayer> adminTeam=new ArrayList<>();
 
+    /**
+     * Allows null objects creation
+     */
     public AdminTeam(){}
 
+    /**
+     * Create a team object.
+     * @param chairman The Squad Chairman
+     * @param secretary The Squad secretary
+     * @throws ValidationException Error message
+     */
     public AdminTeam(NonPlayer chairman,NonPlayer secretary) throws ValidationException{
         adminTeam.add(chairman);
         adminTeam.add(secretary);
     }
+
+    /**
+     * Add a member in the admin team
+     * @param member The member to add
+     * @throws ValidationException Error message
+     */
     public void addMember(NonPlayer member)throws ValidationException {
         // checking if the team is not full already
         if (adminTeam.size()<2){
@@ -40,6 +58,10 @@ public class AdminTeam implements MemberTeam{
 
     }
 
+    /**
+     * Returns an arraylist with the admin team members
+     * @return The list of members
+     */
     public ArrayList<NonPlayer> getAdmins(){
         return adminTeam;
     }

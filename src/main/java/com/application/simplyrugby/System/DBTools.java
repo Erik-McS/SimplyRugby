@@ -5,6 +5,7 @@ import com.application.simplyrugby.Model.*;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 
 /**
@@ -370,7 +371,7 @@ public class DBTools {
     }
 
     /**
-     * Sa ve a Squad(Junior or Senior in the database.
+     * Save a Squad(Junior or Senior) in the database.
      * @param squad the Squad to insert.
      */
     public static void saveSquad(Squad squad){
@@ -549,13 +550,145 @@ public class DBTools {
                 e.printStackTrace();
                 alert.showAndWait();
             }
-
         }
-
     }
-    public static void saveAdminTeam(MemberTeam adminTeam){
 
+    /**
+     * Method tolad a club from the database.
+     * @param club_id The Club ID to look for.
+     * @return the club from the database as a Club object
+     */
+    public static Club  getClub(int club_id){
+        // getting the data from the databse and creating the object.
+        try{
+            connection=DriverManager.getConnection(DBURL);
+            statement=connection.prepareStatement("SELECT name,address,telephone,email FROM clubs WHERE club_id='"+club_id+"'");
+            ResultSet rs= statement.executeQuery();
+            Club club =new Club(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4));
+            club.setClub_id(club_id);
+            return club;
+        }
+        // error message if any issues
+        catch(ValidationException | SQLException e){
+            CustomAlert alert=new CustomAlert("Get Club error:", e.getMessage());
+            alert.showAndWait();
+            closeConnections();
+            return null;
+        }
+        finally {
+           closeConnections();
+        }
     }
+
+    /**
+     * Saves a club in the database.
+     * @param club The club to save.
+     */
+    public static void saveClub(Club club){
+        ResultSet rs;
+        try{
+            connection=DriverManager.getConnection(DBURL);
+            rs=executeSelectQuery("SELECT name FROM Clubs");
+            // checking there are no name duplicates in the DB.
+            while (rs.next()){
+                if (club.getName().equals(rs.getString(1)))
+                    throw new ValidationException("A Club with this name already exists in the database");
+            }
+            // if not, we save the club in the DB.
+            statement= connection.prepareStatement("INSERT INTO clubs (name,address,telephone,email) VALUES (?,?,?,?)");
+            // setting each values in the statement
+            statement.setString(1,club.getName());
+            statement.setString(2, club.getAddress());
+            statement.setString(3, club.getTelephone());
+            statement.setString(4, club.getEmail());
+            // executing the query, and testing that a row was created
+            int rows=statement.executeUpdate();
+            if (rows==0)
+                throw new ValidationException("Save Club: No row was inserted");
+
+        }catch(SQLException | ValidationException e){
+            CustomAlert alert=new CustomAlert("Save Club Error:",e.getMessage())
+;        }finally{closeConnections();}
+    }
+
+    /**
+     * This function will insert a game played by a squad in the database. <br>
+     * It will update two tables: Games and the junior or senior played games.
+     * @param game The game to save.
+     */
+    public static void saveGame(Game game){
+        try{
+            connection=DriverManager.getConnection(DBURL);
+            // testing the squad object
+            if (game.getSquad()==null)
+                throw new ValidationException("The Squad object cannot be empty");
+            else if (game.getSquad() instanceof SeniorSquad){
+                // we will need to first insert the game in the Table Games, then retrieve the ID that has been created
+                // so we can use it to save the game with its squad in the correct Junior or senior Table
+                //https://stackoverflow.com/questions/2127138/how-to-retrieve-the-last-autoincremented-id-from-a-sqlite-table
+
+                // preparing the query
+                statement=connection.prepareStatement("INSERT INTO games (date,club_id,location_id) VALUES (?,?,?)");
+                statement.setString(1, game.getDate());
+                statement.setInt(2,game.getPlayingClub().getClub_id());
+                statement.setInt(3,game.getLocation());
+                // getting the number of rows created, in theory, 1.
+                int check= statement.executeUpdate();
+                if (check!=0){
+                    // getting the game_id just created
+                    ResultSet rs=statement.executeQuery("SELECT MAX(game_id) FROM games LIMIT 1");
+                    int gameID=rs.getInt(1);
+                    // casting the squad as a SeniorSquad object.
+                    SeniorSquad sn=(SeniorSquad) game.getSquad();
+                    // preparing and executing the insert query in senior_games_played.
+                    statement= connection.prepareStatement("INSERT INTO senior_games_played (squad_id,game_id,date) VALUES (?,?,?)");
+                    statement.setInt(1,getID("SELECT squad_ID FROM senior_squads WHERE squad_name='"+sn.getSquadName()+"'"));
+                    statement.setInt(2,gameID);
+                    statement.setString(3,game.getDate());
+                    // inserting and checking if ok.
+                    int check2= statement.executeUpdate();
+                    if (check2==0)
+                        throw new ValidationException("The Squad/Game couldn't be created");
+                }
+            }
+            // otherwise, it's a junior squad.
+            else{
+                statement=connection.prepareStatement("INSERT INTO games (date,club_id,location_id) VALUES (?,?,?)");
+                statement.setString(1, game.getDate());
+                statement.setInt(2,game.getPlayingClub().getClub_id());
+                statement.setInt(3,game.getLocation());
+                // getting the number of rows created, in theory, 1.
+                int check= statement.executeUpdate();
+                if (check!=0) {
+                    // getting the game_id just created
+                    ResultSet rs = statement.executeQuery("SELECT MAX(game_id) FROM games LIMIT 1");
+                    int gameID = rs.getInt(1);
+                    // casting the squad as a SeniorSquad object.
+                    JuniorSquad sn = (JuniorSquad) game.getSquad();
+                    // preparing and executing the insert query in senior_games_played.
+                    statement = connection.prepareStatement("INSERT INTO junior_games_played (squad_id,game_id,date) VALUES (?,?,?)");
+                    statement.setInt(1, getID("SELECT squad_ID FROM senior_squads WHERE squad_name='" + sn.getSquadName() + "'"));
+                    statement.setInt(2, gameID);
+                    statement.setString(3, game.getDate());
+                    // inserting and checking if ok.
+                    int check2 = statement.executeUpdate();
+                    if (check2 == 0)
+                        throw new ValidationException("The Squad/Game couldn't be created");
+                }
+            }
+        }catch (ValidationException | SQLException e)   {
+            CustomAlert alert=new CustomAlert("Save Game Error:", e.getMessage());
+            e.printStackTrace();
+        }finally {
+            closeConnections();
+        }
+    }
+
+
+    /**
+     * Unused at the moment
+     * @param player the profile to update.
+     */
     public static void updatePlayerProfile(Player player){
 
     }

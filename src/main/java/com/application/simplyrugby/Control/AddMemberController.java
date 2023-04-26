@@ -19,6 +19,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Controller for the Add Member function
+ */
 public class AddMemberController {
 
     @FXML

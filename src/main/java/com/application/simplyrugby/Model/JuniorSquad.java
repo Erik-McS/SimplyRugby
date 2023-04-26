@@ -7,6 +7,11 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
+/**
+ *
+ This is the class to define a Senior Squad.
+ it will take 15 players and use an ArrayList to store them.
+ */
 public class JuniorSquad implements Squad{
 
     // the arraylist to contains the squad.
@@ -74,6 +79,10 @@ public class JuniorSquad implements Squad{
         DBTools.saveSquad(this);
     }
 
+    /**
+     * Method to get the arraylist containing the squad members.
+     * @return List of the squad members
+     */
     public ObservableList<Player> getSquadList(){
         ObservableList<Player> oList= FXCollections.observableArrayList();
 
@@ -83,26 +92,50 @@ public class JuniorSquad implements Squad{
         return oList;
     }
 
+    /**
+     * Returns the squad name
+     * @return Name
+     */
     public String getSquadName() {
         return squadName;
     }
 
+    /**
+     * Set the squad name.
+     * @param squadName Name
+     */
     public void setSquadName(String squadName) {
         this.squadName = squadName;
     }
 
+    /**
+     * Returns the squad's replacement team
+     * @return Replacement team.
+     */
     public ReplacementTeam getReplacementTeam() {
         return replacementTeam;
     }
 
+    /**
+     * Returns the squad's admin team
+     * @return Admin team
+     */
     public AdminTeam getAdminTeam() {
         return adminTeam;
     }
 
+    /**
+     * Returns the squad's Coach team.
+     * @return Coach team
+     */
     public CoachTeam getCoachTeam() {
         return coachTeam;
     }
 
+    /**
+     * Returns the squad's players list
+     * @return Players list.
+     */
     public ArrayList<Player> getSquadPlayers() {
         return squadPlayers;
     }

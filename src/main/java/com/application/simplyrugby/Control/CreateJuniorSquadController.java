@@ -69,7 +69,7 @@ public class CreateJuniorSquadController {
             // add color style
             cbx.getStyleClass().add("bckg5");
             // get a list from the factory with the playes from the database.
-            cbx.setItems(ObsListFactory.createObsList("AvailablePlayers"));
+            cbx.setItems(ObsListFactory.createObsList("JuniorAvailablePlayers"));
             // set the default choice.
             cbx.getSelectionModel().select(0);
             i++;
@@ -78,7 +78,7 @@ public class CreateJuniorSquadController {
         // same logic that the squad players
         for (ComboBox<String> cbx : repPlayerTeam) {
             cbx.getStyleClass().add("bckg5");
-            cbx.setItems(ObsListFactory.createObsList("AvailablePlayers"));
+            cbx.setItems(ObsListFactory.createObsList("JuniorAvailablePlayers"));
             cbx.getSelectionModel().select(0);
         }
         // same that above.
@@ -245,7 +245,7 @@ public class CreateJuniorSquadController {
                 stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/application/simplyrugby/logo.png")));
                 stage.setScene(scene);
                 stage.showAndWait();
-
+                firstPane.getChildren().clear();
 
             }catch (ValidationException | IOException e){
                 CustomAlert alert =new CustomAlert("Error",e.getMessage());
