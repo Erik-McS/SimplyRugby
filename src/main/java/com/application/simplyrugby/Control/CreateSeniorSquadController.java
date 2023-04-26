@@ -67,15 +67,15 @@ public class CreateSeniorSquadController {
         for (ComboBox<String> cbx : playerBoxes) {
             // add color style
             cbx.getStyleClass().add("bckg5");
-            // get a list from the factory with the playes from the database.
-            cbx.setItems(ObsListFactory.createObsList("AvailablePlayers"));
+            // get a list from the factory with the players from the database.
+            cbx.setItems(ObsListFactory.createObsList("SeniorAvailablePlayers"));
             // set the default choice.
             cbx.getSelectionModel().select(0);
         }
         // same logic that the squad players
         for (ComboBox<String> cbx : repPlayerTeam) {
             cbx.getStyleClass().add("bckg5");
-            cbx.setItems(ObsListFactory.createObsList("AvailablePlayers"));
+            cbx.setItems(ObsListFactory.createObsList("SeniorAvailablePlayers"));
             cbx.getSelectionModel().select(0);
         }
         // same that above.
@@ -242,6 +242,7 @@ public class CreateSeniorSquadController {
                 stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/application/simplyrugby/logo.png")));
                 stage.setScene(scene);
                 stage.showAndWait();
+                firstPane.getChildren().clear();
 
 
             }catch (ValidationException |IOException e){

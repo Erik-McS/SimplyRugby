@@ -24,7 +24,7 @@ public interface Squad {
 
     /**
      * Method to save a Squad in the database.
-     * @param squad The Squad to save.
+     * .
      */
     public void saveSquad();
 

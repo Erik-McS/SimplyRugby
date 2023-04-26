@@ -36,16 +36,22 @@ public class DatabaseCreation {
     private void insertData() {
 
         try {
+            int i=1;
             Scanner sc = new Scanner(new File("insertData.csv"));
             sc.useDelimiter(";");
             while (sc.hasNext()) {
                 String s = sc.next();
                 DBTools.executeUpdateQuery(s);
-                //System.out.println("Database Created:  \n"+s);
+                System.out.println("Line : "+i);
+                i++;
             }
 
         } catch (FileNotFoundException e) {
             e.getMessage();
+            DBTools.closeConnections();
+        }
+        finally {
+            DBTools.closeConnections();
         }
     }
 
@@ -60,9 +66,11 @@ public class DatabaseCreation {
                 String s = sc.next();
                 DBTools.executeUpdateQuery(s);
             }
+            DBTools.closeConnections();
             System.out.println("Database Created\n");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            DBTools.closeConnections();
         }
     }
 

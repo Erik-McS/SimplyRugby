@@ -7,8 +7,12 @@ import com.application.simplyrugby.Model.Player;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+// import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
  * THis class controls the Confirmation window for the Create Player function.
@@ -37,14 +41,16 @@ public class newPlayerConfirmController {
      * @param nok The Next of Kin selected or created in the previous form.
      * @param doc The Doctor created or selected in the previous form.
      */
-    public void receivePlayerObjects(Player newPlayer, NextOfKin nok, Doctor doc){
-        // testing the objects exit
+    public void receivePlayerObjects(Player newPlayer, NextOfKin nok, Doctor doc, Image consentForm,int age){
+        // testing the objects exist
         if (newPlayer==null)
             System.out.println("newPlayer is empty");
         else if (nok==null)
             System.out.println("NoK is empty");
         else if (doc==null)
             System.out.println("Doc is empty");
+        else if(age<=17 && consentForm==null)
+            System.out.println("issue with consent form");
         else {
             // assigning the passed objects to local variables.
             this.newPlayer=newPlayer;
@@ -56,6 +62,19 @@ public class newPlayerConfirmController {
             bConfirmedPCreation.setOnAction((event)->{
                 // saving the new player in the database, the saveMember() will return true no error happened
                 if (newPlayer.saveMember(newPlayer)){
+
+                    /*
+                        if (age<=17){
+                        ByteArrayOutputStream consentFormFile=new ByteArrayOutputStream();
+                        BufferedImage
+                        try{
+
+                        }catch (IOException e){
+                            CustomAlert alert=new CustomAlert("Consent Form error:",e.getMessage());
+                        }
+
+                    }
+                     */
                     // create a confirmation window
                     CustomAlert cs=new CustomAlert("Player Record Created",
                             "Player : "+newPlayer.getFirstName()+" "+newPlayer.getSurname());

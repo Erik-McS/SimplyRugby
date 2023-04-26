@@ -14,11 +14,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.io.File;
 
 /**
  * This class manages the Add Member function.it allows to add a player,its next of kin and doctor.<br>
@@ -51,8 +56,12 @@ public class AddPlayerController {
     private Doctor doc1;
     @FXML
     boolean nokSelected,docSelected;
-    boolean nokListChanged=false;
-    boolean docListChanged=false;
+    private boolean nokListChanged=false;
+    private boolean docListChanged=false;
+    // image object to get the consentform
+    private Image image;
+    private int age;
+
     /**
      * the initialize method set the style of the window/pane.<br>
      * it uses the styles.css file to color the background and buttons.<br>
@@ -61,6 +70,7 @@ public class AddPlayerController {
     public void initialize(){
         nok1=new NextOfKin();
         doc1=new Doctor();
+
         // set Pane background color
         mainPane.getStyleClass().addAll("bckg5");
         leftPane.getStyleClass().addAll("bckg2","borderBlack");
@@ -84,6 +94,7 @@ public class AddPlayerController {
         cbNOK.getStyleClass().add("bckg5");
         cbDoctor.getStyleClass().add("bckg5");
         dpDateOfBirth.getStyleClass().add("bckg5");
+        bAddConsentForm.setVisible(false);
         // add a function to clear the main pane
         bCancel.setOnAction((event)->{
             mainPane.getChildren().clear();
@@ -233,6 +244,46 @@ public class AddPlayerController {
             displayOfDocFields(0);
         }));
 
+        bAddConsentForm.setOnAction((event)->{
+            // using a filechooser
+            // https://docs.oracle.com/javafx/2/ui_controls/file-chooser.htm
+            // creating a filechooser to get the consent form picture
+            FileChooser consentForm=new FileChooser();
+            consentForm.setTitle("Select the Consent form picture");
+            // setting the allowed files format
+           consentForm.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images","*.png","*.jpg","*.gif"));
+           // getting the consentform image
+
+            File consentFormImage=consentForm.showOpenDialog((Stage)bAddConsentForm.getScene().getWindow());
+
+            if (consentFormImage!=null){
+                image=new Image(consentFormImage.toURI().toString());
+            }
+        });
+        // checking the date of birth value
+        dpDateOfBirth.setOnAction((event)->{
+            try {
+
+                // getting today's date.
+                LocalDate today = LocalDate.now();
+                age = Period.between(dpDateOfBirth.getValue(), today).getYears();
+                //System.out.println("Age: "+age);
+                // making sure the player is old enough
+                if (age <= 7)
+                    throw new ValidationException("The player must be at least 7 years old, please check the selected birthdate.");
+                else if (age <= 17) {
+                    bAddConsentForm.setVisible(true);
+                    CustomAlert alert = new CustomAlert("Consent form needed, the player is under 18 years old.", "Please make sure to upload the player's consent form");
+                    alert.showAndWait();
+                }
+                else
+                    bAddConsentForm.setVisible(false);
+
+            }catch(ValidationException e){
+                CustomAlert alert=new CustomAlert("DoB Error",e.getMessage());
+                alert.showAndWait();
+                }
+        });
         bCreatePlayer.setOnAction((event)->{
             Player nPlayer;
 
@@ -270,8 +321,10 @@ public class AddPlayerController {
                         throw new ValidationException("The SCRUMS number cannot be empty.");
                     // if all ok, we get the remaining data and create the full player record
                     else {
-                        // getting the DoB
+                        // getting the DoB and calculating the age
+                        // https://www.w3schools.blog/java-period-class
                         date = dpDateOfBirth.getValue();
+
                         /* creating the Player object. data validation is done by the Player class
                         if any issue with the data, it will throw a ValidationException and an error message
                          */
@@ -286,11 +339,11 @@ public class AddPlayerController {
                 else
                     throw new ValidationException("Date of Birth cannot be empty");
                 }
-            // any exception during data and form validation will be catched and display in an alert window.
+            // any exception during data and form validation will be caught and display in an alert window.
             catch (NumberFormatException|ValidationException e){
                     nPlayer=null;
                     /*
-                    testing whih exception is raised. the NumberFormatException is raised by the SCRUMS number textfield.
+                    testing whih exception is raised. the NumberFormatException is raised by the SCRUMS number text field.
                      */
                     if (e instanceof NumberFormatException){
                         // creating a custom alert.
@@ -317,10 +370,11 @@ public class AddPlayerController {
                         https://stackoverflow.com/questions/14187963/passing-parameters-javafx-fxml
                         https://genuinecoder.com/javafx-communication-between-controllers/
                          */
-                        newPlayerConfirmController newPlayerConfirmController = loader1.getController();
-                        newPlayerConfirmController.receivePlayerObjects(nPlayer,nok1,doc1);
 
-                        // steting the next view
+                        newPlayerConfirmController newPlayerConfirmController = loader1.getController();
+                        newPlayerConfirmController.receivePlayerObjects(nPlayer,nok1,doc1,image,age);
+
+                        // setting the next view
                         Scene scene = new Scene(root);
                         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/application/simplyrugby/styles.css"), "CSS not found").toExternalForm());
                         Stage stage = new Stage();
