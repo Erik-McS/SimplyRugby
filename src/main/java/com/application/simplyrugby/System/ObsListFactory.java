@@ -122,7 +122,7 @@ public class ObsListFactory {
             if (o instanceof SeniorSquad){
                 try{
                     queryResult=DBTools.executeSelectQuery("SELECT squad_name FROM senior_squads");
-                    oList.add("Select from list");
+                    oList.add("Select a Senior Squad");
                     while (queryResult.next()){
                         oList.add(queryResult.getString(1));
                     }
@@ -139,7 +139,7 @@ public class ObsListFactory {
             if(o instanceof JuniorSquad){
                 try{
                     queryResult=DBTools.executeSelectQuery("SELECT squad_name FROM junior_squads");
-                    oList.add("Select from list");
+                    oList.add("Select a Junior Squad");
                     while (queryResult.next()){
                         oList.add(queryResult.getString(1));
                     }
@@ -369,6 +369,7 @@ public class ObsListFactory {
             else if(s.equals("Clubs")){
                 try{
                     queryResult=DBTools.executeSelectQuery("SELECT name FROM clubs");
+                    oList.add("Select the opposing Club");
                     while(queryResult.next()){
                         // add the club to the list
                         oList.add(queryResult.getString(1));

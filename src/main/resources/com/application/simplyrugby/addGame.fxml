@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane fx:id="firstPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="774.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.Control.AddGameController">
+<Pane fx:id="firstPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="774.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.Control.AddGameController">
    <children>
       <Pane fx:id="secondPane" layoutY="59.0" prefHeight="715.0" prefWidth="967.0">
          <children>
@@ -23,35 +29,35 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="66.0" layoutY="331.0" text="Select Opponent Club" textFill="WHITE">
+            <Label fx:id="lClubSelect" layoutX="66.0" layoutY="331.0" text="Select Opponent Club" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="66.0" layoutY="418.0" text="Or enter Club details" textFill="WHITE">
+            <Label fx:id="lClub1" layoutX="66.0" layoutY="399.0" text="Or enter Club details" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="66.0" layoutY="456.0" text="Club name" textFill="WHITE">
+            <Label fx:id="lClub2" layoutX="66.0" layoutY="430.0" text="Club name" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="273.0" layoutY="456.0" text="Club Telephone" textFill="WHITE">
+            <Label fx:id="lClub3" layoutX="265.0" layoutY="430.0" text="Club Telephone" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="66.0" layoutY="543.0" text="Club address" textFill="WHITE">
+            <Label fx:id="lClub4" layoutX="66.0" layoutY="543.0" text="Club address" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
             <ComboBox fx:id="cbSquadSenior" layoutX="66.0" layoutY="96.0" prefHeight="25.0" prefWidth="270.0" />
             <ComboBox fx:id="cbClub" layoutX="66.0" layoutY="358.0" prefWidth="270.0" />
-            <TextField fx:id="txClub" layoutX="66.0" layoutY="487.0" />
-            <TextField fx:id="txTelephone" layoutX="273.0" layoutY="487.0" />
+            <TextField fx:id="txClub" layoutX="63.0" layoutY="454.0" />
+            <TextField fx:id="txTelephone" layoutX="265.0" layoutY="454.0" />
             <TextArea fx:id="taAddress" layoutX="66.0" layoutY="569.0" prefHeight="123.0" prefWidth="336.0" />
             <RadioButton fx:id="rbHome" layoutX="66.0" layoutY="219.0" mnemonicParsing="false" text="Home" textFill="WHITE" />
             <RadioButton fx:id="rbAway" layoutX="66.0" layoutY="249.0" mnemonicParsing="false" text="Away" textFill="WHITE" />
@@ -69,6 +75,12 @@
             <ComboBox fx:id="cbSquadJunior" layoutX="409.0" layoutY="96.0" prefHeight="25.0" prefWidth="270.0" />
             <Button fx:id="bCreateClub" layoutX="422.0" layoutY="631.0" mnemonicParsing="false" text="Create Club" />
             <Label layoutX="362.0" layoutY="100.0" text="or" textFill="WHITE" />
+            <Label fx:id="lClub5" layoutX="63.0" layoutY="487.0" text="Email" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txEmail" layoutX="66.0" layoutY="510.0" prefHeight="25.0" prefWidth="270.0" />
          </children>
       </Pane>
       <Label layoutX="415.0" layoutY="14.0" text="Add a Game" textFill="WHITE">

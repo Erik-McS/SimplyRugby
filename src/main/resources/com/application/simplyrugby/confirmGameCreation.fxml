@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="firstPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="510.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.Control.ConfirmGameCreationCtlr">
+   <children>
+      <Label layoutX="25.0" layoutY="14.0" text="Confirm the new Game creation" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lSquad" layoutX="25.0" layoutY="84.0" text="Playing Club Squad:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lClub" layoutX="25.0" layoutY="128.0" text="Against:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lDate" layoutX="25.0" layoutY="171.0" text="Match date:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lLocation" layoutX="25.0" layoutY="214.0" text="Location:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="25.0" layoutY="262.0" text="Please make sure to update the Game scores and outcomes after the match." textFill="WHITE" />
+      <Button fx:id="bCreateGame" layoutX="25.0" layoutY="338.0" mnemonicParsing="false" text="Create Game" />
+      <Button fx:id="bCancel" layoutX="149.0" layoutY="338.0" mnemonicParsing="false" text="Cancel" />
+   </children>
+</Pane>
