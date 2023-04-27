@@ -315,6 +315,9 @@ public class DBTools {
                 alert.showAndWait();
                 return null;
             }
+            finally {
+                closeConnections();
+            }
         }
         if (tp instanceof Doctor doc){
             String query="SELECT doctor_id,name,surname,telephone FROM player_doctors WHERE doctor_id="+index;
@@ -333,6 +336,9 @@ public class DBTools {
                 CustomAlert alert=new CustomAlert("Error",e.getMessage());
                 alert.showAndWait();
             }
+            finally {
+                closeConnections();
+            }
         }
         return null;
     }
@@ -348,7 +354,20 @@ public class DBTools {
             alert.showAndWait();
         }
     }
+    public static void closeConnections(Connection... connections){
+        try{
 
+            for (Connection connect:connections){
+                if (connect!=null)
+                    connect.close();
+                if (statement!=null)
+                    statement.close();
+            }
+        }catch (SQLException e){
+            CustomAlert alert=new CustomAlert("Error Closing the connections",e.getMessage());
+            alert.showAndWait();
+        }
+    }
     /**
      * Function to get the role description of a non-player member from its ID.
      * @param roleID The role ID to search for.
@@ -366,7 +385,11 @@ public class DBTools {
         catch (SQLException e){
             CustomAlert alert=new CustomAlert("Error getting the Role description",e.getMessage());
             alert.showAndWait();
+            closeConnections();
             return null;
+        }
+        finally {
+            closeConnections();
         }
     }
 
@@ -550,6 +573,9 @@ public class DBTools {
                 e.printStackTrace();
                 alert.showAndWait();
             }
+            finally {
+                closeConnections();
+            }
         }
     }
 
@@ -617,23 +643,28 @@ public class DBTools {
      * @param game The game to save.
      */
     public static void saveGame(Game game){
+        connection=null;
+        statement=null;
         try{
-            connection=DriverManager.getConnection(DBURL);
+
             // testing the squad object
             if (game.getSquad()==null)
                 throw new ValidationException("The Squad object cannot be empty");
             else if (game.getSquad() instanceof SeniorSquad){
-                // we will need to first insert the game in the Table Games, then retrieve the ID that has been created
+                // we will need to first insert the game in the Table Games, then retrieve the ID that has been created,
                 // so we can use it to save the game with its squad in the correct Junior or senior Table
                 //https://stackoverflow.com/questions/2127138/how-to-retrieve-the-last-autoincremented-id-from-a-sqlite-table
-
+                connection=DriverManager.getConnection(DBURL);
                 // preparing the query
                 statement=connection.prepareStatement("INSERT INTO games (date,club_id,location_id) VALUES (?,?,?)");
                 statement.setString(1, game.getDate());
                 statement.setInt(2,game.getPlayingClub().getClub_id());
                 statement.setInt(3,game.getLocation());
+
                 // getting the number of rows created, in theory, 1.
-                int check= statement.executeUpdate();
+                int check;
+                check= statement.executeUpdate();
+
                 if (check!=0){
                     // getting the game_id just created
                     ResultSet rs=statement.executeQuery("SELECT MAX(game_id) FROM games LIMIT 1");
@@ -641,13 +672,15 @@ public class DBTools {
                     // casting the squad as a SeniorSquad object.
                     SeniorSquad sn=(SeniorSquad) game.getSquad();
                     // preparing and executing the insert query in senior_games_played.
+                    connection=DriverManager.getConnection(DBURL);
                     statement= connection.prepareStatement("INSERT INTO senior_games_played (squad_id,game_id,date) VALUES (?,?,?)");
                     statement.setInt(1,getID("SELECT squad_ID FROM senior_squads WHERE squad_name='"+sn.getSquadName()+"'"));
                     statement.setInt(2,gameID);
                     statement.setString(3,game.getDate());
                     // inserting and checking if ok.
-                    int check2= statement.executeUpdate();
-                    if (check2==0)
+                    check= statement.executeUpdate();
+                    closeConnections();
+                    if (check==0)
                         throw new ValidationException("The Squad/Game couldn't be created");
                 }
             }
@@ -684,7 +717,127 @@ public class DBTools {
         }
     }
 
+    /**
+     * Function to load a Squad from the database and create an object from it.
+     * @param squad The type of squad to return.
+     * @param squad_id The squad ID to look for in the DB
+     * @return the created Squad object
+     */
+    public static Squad loadSquad(Squad squad,int squad_id) throws ValidationException{
+         try{
+             connection=DriverManager.getConnection(DBURL);
+             // need to review, test may not be necessary.
+             if (squad==null)
+                 throw new ValidationException("The Squad object cannot be null");
+             // if we want a SeniorSquad
+             else if (squad instanceof SeniorSquad){
+                 // arraylist to contains the players of the squad.
+                 ArrayList<Player> players =new ArrayList<>();
+                 // query to get all the players in the squad
+                 statement=connection.prepareStatement("SELECT loose_head_prop,hooker,tight_head_prop,second_row,second_row2,blind_side_flanker,open_side_flanker,number_8,scrum_half," +
+                         "fly_half,left_wing,inside_centre,outside_center,right_side,full_back FROM senior_squads WHERE squad_id='"+squad_id+"'");
+                 ResultSet rs=statement.executeQuery();
+                // assigning the players in the arraylist.
+                 for(int i=1;i<=15;i++){
+                     players.add((Player) loadMember(Player.dummyPlayer(),rs.getInt(i)));
+                 }
+                 // getting the squad name, and the IDs of the related teams. they will be used to get the corresponding team objects to create the Senior Squad.
+                 statement=connection.prepareStatement("SELECT squad_name,cogroup_id,adteam_id,repteam_id FROM senior_squads WHERE squad_id='"+squad_id+"'");
+                 rs=statement.executeQuery();
+                // we then create and return a SeniorSquad object
+                 return new SeniorSquad(players,rs.getString(1),
+                         (ReplacementTeam) loadSquad(new ReplacementTeam(),rs.getInt(4)),
+                         (AdminTeam) loadTeam(new AdminTeam(),rs.getInt(3)),
+                         (CoachTeam) loadTeam(new CoachTeam(),rs.getInt(3)));
+             }
+             // if we requested a JuniorSquad
+             else if(squad instanceof JuniorSquad){
+                 // arraylist to contains the players of the squad.
+                 ArrayList<Player> players =new ArrayList<>();
+                 // query to get all the players in the squad
+                 statement=connection.prepareStatement("SELECT loose_head_prop,hooker,tight_head_prop,scrum_half,fly_half,centre,wing FROM senior_squads WHERE squad_id='"+squad_id+"'");
+                 ResultSet rs=statement.executeQuery();
+                 // assigning the players in the arraylist.
+                 for(int i=1;i<=15;i++){
+                     players.add((Player) loadMember(Player.dummyPlayer(),rs.getInt(i)));
+                 }
+                 // getting the squad name, and the IDs of the related teams. they will be used to get the corresponding team objects to create the Senior Squad.
+                 statement=connection.prepareStatement("SELECT squad_name,cogroup_id,adteam_id,repteam_id FROM senior_squads WHERE squad_id='"+squad_id+"'");
+                 rs=statement.executeQuery();
+                 // we then create and return a SeniorSquad object
+                 return new JuniorSquad(players,rs.getString(1),
+                         (ReplacementTeam) loadSquad(new ReplacementTeam(),rs.getInt(4)),
+                         (AdminTeam) loadTeam(new AdminTeam(),rs.getInt(3)),
+                         (CoachTeam) loadTeam(new CoachTeam(),rs.getInt(3)));
 
+             }
+             // finally, if we need to get a replacement team. which is a kind of squad as it is composed of playing members.
+             else if (squad instanceof ReplacementTeam) {
+                 try {
+                     ResultSet rs;
+                     if (squad instanceof ReplacementTeam) {
+                         connection = DriverManager.getConnection(DBURL);
+                         statement = connection.prepareStatement("SELECT player_1,player_2,player_3,player_4,player_5 FROM replacement_team WHERE repteam_ID='" + squad_id + "'");
+                         ArrayList<Player> players = new ArrayList<>();
+                         rs = statement.executeQuery();
+                         for(int i=1;i<=5;i++){
+                             players.add((Player) loadMember(Player.dummyPlayer(),rs.getInt(i)));
+                         }
+                         return new ReplacementTeam(players);
+                     }
+                 } catch (ValidationException | SQLException e) {
+                     CustomAlert alert = new CustomAlert("Error Team creation", "Could not load the requested team");
+                     e.printStackTrace();
+                     return null;
+                 } finally {
+                     closeConnections();
+                 }
+             }
+
+         }catch (SQLException e){
+                CustomAlert alert=new CustomAlert("Error Squad creation","Could not load the requested squad");
+                e.printStackTrace();
+                return null;
+            }finally {
+                closeConnections();
+            }
+        return null;
+    }
+
+    /**
+     * function to load an admin or coach team from the database and create<br>
+     * the corresponding abject.
+     * @param memberTeam The type of team we look for
+     * @param team_id the ID of the team to look for
+     * @return The requested team.
+     */
+    public static MemberTeam loadTeam(MemberTeam memberTeam,int team_id){
+        ResultSet rs;
+            try{
+                connection=DriverManager.getConnection(DBURL);
+                // if the requested team is an AdminTeam
+                if (memberTeam instanceof AdminTeam){
+
+                    statement= connection.prepareStatement("SELECT chairman,fixture_sec FROM squad_admin_team WHERE adteam_id='"+team_id+"'");
+                    rs= statement.executeQuery();
+                    return new AdminTeam((NonPlayer) loadMember(new NonPlayer(),rs.getInt(1)),(NonPlayer) loadMember(new NonPlayer(),rs.getInt(2)));
+                }
+                // if it's a coach
+                if (memberTeam instanceof CoachTeam){
+                    statement= connection.prepareStatement("SELECT coach_1,coach_2,coach_3 FROM squad_coaches WHERE cogroup_id='"+team_id+"'");
+                    rs= statement.executeQuery();
+                    return new CoachTeam((NonPlayer) loadMember(new NonPlayer(),rs.getInt(1)),(NonPlayer) loadMember(new NonPlayer(),rs.getInt(2)),
+                            (NonPlayer) loadMember(new NonPlayer(), rs.getInt(3)));
+                }
+            }catch (ValidationException | SQLException e){
+                CustomAlert alert = new CustomAlert("Error Team creation", "Could not load the requested team");
+                e.printStackTrace();
+                return null;
+            }finally {
+                closeConnections();
+            }
+            return null;
+    }
     /**
      * Unused at the moment
      * @param player the profile to update.
