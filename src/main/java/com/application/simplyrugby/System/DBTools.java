@@ -14,8 +14,8 @@ import java.util.Vector;
  */
 public class DBTools {
 
-    private static Connection connection;
-    private static PreparedStatement statement;
+    //private static Connection connection;
+    //private static PreparedStatement statement;
     private DBTools(){}
     private static final String DBURL="JDBC:sqlite:SimplyRugbyDB.db";
 
@@ -78,9 +78,9 @@ public class DBTools {
         // normal try-catch. the closeConnections() must be executed by the calling class.
         try {
             // connecting to the database.
-            connection = DriverManager.getConnection(DBURL);
+            Connection connection = DriverManager.getConnection(DBURL);
             // executing the query
-            statement = connection.prepareStatement(query);
+            PreparedStatement statement = connection.prepareStatement(query);
             //
             ResultSet rs = statement.executeQuery();
             return rs;
@@ -102,8 +102,8 @@ public class DBTools {
     public static int getID(String query) {
         databaseConnect();
         try {
-            connection = DriverManager.getConnection(DBURL);
-            statement = connection.prepareStatement(query);
+            Connection connection = DriverManager.getConnection(DBURL);
+            PreparedStatement statement = connection.prepareStatement(query);
             ResultSet rs = statement.executeQuery();
             // return the ID found
             return rs.getInt(1);
@@ -354,20 +354,7 @@ public class DBTools {
             alert.showAndWait();
         }
     }
-    public static void closeConnections(Connection... connections){
-        try{
 
-            for (Connection connect:connections){
-                if (connect!=null)
-                    connect.close();
-                if (statement!=null)
-                    statement.close();
-            }
-        }catch (SQLException e){
-            CustomAlert alert=new CustomAlert("Error Closing the connections",e.getMessage());
-            alert.showAndWait();
-        }
-    }
     /**
      * Function to get the role description of a non-player member from its ID.
      * @param roleID The role ID to search for.
@@ -584,36 +571,36 @@ public class DBTools {
      * @param club_id The Club ID to look for.
      * @return the club from the database as a Club object
      */
-    public static Club  getClub(int club_id){
+    public static Club  getClub(int club_id) {
         // getting the data from the databse and creating the object.
-        try{
-            connection=DriverManager.getConnection(DBURL);
-            statement=connection.prepareStatement("SELECT name,address,telephone,email FROM clubs WHERE club_id='"+club_id+"'");
-            ResultSet rs= statement.executeQuery();
-            Club club =new Club(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4));
+        try (
+                Connection connection = DriverManager.getConnection(DBURL);
+                PreparedStatement statement = connection.prepareStatement("SELECT name,address,telephone,email FROM clubs WHERE club_id='" + club_id + "'");
+
+        ) {
+            ResultSet rs = statement.executeQuery();
+            Club club = new Club(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
             club.setClub_id(club_id);
             return club;
         }
         // error message if any issues
-        catch(ValidationException | SQLException e){
-            CustomAlert alert=new CustomAlert("Get Club error:", e.getMessage());
+        catch (ValidationException | SQLException e) {
+            CustomAlert alert = new CustomAlert("Get Club error:", e.getMessage());
             alert.showAndWait();
-            closeConnections();
             return null;
         }
-        finally {
-           closeConnections();
-        }
     }
-
     /**
      * Saves a club in the database.
      * @param club The club to save.
      */
     public static void saveClub(Club club){
         ResultSet rs;
-        try{
-            connection=DriverManager.getConnection(DBURL);
+        try(
+                 Connection connection=DriverManager.getConnection(DBURL);
+                 PreparedStatement statement= connection.prepareStatement("INSERT INTO clubs (name,address,telephone,email) VALUES (?,?,?,?)");
+
+        ){
             rs=executeSelectQuery("SELECT name FROM Clubs");
             // checking there are no name duplicates in the DB.
             while (rs.next()){
@@ -621,7 +608,6 @@ public class DBTools {
                     throw new ValidationException("A Club with this name already exists in the database");
             }
             // if not, we save the club in the DB.
-            statement= connection.prepareStatement("INSERT INTO clubs (name,address,telephone,email) VALUES (?,?,?,?)");
             // setting each values in the statement
             statement.setString(1,club.getName());
             statement.setString(2, club.getAddress());
@@ -631,10 +617,10 @@ public class DBTools {
             int rows=statement.executeUpdate();
             if (rows==0)
                 throw new ValidationException("Save Club: No row was inserted");
-
         }catch(SQLException | ValidationException e){
-            CustomAlert alert=new CustomAlert("Save Club Error:",e.getMessage())
-;        }finally{closeConnections();}
+            CustomAlert alert=new CustomAlert("Save Club Error:",e.getMessage());
+            alert.showAndWait();
+            e.printStackTrace();}
     }
 
     /**
@@ -643,77 +629,23 @@ public class DBTools {
      * @param game The game to save.
      */
     public static void saveGame(Game game){
-        connection=null;
-        statement=null;
-        try{
+        databaseConnect();
 
-            // testing the squad object
-            if (game.getSquad()==null)
-                throw new ValidationException("The Squad object cannot be empty");
-            else if (game.getSquad() instanceof SeniorSquad){
-                // we will need to first insert the game in the Table Games, then retrieve the ID that has been created,
-                // so we can use it to save the game with its squad in the correct Junior or senior Table
-                //https://stackoverflow.com/questions/2127138/how-to-retrieve-the-last-autoincremented-id-from-a-sqlite-table
-                connection=DriverManager.getConnection(DBURL);
-                // preparing the query
-                statement=connection.prepareStatement("INSERT INTO games (date,club_id,location_id) VALUES (?,?,?)");
-                statement.setString(1, game.getDate());
-                statement.setInt(2,game.getPlayingClub().getClub_id());
-                statement.setInt(3,game.getLocation());
-
-                // getting the number of rows created, in theory, 1.
-                int check;
-                check= statement.executeUpdate();
-
-                if (check!=0){
-                    // getting the game_id just created
-                    ResultSet rs=statement.executeQuery("SELECT MAX(game_id) FROM games LIMIT 1");
-                    int gameID=rs.getInt(1);
-                    // casting the squad as a SeniorSquad object.
-                    SeniorSquad sn=(SeniorSquad) game.getSquad();
-                    // preparing and executing the insert query in senior_games_played.
-                    connection=DriverManager.getConnection(DBURL);
-                    statement= connection.prepareStatement("INSERT INTO senior_games_played (squad_id,game_id,date) VALUES (?,?,?)");
-                    statement.setInt(1,getID("SELECT squad_ID FROM senior_squads WHERE squad_name='"+sn.getSquadName()+"'"));
-                    statement.setInt(2,gameID);
-                    statement.setString(3,game.getDate());
-                    // inserting and checking if ok.
-                    check= statement.executeUpdate();
-                    closeConnections();
-                    if (check==0)
-                        throw new ValidationException("The Squad/Game couldn't be created");
-                }
-            }
-            // otherwise, it's a junior squad.
-            else{
-                statement=connection.prepareStatement("INSERT INTO games (date,club_id,location_id) VALUES (?,?,?)");
-                statement.setString(1, game.getDate());
-                statement.setInt(2,game.getPlayingClub().getClub_id());
-                statement.setInt(3,game.getLocation());
-                // getting the number of rows created, in theory, 1.
-                int check= statement.executeUpdate();
-                if (check!=0) {
-                    // getting the game_id just created
-                    ResultSet rs = statement.executeQuery("SELECT MAX(game_id) FROM games LIMIT 1");
-                    int gameID = rs.getInt(1);
-                    // casting the squad as a SeniorSquad object.
-                    JuniorSquad sn = (JuniorSquad) game.getSquad();
-                    // preparing and executing the insert query in senior_games_played.
-                    statement = connection.prepareStatement("INSERT INTO junior_games_played (squad_id,game_id,date) VALUES (?,?,?)");
-                    statement.setInt(1, getID("SELECT squad_ID FROM senior_squads WHERE squad_name='" + sn.getSquadName() + "'"));
-                    statement.setInt(2, gameID);
-                    statement.setString(3, game.getDate());
-                    // inserting and checking if ok.
-                    int check2 = statement.executeUpdate();
-                    if (check2 == 0)
-                        throw new ValidationException("The Squad/Game couldn't be created");
-                }
-            }
-        }catch (ValidationException | SQLException e)   {
-            CustomAlert alert=new CustomAlert("Save Game Error:", e.getMessage());
-            e.printStackTrace();
-        }finally {
+        try(
+                Connection connection=DriverManager.getConnection(DBURL);
+                PreparedStatement statement=connection.prepareStatement("INSERT INTO games (date,club_id,location_id) VALUES (?,?,?)");
+                )
+        {
+            statement.setString(1,game.getDate());
+            statement.setInt(2,game.getPlayingClub().getClub_id());
+            statement.setInt(3,game.getLocation());
+            statement.executeUpdate();
+            connection.commit();
+        }catch(SQLException e){
+            CustomAlert alert=new CustomAlert("Save Game Error:",e.getMessage());
             closeConnections();
+            alert.showAndWait();
+            e.printStackTrace();
         }
     }
 
@@ -725,7 +657,8 @@ public class DBTools {
      */
     public static Squad loadSquad(Squad squad,int squad_id) throws ValidationException{
          try{
-             connection=DriverManager.getConnection(DBURL);
+             Connection connection=DriverManager.getConnection(DBURL);
+             PreparedStatement statement;
              // need to review, test may not be necessary.
              if (squad==null)
                  throw new ValidationException("The Squad object cannot be null");
