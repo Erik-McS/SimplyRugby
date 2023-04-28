@@ -354,6 +354,7 @@ public class ObsListFactory {
                 for (String role:roles){
                     oList.add(role);
                 }
+
                 return oList;
             }
             // list of the admin roles.
@@ -382,6 +383,7 @@ public class ObsListFactory {
                     alert.showAndWait();
                     e.printStackTrace();return null;}
                 }
+
 
             // and if not of any known command, display an error message.
             // for internal and testing uses

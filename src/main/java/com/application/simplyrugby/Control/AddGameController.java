@@ -218,6 +218,7 @@ public class AddGameController {
                     else if (!clubIsInserted)
                         throw new ValidationException("A rival club must either be selected or created");
                     else {
+                        DBTools.closeConnections();
                         game=new Game((JuniorSquad)DBTools.loadSquad(new JuniorSquad(),cbSquadJunior.getSelectionModel().getSelectedIndex()),club,date.format(dt),location);
 
                         //preparing and showing the confirmation window
