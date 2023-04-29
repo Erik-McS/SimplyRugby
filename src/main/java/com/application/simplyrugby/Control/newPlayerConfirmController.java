@@ -43,15 +43,7 @@ public class newPlayerConfirmController {
      */
     public void receivePlayerObjects(Player newPlayer, NextOfKin nok, Doctor doc, Image consentForm,int age){
         // testing the objects exist
-        if (newPlayer==null)
-            System.out.println("newPlayer is empty");
-        else if (nok==null)
-            System.out.println("NoK is empty");
-        else if (doc==null)
-            System.out.println("Doc is empty");
-        else if(age<=17 && consentForm==null)
-            System.out.println("issue with consent form");
-        else {
+
             // assigning the passed objects to local variables.
             this.newPlayer=newPlayer;
             this.doc=doc;
@@ -85,13 +77,12 @@ public class newPlayerConfirmController {
                 // if error, display a message
                 else {
                     // create a confirmation window""
-                    CustomAlert cs=new CustomAlert("Error","Error: the record could not be created");
+                    CustomAlert cs = new CustomAlert("Error", "Error: the record could not be created");
                     cs.showAndWait();
-                    Stage stage=(Stage) bConfirmedPCreation.getScene().getWindow();
+                    Stage stage = (Stage) bConfirmedPCreation.getScene().getWindow();
                     stage.close();
                 }
             });
-        }
     }
 
     /**

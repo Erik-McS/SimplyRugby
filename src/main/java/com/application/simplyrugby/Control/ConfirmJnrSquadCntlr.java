@@ -120,15 +120,12 @@ public class ConfirmJnrSquadCntlr {
         // here we handle the insertion of the full squad and team in the DB
         bCreate.getStyleClass().add("bckg5");
         bCreate.setOnAction((event)->{
-           // dSquad.saveSquad();
-            System.out.println("clicked");
             Stage stage=(Stage) bCreate.getScene().getWindow();
             stage.close();
         });
 
         bCreate.setOnAction((event)->{
             dSquad.saveSquad();
-            System.out.println("clicked");
             Stage stage=(Stage) bCreate.getScene().getWindow();
             stage.close();
         });

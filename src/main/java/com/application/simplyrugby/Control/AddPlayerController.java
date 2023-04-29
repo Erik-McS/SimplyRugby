@@ -176,7 +176,6 @@ public class AddPlayerController {
 
                 // getting the NoK object from the database.
                 nok1=(NextOfKin) nok1.loadContact(cbNOK.getSelectionModel().getSelectedIndex());
-                System.out.println(nok1.toString());
                 // displaying a confirmation
                 lTitleNOK.setText("This Next of Kin is added to the player profile");
                 lTitleNOK.setVisible(true);
@@ -197,11 +196,8 @@ public class AddPlayerController {
             nok1.setTelephone(txTelNOK.getText());
             // saving the record in the database, if ok, will set the NoK flag to true.
             nokSelected=nok1.saveContact();
-            System.out.println("NOK: "+nokSelected);
             // we are recreating the NoK object by getting the record from the database, this will allow us to get the correct nok_ID assigned by the database to the new record.
             nok1=(NextOfKin) DBTools.selectContact(nok1,"SELECT kin_id,name,surname,telephone FROM next_of_kin WHERE name='"+txNameNOK.getText()+"' AND surname='"+txSurnameNOK.getText()+"'");
-
-            System.out.println(nok1.toString());
             // displaying a confirmation that the NoK record is now selected
             lTitleNOK.setText("This Next of Kin is added to the player profile");
             // hiding all the fields.
@@ -215,7 +211,6 @@ public class AddPlayerController {
         tbAddDoctor.setOnAction((event)->{
             // getting the Doctor record from the database using the combobox index
             doc1=(Doctor) doc1.loadContact(cbDoctor.getSelectionModel().getSelectedIndex());
-            System.out.println(doc1.toString());
             // confirmation message
             lTitleDoc.setText("This Doctor has been added to the player profile");
             lTitleDoc.setVisible(true);
@@ -235,10 +230,7 @@ public class AddPlayerController {
             doc1.setTelephone(txTelDoctor.getText());
             // inserting the record in a database.
             docSelected= doc1.saveContact();
-            System.out.println("DOC: "+docSelected);
-
             doc1=(Doctor) DBTools.selectContact(doc1,"SELECT doctor_id,name,surname,telephone FROM player_doctors WHERE name='"+txNameDoctor.getText()+"' AND surname='"+txSurnameDoctor.getText()+"'");
-            System.out.println(doc1.toString());
             // display confirmation
             lTitleDoc.setText("This Doctor has been added to the player profile");
             displayOfDocFields(0);
@@ -267,7 +259,6 @@ public class AddPlayerController {
                 // getting today's date.
                 LocalDate today = LocalDate.now();
                 age = Period.between(dpDateOfBirth.getValue(), today).getYears();
-                //System.out.println("Age: "+age);
                 // making sure the player is old enough
                 if (age <= 7)
                     throw new ValidationException("The player must be at least 7 years old, please check the selected birthdate.");

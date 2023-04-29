@@ -120,7 +120,6 @@ public class ConfirmSnrSquadCntlr {
         bCreate.getStyleClass().add("bckg5");
         bCreate.setOnAction((event)->{
             dSquad.saveSquad();
-            System.out.println("clicked");
             Stage stage=(Stage) bCreate.getScene().getWindow();
             stage.close();
         });

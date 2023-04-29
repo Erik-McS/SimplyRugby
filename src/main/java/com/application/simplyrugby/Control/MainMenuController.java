@@ -1,5 +1,6 @@
 package com.application.simplyrugby.Control;
 
+import com.application.simplyrugby.System.ConnectionPooling;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,13 +17,11 @@ import java.util.Objects;
 public class MainMenuController {
 
     @FXML
-    private ImageView mainLogo;
-    @FXML
     private Button memberMgtButton,playerMgntButton,gamesMgntButton,exitButton;
     @FXML
     private AnchorPane mainPane;
     @FXML
-    protected void exitApp(){System.exit(0);}
+    protected void exitApp(){ConnectionPooling.closeDataSource(); System.exit(0);}
 
     public void initialize(){
 

@@ -174,7 +174,6 @@ public class AddGameController {
                     else {
 
                         game=new Game(DBTools.loadSquad(new SeniorSquad(),cbSquadSenior.getSelectionModel().getSelectedIndex()),club,date.format(dt),location);
-                        System.out.println("Game object created : "+game.getPlayingClub().getName());
                         //preparing and showing the confirmation window
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/application/simplyrugby/ConfirmGameCreation.fxml"));
                         Parent root=loader.load();
@@ -197,7 +196,6 @@ public class AddGameController {
                 // otherwise it means it's a Junior squad
                 else if (cbSquadJunior.getSelectionModel().getSelectedIndex()!=0)
                 {
-                    System.out.println("Junior Squad");
                     // testing a date has been picked
                     if (dpDate.getValue()!=null)
                         date=dpDate.getValue();
@@ -227,21 +225,18 @@ public class AddGameController {
                     if (!clubIsInserted)
                         throw new ValidationException("A rival club must either be selected or created");
                     else {
-
                         game=new Game(DBTools.loadSquad(new JuniorSquad(),cbSquadJunior.getSelectionModel().getSelectedIndex()),club,date.format(dt),location);
-
                         //preparing and showing the confirmation window
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/application/simplyrugby/ConfirmGameCreation.fxml"));
                         Parent root=loader.load();
                         ConfirmGameCreationCtlr controller=loader.getController();
                         // passing the info to the confirmation window
                         controller.receiveGame(game);
-
                         // setting the next view
                         Scene scene = new Scene(root);
                         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/application/simplyrugby/styles.css"), "CSS not found").toExternalForm());
                         Stage stage = new Stage();
-                        stage.setTitle("Confirm Player Details");
+                        stage.setTitle("Add Game");
                         stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/application/simplyrugby/logo.png")));
                         stage.setScene(scene);
                         stage.showAndWait();

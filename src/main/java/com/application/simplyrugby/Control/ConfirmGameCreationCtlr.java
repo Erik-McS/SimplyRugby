@@ -51,7 +51,6 @@ public class ConfirmGameCreationCtlr {
             lDate.setText(game.getDate());
         }
     bCreateGame.setOnAction((event)->{
-        System.out.println("Create Game button clicked");
         DBTools.saveGame(game);
         Stage stage=(Stage) bCreateGame.getScene().getWindow();
         stage.close();
