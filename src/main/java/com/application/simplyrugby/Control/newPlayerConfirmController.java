@@ -35,8 +35,8 @@ public class newPlayerConfirmController {
      * This method is an important method after initialize()<br>
      * it is called by the previous view to pass 3 objects to this controller, so it can use it to display additional <br>
      * information.
-     * due to initialisation and visibility between this method and initialize(), the create player button will be coded <br>
-     * in this method. as the objects cannot be seen by initialize().
+     * Due to initialisation and visibility between this method and initialize(), the createPlayer button will be coded <br>
+     * in this method, as the objects cannot be seen by initialize().
      * @param newPlayer The player object created in the previous form.
      * @param nok The Next of Kin selected or created in the previous form.
      * @param doc The Doctor created or selected in the previous form.
@@ -117,7 +117,7 @@ public class newPlayerConfirmController {
 
     /**
      * the initialize() function set up the styles of the different elements inside it. <br>
-     * It also add the event handler of the cancel button.
+     * It also adds the event handler of the cancel button.
      */
     public void initialize(){
            // set the styles from the assigned css file

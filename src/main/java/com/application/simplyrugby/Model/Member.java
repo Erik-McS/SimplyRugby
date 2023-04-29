@@ -10,13 +10,13 @@ public interface Member {
      * Insert a member in the database
      * @param member Member to insert
      */
-    abstract boolean saveMember(Member member);
+    boolean saveMember(Member member);
 
     /**
      * Select a member from the database
      * @return the selected member
      */
-    abstract Member loadMember(Member member,int id);
+    Member loadMember(Member member,int id);
 
 
 }

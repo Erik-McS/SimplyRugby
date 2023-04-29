@@ -4,7 +4,7 @@ import com.application.simplyrugby.System.DBTools;
 
 /**
  * Class to hold a player's doctor information.<br>
- * It inherits from the ThirdParty Interface and provide methods to insert and select a doctor from the database.
+ * It inherits from the ThirdParty Interface and provides methods to insert and select a doctor from the database.
  */
 public class Doctor implements ThirdParty{
 

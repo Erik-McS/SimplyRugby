@@ -16,8 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
@@ -26,7 +24,7 @@ import java.util.Objects;
 import java.io.File;
 
 /**
- * This class manages the Add Member function.it allows to add a player,its next of kin and doctor.<br>
+ * This class manages the Add Member function.it allows adding a player, its next of kin and doctor.<br>
  * it is linked to the addPlayer.fxml file.
  * @author Erik McSeveney
  */
@@ -106,7 +104,7 @@ public class AddPlayerController {
 
         // we are listening to the ComboBoxes to see if an entry is selected.
         // if so, we hide the textfields used to create a NoK
-        // if the user select the first item again, we display back the fields to create a NoK.
+        // if the user selects the first item again, we display back the fields to create a NoK.
         cbNOK.setOnAction((event)->{
 
             if (cbNOK.getSelectionModel().getSelectedIndex()!=0){
@@ -182,13 +180,14 @@ public class AddPlayerController {
                 // displaying a confirmation
                 lTitleNOK.setText("This Next of Kin is added to the player profile");
                 lTitleNOK.setVisible(true);
-                // hiding all the others fields
+                // hiding all the other fields
                 displayOfNOKFields(0);
                 // setting a fla to confirn a NoK has been selected.
                 nokSelected=true;
         });
         /*
-        This is the event for the create NoK button. it will assign the values from the fields to the Doctor object, insert it
+        This is the event for the createNoK button.
+        It will assign the values from the fields to the Doctor object, insert it
         in the database, then get the correct doctor ID from it.
          */
         tbCreateNOK.setOnAction((event)->{
@@ -225,7 +224,8 @@ public class AddPlayerController {
             displayOfDocFields(0);
         });
         /*
-        This is the event for the create NoK button. it will assign the values from the fields to the Doctor object, insert it
+        This is the event for the createNoK button.
+        It will assign the values from the fields to the Doctor object, insert it
         in the database, then get the correct doctor ID from it.
         */
         tbCreateDoctor.setOnAction((event->{
@@ -233,7 +233,7 @@ public class AddPlayerController {
             doc1.setFirstName(txNameDoctor.getText());
             doc1.setSurname(txSurnameDoctor.getText());
             doc1.setTelephone(txTelDoctor.getText());
-            // inserting the record in database.
+            // inserting the record in a database.
             docSelected= doc1.saveContact();
             System.out.println("DOC: "+docSelected);
 
@@ -363,9 +363,9 @@ public class AddPlayerController {
                         FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/com/application/simplyrugby/newPlayerConfirm.fxml"));
                         Parent root = loader1.load();
                         /*
-                        Here I am using a technique to pass 3 objects to the confirmation windows : Player, NextOfKin and Doctor.
+                        Here I am using a technique to pass 3 objects to the confirmation windows: Player, NextOfKin and Doctor.
                         This is done by getting the controller of the next view and using a method defined in it to pass those objects to it.
-                        the new window will be able to use those objects to display their content to the user.
+                        The new window will be able to use those objects to display their content to the user.
                         sources:
                         https://stackoverflow.com/questions/14187963/passing-parameters-javafx-fxml
                         https://genuinecoder.com/javafx-communication-between-controllers/

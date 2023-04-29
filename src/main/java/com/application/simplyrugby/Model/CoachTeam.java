@@ -6,14 +6,14 @@ import java.util.ArrayList;
 
 /**
  * This class will store a coach team a Squad coaches team.
- * it provides methods to load and save a coach team from the database.
+ * It provides methods to load and save a coach team from the database.
  */
 public class CoachTeam implements MemberTeam{
     // Arraylist to store the team members.
     private ArrayList<NonPlayer> coaches=new ArrayList<>();
 
-    // Empty constructor, a null object is used in some methods so we need to be able to create one.
-    // this is due the fact that we also use a custom constructor for this class.
+    // Empty constructor, a null object is used in some methods, so we need to be able to create one.
+    // This is due to the fact that we also use a custom constructor for this class.
     public CoachTeam(){}
 
     /**

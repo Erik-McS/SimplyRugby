@@ -10,11 +10,11 @@ import javafx.scene.layout.Pane;
 public class UpdateGameController {
 
     @FXML
-    private ComboBox cbGame;
+    private ComboBox <String>cbGame;
     @FXML
     private RadioButton rbWon,rbLost,rbWonForfeit,rbLostForfeit,rbCancelled;
     @FXML
-    private Spinner spTry,spPenaltyTry,spPenalty,spConversion,spDropGoal;
+    private Spinner <Integer>spTry,spPenaltyTry,spPenalty,spConversion,spDropGoal;
     @FXML
     private Button bUpdateGame,bCancel;
     @FXML

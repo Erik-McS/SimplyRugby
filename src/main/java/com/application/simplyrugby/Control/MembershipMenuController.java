@@ -34,9 +34,9 @@ public class MembershipMenuController {
             try{
                 // clear the main area
                 mainPane.getChildren().clear();
-                // create a loader to store the add player pane
+                // create a loader to store the addPlayer pane
                 FXMLLoader loader =new FXMLLoader(MembershipMenuController.class.getResource("/com/application/simplyrugby/addPlayer.fxml"));
-                // lood the add player pane into a node
+                // load the add player pane into a node
                 Parent root=loader.load();
                 // add the pane
                 mainPane.getChildren().add(root);
@@ -54,7 +54,6 @@ public class MembershipMenuController {
                 Scene scene=new Scene(root);
                 scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/application/simplyrugby/styles.css"),"CSS not found").toExternalForm());
                 Stage stage=new Stage();
-                //Stage stage=(Stage) ((Node)event.getSource()).getScene().getWindow();
                 stage.setTitle("Delete a Member");
                 stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/application/simplyrugby/logo.png")));
                 stage.setScene(scene);
@@ -67,9 +66,9 @@ public class MembershipMenuController {
 
             try{
                 mainPane.getChildren().clear();
-                // create a loader to store the add player pane
+                // create a loader to store the addPlayer pane
                 FXMLLoader loader =new FXMLLoader(MembershipMenuController.class.getResource("/com/application/simplyrugby/addMember.fxml"));
-                // lood the add player pane into a node
+                // load the add player pane into a node
                 Parent root=loader.load();
                 // add the pane
                 mainPane.getChildren().add(root);
@@ -78,10 +77,7 @@ public class MembershipMenuController {
         });
 
         deleteMember.setOnAction((event)->{
-
             try{
-
-
                 FXMLLoader loader =new FXMLLoader(MembershipMenuController.class.getResource("/com/application/simplyrugby/deleteMember.fxml"));
                 Parent root=loader.load();
                 Scene scene=new Scene(root);
@@ -106,10 +102,9 @@ public class MembershipMenuController {
                 stage.setTitle("Simply Rugby Club: Main Menu");
                 stage.setScene(scene);
                 stage.show();
-
             }
             catch(IOException e){e.printStackTrace();}
         });
-
     }
+    //END OF CLASS
 }

@@ -3,7 +3,7 @@ package com.application.simplyrugby.Model;
 import com.application.simplyrugby.System.ValidationException;
 
 /**
- * Interface for the Club's squads, it will have two children class : SeniorSquad and juniorSquad
+ * Interface for the Club's squads, it will have two children class: SeniorSquad and juniorSquad
  */
 public interface Squad {
     /**
@@ -14,7 +14,8 @@ public interface Squad {
     public void addPlayer(Player player) throws ValidationException;
 
     /**
-     * This method will create a Squad object from the database. the Squad object passed in parameters can be<br>
+     * This method will create a Squad object from the database.
+     * The Squad object passed in parameters can be<br>
      * null as it is only needed by the DBTools method to know what kind of squad to look for(Junior or Senior)
      * @param squadType A squad object to determine the type.
      * @param squad_id The ID of the Squad looked for.

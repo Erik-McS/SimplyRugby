@@ -7,7 +7,7 @@ import java.util.Scanner;
 /**
  * This class will test if the database is present on the machine.<br>
  * By default, it will be placed at the folder root.
- * If the database do not exist, it will create it and populate it with some data
+ * If the database does not exist, it will create it and populate it with some data
  * @author Erik McSeveney
  */
 public class DatabaseCreation {
@@ -45,13 +45,8 @@ public class DatabaseCreation {
                 System.out.println("Line : "+i);
                 i++;
             }
-
         } catch (FileNotFoundException e) {
             e.getMessage();
-            DBTools.closeConnections();
-        }
-        finally {
-            DBTools.closeConnections();
         }
     }
 
@@ -66,11 +61,9 @@ public class DatabaseCreation {
                 String s = sc.next();
                 DBTools.executeUpdateQuery(s);
             }
-            DBTools.closeConnections();
             System.out.println("Database Created\n");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            DBTools.closeConnections();
         }
     }
 

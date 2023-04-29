@@ -44,8 +44,8 @@ public class MemberDeletionController {
     }
 
     public void initialize(){
-        bConfirmDeletion.getStyleClass().add("bgck5");
-        bCancel.getStyleClass().add("bgck5");
+        bConfirmDeletion.getStyleClass().add("bckg5");
+        bCancel.getStyleClass().add("bckg5");
         mainPane.getStyleClass().add("bckg3");
 
         bCancel.setOnAction((event)->{

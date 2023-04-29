@@ -50,9 +50,9 @@ public class GamesController {
 
             try{
                 mainPane.getChildren().clear();
-                // create a loader to store the add player pane
+                // create a loader to store the addPlayer pane
                 FXMLLoader loader =new FXMLLoader(MembershipMenuController.class.getResource("/com/application/simplyrugby/addGame.fxml"));
-                // lood the add player pane into a node
+                // load the add player pane into a node
                 Parent root=loader.load();
                 // add the pane
                 mainPane.getChildren().add(root);
@@ -62,9 +62,9 @@ public class GamesController {
         updateGame.setOnAction((event)->{
             try{
                 mainPane.getChildren().clear();
-                // create a loader to store the add player pane
+                // create a loader to store the addPlayer pane
                 FXMLLoader loader =new FXMLLoader(MembershipMenuController.class.getResource("/com/application/simplyrugby/updateGame.fxml"));
-                // lood the add player pane into a node
+                // load the add player pane into a node
                 Parent root=loader.load();
                 // add the pane
                 mainPane.getChildren().add(root);

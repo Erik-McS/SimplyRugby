@@ -3,7 +3,7 @@ package com.application.simplyrugby.Model;
 import com.application.simplyrugby.System.ValidationException;
 
 /**
- * Interface to describe a Admin or Coach team
+ * Interface to describe an Admin or Coach team
  */
 public interface MemberTeam {
     /**
@@ -11,7 +11,7 @@ public interface MemberTeam {
      * @param member The member to add
      * @throws ValidationException Error message to display is any issues
      */
-    public void addMember(NonPlayer member) throws ValidationException;
+    void addMember(NonPlayer member) throws ValidationException;
 
     /**
      * Method to load a team from the database.
@@ -19,11 +19,11 @@ public interface MemberTeam {
      * @param team_ID the team_id of the team we are looking for
      * @return An object containing the team.
      */
-    public MemberTeam loadTeam(MemberTeam teamType,int team_ID);
+    MemberTeam loadTeam(MemberTeam teamType,int team_ID);
 
     /**
      * Method to save a team in the database.
      * @param team The team to save.
      */
-    public void saveTeam(MemberTeam team);
+    void saveTeam(MemberTeam team);
 }

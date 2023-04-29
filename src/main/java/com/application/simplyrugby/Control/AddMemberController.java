@@ -46,7 +46,7 @@ public class AddMemberController {
         });
         cbRole.setItems(ObsListFactory.createObsList("NonPlayerRoles"));
         cbRole.getSelectionModel().select(0);
-        // add the eventhandler to the create button
+        // add the event-handler to the createButton
         bCreateMember.setOnAction((event)->{
 
             try{

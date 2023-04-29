@@ -103,7 +103,7 @@ public class CreateJuniorSquadController {
             // catching exceptions.
             try {
 
-                // Arraylists to contains the selected persons
+                // Arraylists to contain the selected persons
                 // Squad player arraylist
                 ArrayList<Player> squadArray=new ArrayList<>();
                 // replacement team arrayList.
@@ -123,10 +123,9 @@ public class CreateJuniorSquadController {
                             String name=cbx.getValue();
                             // splitting it in name and surname
                             String[] playerNames=name.split(" ");
-                            // Creating and adding the player object  in the Squad array. the database is queried to make sure we have the right player_ID.
+                            // Creating and adding the player object in the Squad array.
+                            // The database is queried to make sure we have the right player_ID.
                             squadArray.add((Player) Player.dummyPlayer().loadMember(Player.dummyPlayer(), DBTools.getID("SELECT player_id FROM players WHERE first_name='"+playerNames[0]+"' AND surname='"+playerNames[1]+"'")));
-                            // closing the database connection.
-                            DBTools.closeConnections();
                             // adding the selected player index in the duplicate arraylist.
                             duplicates.add(cbx.getSelectionModel().getSelectedIndex());
                         }
@@ -146,7 +145,6 @@ public class CreateJuniorSquadController {
                             String name=cbx.getValue();
                             String[] playerNames=name.split(" ");
                             repTeam.add((Player) Player.dummyPlayer().loadMember(Player.dummyPlayer(), DBTools.getID("SELECT player_id FROM players WHERE first_name='"+playerNames[0]+"' AND surname='"+playerNames[1]+"'")));
-                            DBTools.closeConnections();
                             duplicates.add(cbx.getSelectionModel().getSelectedIndex());
                         }
                         else

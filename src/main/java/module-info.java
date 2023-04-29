@@ -4,6 +4,7 @@ module com.application.simplyrugby {
     requires java.sql;
 
 
+
     opens com.application.simplyrugby to javafx.fxml;
     exports com.application.simplyrugby;
     exports com.application.simplyrugby.Model;

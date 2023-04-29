@@ -49,17 +49,12 @@ public class DeleteMemberController {
                     Parent root=loader.load();
 
                     MemberDeletionController controller=loader.getController();
-                    String memberName=cbMember.getValue().toString();
+                    String memberName=cbMember.getValue();
                     String[] name=memberName.split(" ");
 
                     member=(NonPlayer)  DBTools.loadMember(new NonPlayer(),
                             DBTools.getID("SELECT member_id FROM non_players WHERE first_name='"+name[0]+"' AND surname='"+name[1]+"'"));
-                    member.toString();
-
-                    DBTools.closeConnections();
-
                     controller.deleteMember(member);
-
                     Scene scene = new Scene(root);
                     scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/application/simplyrugby/styles.css"), "CSS not found").toExternalForm());
                     Stage stage1 = new Stage();

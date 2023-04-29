@@ -2,7 +2,6 @@ package com.application.simplyrugby.Control;
 
 import com.application.simplyrugby.Model.JuniorSquad;
 import com.application.simplyrugby.System.ObsListFactory;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -18,7 +17,7 @@ public class deleteJnrSquadController {
     @FXML
     private Pane mainPane;
     @FXML
-    private ComboBox cbSquad;
+    private ComboBox <String>cbSquad;
 
     public void initialize(){
 

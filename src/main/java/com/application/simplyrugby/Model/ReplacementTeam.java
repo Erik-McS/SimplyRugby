@@ -14,8 +14,9 @@ public class ReplacementTeam implements Squad{
     public ReplacementTeam(){}
 
     /**
-     * Constructor for the replacement team. takes an array of players.
-     * it will test that each player is a non-null object.
+     * Constructor for the replacement team.
+     * Takes an array of players.
+     * It will test that each player is a non-null object.
      * @param repTeam the replacement team to create.
      * @throws ValidationException Exception if any errors.
      */

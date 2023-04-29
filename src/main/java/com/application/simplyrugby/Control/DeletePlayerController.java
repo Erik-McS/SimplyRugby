@@ -13,9 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.util.Objects;
 
 public class DeletePlayerController {
@@ -26,7 +24,7 @@ public class DeletePlayerController {
     private Pane mainPane;
     @FXML
     private ComboBox <String> cbPlayer;
-    private ResultSet queryResult;
+
      public void initialize(){
 
          mainPane.getStyleClass().add("bckg1");
@@ -56,8 +54,7 @@ public class DeletePlayerController {
                      String[] name=playerName.split(" ");
                      player=(Player)  DBTools.loadMember(Player.dummyPlayer(),
                              DBTools.getID("SELECT player_id FROM players WHERE first_name='"+name[0]+"' AND surname='"+name[1]+"'"));
-                     DBTools.closeConnections();
-                     //player.toString();
+
                      controller.deleteMember(player);
 
                      Scene scene = new Scene(root);

@@ -73,7 +73,7 @@ public class ConfirmSnrSquadCntlr {
         squadSurname.setCellValueFactory(new PropertyValueFactory<>("surname"));
         squadTable.setItems(squadRoleLines);
 
-        // this part create the admin table view
+        // this part creates the admin table view
         ObservableList<AdminTableView> adminTeamLines=FXCollections.observableArrayList();
         ObservableList<String> adminRoles =ObsListFactory.createObsList("AdminRoles");
 
@@ -128,7 +128,7 @@ public class ConfirmSnrSquadCntlr {
     }
 
     /**
-     * Sets the colors and style of the window. and eventhandler for the cancel button
+     * Sets the colors and style of the window. And event handler for the cancel button
      */
     public void initialize(){
 

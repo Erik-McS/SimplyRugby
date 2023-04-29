@@ -13,7 +13,7 @@ public class Club {
     private int club_id;
 
     /**
-     * Empty constructor, can be used to create object that will be assigned a club from the database.
+     * Empty constructor can be used to create an object that will be assigned a club from the database.
      */
     public Club(){}
 

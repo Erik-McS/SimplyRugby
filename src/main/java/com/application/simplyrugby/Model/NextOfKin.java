@@ -24,8 +24,8 @@ public class NextOfKin implements ThirdParty{
 
     @Override
     public ThirdParty loadContact(int index) {
-        NextOfKin temp=(NextOfKin) DBTools.selectContact(this,index);
-        return temp;
+
+        return DBTools.selectContact(this,index);
 
     }
 

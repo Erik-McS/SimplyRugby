@@ -4,6 +4,7 @@ import com.application.simplyrugby.Model.Player;
 import com.application.simplyrugby.Model.TrainingProfile;
 import com.application.simplyrugby.System.CustomAlert;
 import com.application.simplyrugby.System.DBTools;
+import com.application.simplyrugby.System.QueryResult;
 import com.application.simplyrugby.System.ValidationException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,18 +36,22 @@ public class CreateProfileController {
             stage.close();
         });
 
-        try{
+        try(
+                QueryResult queryResult=DBTools.executeSelectQuery("SELECT PLAYER_ID,FIRST_NAME|| ' ' || SURNAME FROM players " +
+                "WHERE NOT EXISTS (" +
+                "SELECT * FROM training_profiles WHERE training_profiles.player_id=players.player_id)");
+                )
+        {
             cbPlayerProfile.getItems().add("Select a player from the list");
-
-            result= DBTools.executeSelectQuery("SELECT PLAYER_ID,FIRST_NAME|| ' ' || SURNAME FROM players " +
-                    "WHERE NOT EXISTS (" +
-                    "SELECT * FROM training_profiles WHERE training_profiles.player_id=players.player_id)");
+            result= queryResult.getResultSet();
             while (result.next()){
                 cbPlayerProfile.getItems().add(result.getString(2));
             }
             cbPlayerProfile.getSelectionModel().select(0);
-        }catch (SQLException e){e.printStackTrace();DBTools.closeConnections();}
-        finally {DBTools.closeConnections();}
+        }catch (ValidationException|SQLException e){
+            e.printStackTrace();
+            CustomAlert alert=new CustomAlert("Profile List Error",e.getMessage());
+        }
 
         bCreateProfile.setOnAction((event)->{
 
@@ -70,19 +75,13 @@ public class CreateProfileController {
                     e.printStackTrace();
                     alert.showAndWait();
                 }
-                finally {
-                    DBTools.closeConnections();
-                }
             }
             else {
 
                 CustomAlert alert=new CustomAlert("Error","Please select a Player form the list");
                 alert.showAndWait();
             }
-
         });
-
     }
-
-
+// END OF CLASS
 }
