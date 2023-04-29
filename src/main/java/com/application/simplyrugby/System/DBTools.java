@@ -235,7 +235,6 @@ public class DBTools {
      * @return The NextOfKin or Doctor Object
      */
     public static ThirdParty selectContact(ThirdParty tp,String query){
-        databaseConnect();
 
         if (tp instanceof NextOfKin nok){
             try(
@@ -429,20 +428,23 @@ public class DBTools {
                 statement4.setInt(19,repteam_id);
 
                 statement4.executeUpdate();
-                PreparedStatement statement5=null;
                 for(Player player:((SeniorSquad) squad).getSquadPlayers()){
-                    statement5= connection.prepareStatement("UPDATE players SET is_assigned_to_squad='YES' WHERE player_id='"+player.getPlayerID()+"'");
-                    statement5.executeUpdate();
+
+                    try (
+                            Connection connection1=DriverManager.getConnection(DBURL);
+                            PreparedStatement statement5= connection1.prepareStatement("UPDATE players SET is_assigned_to_squad='YES' WHERE player_id='"+player.getPlayerID()+"'");
+                            ){
+                        statement5.executeUpdate();
+                    }
+                    catch (SQLException w){w.printStackTrace();}
+
                 }
-                statement5.close();
             }
             catch (SQLException e){
                 CustomAlert alert=new CustomAlert("Create Squad Error",e.getMessage());
                 e.printStackTrace();
                 alert.showAndWait();
             }
-
-
         }
 
         else if(squad instanceof JuniorSquad){
@@ -519,12 +521,16 @@ public class DBTools {
 
                 statement4.executeUpdate();
 
-                PreparedStatement statement5=null;
                 for(Player player:((JuniorSquad) squad).getSquadPlayers()){
-                    statement5= connection.prepareStatement("UPDATE players SET is_assigned_to_squad = 'YES' WHERE player_id='"+player.getPlayerID()+"'");
-                    statement5.executeUpdate();
+                    try(
+                            Connection connection1=DriverManager.getConnection(DBURL);
+                            PreparedStatement statement5= connection.prepareStatement("UPDATE players SET is_assigned_to_squad = 'YES' WHERE player_id='"+player.getPlayerID()+"'");
+                            )
+                    {
+                        statement5.executeUpdate();
+                    }catch (SQLException e){e.printStackTrace();}
+
                 }
-                statement5.close();
             }
             catch (SQLException e){
                 CustomAlert alert=new CustomAlert("Save Squad Error:",e.getMessage());
@@ -602,18 +608,42 @@ public class DBTools {
      * @param game The game to save.
      */
     public static void saveGame(Game game){
-
+        int game_id;
+        // First, we insert the game in the database.
         try(
                 Connection connection=DriverManager.getConnection(DBURL);
+
                 PreparedStatement statement=connection.prepareStatement("INSERT INTO games (date,club_id,location_id) VALUES (?,?,?)");
+                QueryResult qs=executeSelectQuery("SELECT MAX(game_id) FROM games LIMIT 1");
+                PreparedStatement statement1=connection.prepareStatement("INSERT INTO senior_games_played VALUES (?,?,?)");
+                PreparedStatement statement2=connection.prepareStatement("INSERT INTO junior_games_played VALUES (?,?,?)")
                 )
         {
             statement.setString(1,game.getDate());
             statement.setInt(2,game.getPlayingClub().getClub_id());
             statement.setInt(3,game.getLocation());
             statement.executeUpdate();
-            connection.commit();
-        }catch(SQLException e){
+            // getting the last gameID inserted
+            game_id=qs.getResultSet().getInt(1);
+
+            // If the squad is a Senior squad, we need to update the intersection table Senior_games_played
+            if (game.getSquad() instanceof SeniorSquad){
+                SeniorSquad squad=(SeniorSquad) game.getSquad();
+                statement1.setInt(1,game_id);
+                statement1.setInt(2,getID("SELECT squad_id FROM senior_squads WHERE squad_name='"+squad.getSquadName()+"'"));
+                statement1.setString(3, game.getDate());
+                statement1.executeUpdate();
+            }
+            //else, the squad is junior.
+            else{
+                JuniorSquad squad=(JuniorSquad) game.getSquad();
+                statement2.setInt(1,game_id);
+                statement2.setInt(2,getID("SELECT squad_id FROM junior_squads WHERE squad_name='"+squad.getSquadName()+"'"));
+                statement2.setString(3, game.getDate());
+                statement2.executeUpdate();
+            }
+
+        }catch(ValidationException|SQLException e){
             CustomAlert alert=new CustomAlert("Save Game Error:",e.getMessage());
             alert.showAndWait();
             e.printStackTrace();
@@ -632,7 +662,7 @@ public class DBTools {
                  PreparedStatement statement1=connection.prepareStatement("SELECT loose_head_prop,hooker,tight_head_prop,second_row,second_row2,blind_side_flanker,open_side_flanker,number_8,scrum_half," +
                          "fly_half,left_wing,inside_centre,outside_center,right_side,full_back FROM senior_squads WHERE squad_id='"+squad_id+"'");
                  PreparedStatement statement2=connection.prepareStatement("SELECT squad_name,cogroup_id,adteam_id,repteam_id FROM senior_squads WHERE squad_id='"+squad_id+"'");
-                 PreparedStatement statement3=connection.prepareStatement("SELECT loose_head_prop,hooker,tight_head_prop,scrum_half,fly_half,centre,wing FROM senior_squads WHERE squad_id='"+squad_id+"'");
+                 PreparedStatement statement3=connection.prepareStatement("SELECT loose_head_prop,hooker,tight_head_prop,scrum_half,fly_half,centre,wing FROM junior_squads WHERE squad_id='"+squad_id+"'");
                  PreparedStatement statement4=connection.prepareStatement("SELECT squad_name,cogroup_id,adteam_id,repteam_id FROM senior_squads WHERE squad_id='"+squad_id+"'");
                  PreparedStatement statement5 = connection.prepareStatement("SELECT player_1,player_2,player_3,player_4,player_5 FROM replacement_team WHERE repteam_ID='" + squad_id + "'");
                  )
