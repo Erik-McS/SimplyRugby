@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 public class AddGameController {
 
     @FXML
-    private ComboBox cbSquadSenior,cbSquadJunior,cbClub;
+    private ComboBox<String> cbSquadSenior,cbSquadJunior,cbClub;
     @FXML
     private TextField txClub,txTelephone,txEmail;
     @FXML
@@ -51,7 +51,7 @@ public class AddGameController {
      * Method to initialise the add Game panel
      */
     public void initialize(){
-        // setting the items styles
+        // setting the item styles
         firstPane.getStyleClass().add("bckg2");
         secondPane.getStyleClass().add("bckg3");
         bCancel.getStyleClass().add("bckg5");
@@ -122,9 +122,9 @@ public class AddGameController {
                 cbSquadJunior.setVisible(false);
         });
 
-        // here, once the create Game button is pressed, we will gather and test the data collected in the form
+        // here, once the createGame button is pressed, we will gather and test the data collected in the form
         bCreateGame.setOnAction((event)->{
-            // try to catch any errors and display a error message if any.
+            // try to catch any errors and display an error message if any.
             Game game;
             LocalDate date;
             int location;
@@ -167,7 +167,7 @@ public class AddGameController {
                         throw new ValidationException("A rival club must either be selected or created");
                     else {
                         System.out.println("bCreateGame button clicked");
-                        game=new Game((SeniorSquad)DBTools.loadSquad(new SeniorSquad(),cbSquadSenior.getSelectionModel().getSelectedIndex()),club,date.format(dt),location);
+                        game=new Game(DBTools.loadSquad(new SeniorSquad(),cbSquadSenior.getSelectionModel().getSelectedIndex()),club,date.format(dt),location);
                         System.out.println("Game object created : "+game.getDate());
                         //preparing and showing the confirmation window
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/application/simplyrugby/ConfirmGameCreation.fxml"));
@@ -218,8 +218,8 @@ public class AddGameController {
                     else if (!clubIsInserted)
                         throw new ValidationException("A rival club must either be selected or created");
                     else {
-                        DBTools.closeConnections();
-                        game=new Game((JuniorSquad)DBTools.loadSquad(new JuniorSquad(),cbSquadJunior.getSelectionModel().getSelectedIndex()),club,date.format(dt),location);
+
+                        game=new Game(DBTools.loadSquad(new JuniorSquad(),cbSquadJunior.getSelectionModel().getSelectedIndex()),club,date.format(dt),location);
 
                         //preparing and showing the confirmation window
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/application/simplyrugby/ConfirmGameCreation.fxml"));
@@ -254,12 +254,12 @@ public class AddGameController {
                 String telephone;
                 String clubEmail;
                 // getting the Club name
-                if (!txClub.equals(""))
+                if (!txClub.getText().equals(""))
                     clubName=txClub.getText();
                 else
                     throw new ValidationException("The Club name cannot be empty");
                 // getting the club telephone.
-                if (txTelephone.equals(""))
+                if (txTelephone.getText().equals(""))
                     throw new ValidationException("Telephone cannot be empty");
                 else {
                     // testing if the tel format is valid

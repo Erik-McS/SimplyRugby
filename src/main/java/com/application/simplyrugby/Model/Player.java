@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Class to manipulate the players records.<br>
+ * Class to manipulate the player's records.<br>
  * It uses the Builder design pattern, the constructor will be private and a nested class with a Builder.<br>
  * It will create the object and check the data.
  */
@@ -30,7 +30,7 @@ public class Player implements Member{
     private String isAssignedToSquad;
 
 
-    // Constructor of the player class. it will take the Builder object and assign its field.
+    // Constructor of the player class. It will take the Builder object and assign its field.
 
     private Player(PlayerBuilder build){
         this.playerID=build.playerID;
@@ -160,7 +160,7 @@ public class Player implements Member{
          * Function to set the player's telephone
          * @param telephone The player's telephone
          * @return The builder object
-         * @throws ValidationException Telephone cannot be empty
+         * @throws ValidationException The Telephone cannot be empty
          */
         public PlayerBuilder setTelephone(String telephone) throws ValidationException{
             if (telephone.equals(""))
@@ -279,7 +279,7 @@ public class Player implements Member{
                 return this;
         }
         /**
-         * Function to set the player's status. set to False by default.
+         * Function to set the player's status. Set to False by default.
          * @param isAssignedToSquad The player's status
          * @return The builder object
          */
@@ -295,7 +295,7 @@ public class Player implements Member{
         }
 
         /**
-         * This function build the Player object and returns it to the caller.
+         * This function builds the Player object and returns it to the caller.
          * @return The player object
          * @throws ValidationException throws an error if any problems
          */
@@ -384,7 +384,7 @@ public class Player implements Member{
     /**
      * Function to set the player's telephone
      * @param telephone The player's telephone
-     * @throws ValidationException Telephone cannot be empty
+     * @throws ValidationException The Telephone cannot be empty
      */
     public void setTelephone(String telephone) throws ValidationException{
         if (telephone.equals(""))
@@ -501,7 +501,7 @@ public class Player implements Member{
 
 
     /**
-     * Function to set the player's status. set to False by default.
+     * Function to set the player's status. Set to False by default.
      * @param isAssignedToSquad The player's status
      */
     public void setIsAssignedToSquad(String isAssignedToSquad) throws ValidationException{

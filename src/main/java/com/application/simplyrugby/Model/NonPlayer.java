@@ -65,7 +65,7 @@ public class NonPlayer implements Member{
     }
 
     /**
-     * Set the member_ID. used by the DBTools to create a member object from the DB.
+     * Set the member_ID. Used by DBTools to create a member object from the DB.
      * @param member_id The member ID
      */
     public void setMember_id(int member_id) {
@@ -160,7 +160,7 @@ public class NonPlayer implements Member{
     /**
      * Function to set the telephone
      * @param telephone The member's telephone
-     * @throws ValidationException Telephone cannot be empty
+     * @throws ValidationException The Telephone cannot be empty
      */
     public void setTelephone(String telephone) throws ValidationException{
 

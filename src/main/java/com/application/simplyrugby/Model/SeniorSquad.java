@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * it will take 15 players and use an ArrayList to store them.
  */
 public class SeniorSquad implements Squad{
-    // the arraylist to contains the squad.
+    // the arraylist to contain the squad.
     private ArrayList<Player> squadPlayers=new ArrayList<>();
     // empty constructor, to allow the creation of a null object.
     private String squadName;

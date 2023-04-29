@@ -3,6 +3,7 @@ package com.application.simplyrugby.System;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * This class was created to solve a SQLIte 'Database Class is locked' issue<br>
@@ -19,8 +20,33 @@ public class QueryResult implements AutoCloseable{
     private ResultSet resultSet;
     private Connection connection;
     private PreparedStatement statement;
-    @Override
-    public void close() throws Exception {
 
+    public QueryResult(ResultSet resultSet,Connection connection,PreparedStatement statement){
+        this.resultSet=resultSet;
+        this.connection=connection;
+        this.statement=statement;
+    }
+
+    public ResultSet getResultSet() throws ValidationException{
+
+        if (resultSet!=null)
+            return resultSet;
+        else
+            throw new ValidationException("No results returned from the database");
+    }
+
+    @Override
+    public void close() throws SQLException {
+        try{
+            if (resultSet!=null)
+                resultSet.close();
+            if (statement!=null)
+                statement.close();
+            if (connection!=null)
+                connection.close();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }
