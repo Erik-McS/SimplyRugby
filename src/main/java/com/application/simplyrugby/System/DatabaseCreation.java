@@ -42,7 +42,6 @@ public class DatabaseCreation {
             while (sc.hasNext()) {
                 String s = sc.next();
                 DBTools.executeUpdateQuery(s);
-                System.out.println("Line : "+i);
                 i++;
             }
         } catch (FileNotFoundException e) {

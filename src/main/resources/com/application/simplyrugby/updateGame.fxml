@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane fx:id="firstPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="774.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.Control.UpdateGameController">
+<Pane fx:id="firstPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="774.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.Control.UpdateGameController">
    <children>
       <Pane fx:id="secondPane" layoutY="59.0" prefHeight="715.0" prefWidth="967.0">
          <children>
-            <Label layoutX="66.0" layoutY="62.0" text="Select a Game" textFill="WHITE">
+            <Label layoutX="66.0" layoutY="14.0" text="Select a Game" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -23,7 +27,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cbGame" layoutX="66.0" layoutY="96.0" prefHeight="25.0" prefWidth="436.0" />
+            <ComboBox fx:id="cbSeniorGame" layoutX="66.0" layoutY="34.0" prefHeight="25.0" prefWidth="436.0" />
             <RadioButton fx:id="rbWon" layoutX="66.0" layoutY="219.0" mnemonicParsing="false" text="Won" textFill="WHITE">
                <font>
                   <Font size="13.0" />
@@ -84,6 +88,12 @@
                <font>
                   <Font size="13.0" />
                </font></Label>
+            <Label fx:id="lOr" layoutX="502.0" layoutY="59.0" text="Or" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbJuniorGame" layoutX="66.0" layoutY="79.0" prefHeight="25.0" prefWidth="436.0" />
          </children>
       </Pane>
       <Label layoutX="415.0" layoutY="14.0" text="Update a Game" textFill="WHITE">

@@ -1,16 +1,17 @@
 package com.application.simplyrugby.Control;
 
+import com.application.simplyrugby.System.ObsListFactory;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Spinner;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 
+/**
+ * This controller manages the Update game panel, where the game outcome and scores can be updated.
+ */
 public class UpdateGameController {
 
     @FXML
-    private ComboBox <String>cbGame;
+    private ComboBox <String>cbSeniorGame,cbJuniorGame;
     @FXML
     private RadioButton rbWon,rbLost,rbWonForfeit,rbLostForfeit,rbCancelled;
     @FXML
@@ -19,6 +20,8 @@ public class UpdateGameController {
     private Button bUpdateGame,bCancel;
     @FXML
     private Pane firstPane,secondPane;
+    @FXML
+    Label lOr;
 
     public void initialize(){
 
@@ -27,10 +30,13 @@ public class UpdateGameController {
         bCancel.getStyleClass().add("bckg5");
         bUpdateGame.getStyleClass().add("bckg5");
 
-
+        cbSeniorGame.setItems(ObsListFactory.createObsList("SeniorGames"));
+        cbSeniorGame.getSelectionModel().select(0);
         bCancel.setOnAction((event)->{
             firstPane.getChildren().clear();
         });
+
+
     }
 
 }

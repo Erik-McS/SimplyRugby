@@ -41,6 +41,8 @@ public class CustomAlert extends Stage {
         lTitle.getStyleClass().add("whiteText");
         lTitle.setMinSize(15,15);
         lMessage.getStyleClass().add("whiteText");
+        lTitle.setStyle("-fx-font-weight: bold; -fx-font-size: 18px;");
+        lMessage.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
         this.getIcons().add(new Image(getClass().getResourceAsStream("/com/application/simplyrugby/logo.png")));
         //setMinWidth(400);
         setMinHeight(150);
