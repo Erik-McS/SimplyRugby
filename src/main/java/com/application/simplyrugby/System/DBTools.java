@@ -7,7 +7,10 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * Class to interact with the Database. This class will follow the Singleton design pattern
+ * Class to interact with the Database. This class will follow the Singleton design pattern.<br>
+ * this static class has all the functions to interact with the database.<br>
+ * During development, the class was optimised to prevent connection leaks that were causing database locks.<br>
+ * to that effect, the class calls a HIKARICP class for connection pooling and extensive use of try-catch with resources.
  * @author Erik McSeveney
  */
 public class DBTools {
@@ -15,13 +18,11 @@ public class DBTools {
     //private static Connection connection;
     //private static PreparedStatement statement;
     private DBTools(){}
-    private static final String DBURL="JDBC:sqlite:SimplyRugbyDB.db";
 
     /**
      * This method loads the JDBC drivers and allows access to a database
      */
     public static void databaseConnect(){
-
         try {
             // loading sqlite/JDBC drivers
             Class.forName("org.sqlite.JDBC").getDeclaredConstructor().newInstance();
@@ -45,7 +46,7 @@ public class DBTools {
 
         // try with the connection and statement as resources
         try(
-                Connection connect=DriverManager.getConnection(DBURL);
+                Connection connect=ConnectionPooling.getDataSource().getConnection();
                 PreparedStatement statement=connect.prepareStatement(query)
                 )
         {
@@ -61,11 +62,10 @@ public class DBTools {
             return false;}
     }
 
-
-
     /**
      * Function to execute a generic SELECT query.<br>
-     * the DBTools.closeConnections() must be called once the ResultSet that has been sent if not needed anymore.
+     * The class creates and returns a custom 'QueryResult' object. The object has a close() method that needs to be called<br>
+     * to make sure the connection it used is closed properly.
      * @param query The SELECT query
      * @return the ResultSet requested.
      */
@@ -73,8 +73,7 @@ public class DBTools {
 
         try {
             // connecting to the database.
-            Connection connection = DriverManager.getConnection(DBURL);
-            // executing the query
+            Connection connection=ConnectionPooling.getDataSource().getConnection();            // executing the query
             PreparedStatement statement = connection.prepareStatement(query);
             //
             ResultSet rs = statement.executeQuery();
@@ -94,9 +93,8 @@ public class DBTools {
      * @return The requested ID.
      */
     public static int getID(String query) {
-
         try (
-                Connection connection = DriverManager.getConnection(DBURL);
+                Connection connection=ConnectionPooling.getDataSource().getConnection();
                 PreparedStatement statement = connection.prepareStatement(query)
                 ){
 
@@ -157,7 +155,7 @@ public class DBTools {
         if (member instanceof Player){
 
             try(
-                    Connection connection = DriverManager.getConnection(DBURL);
+                    Connection connection=ConnectionPooling.getDataSource().getConnection();
                     PreparedStatement statement = connection.prepareStatement("SELECT player_id,first_name,surname,address,date_of_birth,gender,telephone" +
                             ",email,scrums_number,is_assigned_to_squad,doctor_id,kin_id FROM players WHERE player_id="+memberID)
                     )
@@ -179,7 +177,7 @@ public class DBTools {
         // if the record to search for is a NonPlayer.
         if (member instanceof NonPlayer){
             try(
-                    Connection connection = DriverManager.getConnection(DBURL);
+                    Connection connection=ConnectionPooling.getDataSource().getConnection();
                     PreparedStatement statement = connection.prepareStatement("SELECT member_id,first_name,surname,address,telephone" +
                             ",email,role_id FROM non_players WHERE member_id="+memberID)
             )
@@ -238,7 +236,7 @@ public class DBTools {
 
         if (tp instanceof NextOfKin nok){
             try(
-                    Connection connection = DriverManager.getConnection(DBURL);
+                    Connection connection=ConnectionPooling.getDataSource().getConnection();
                     PreparedStatement statement = connection.prepareStatement(query)
                     )
             {
@@ -259,7 +257,7 @@ public class DBTools {
         // same process if the record is for a doctor.
         if (tp instanceof Doctor doc){
             try(
-                    Connection connection = DriverManager.getConnection(DBURL);
+                    Connection connection=ConnectionPooling.getDataSource().getConnection();
                     PreparedStatement statement = connection.prepareStatement(query)
                     )
             {
@@ -289,7 +287,7 @@ public class DBTools {
         if (tp instanceof NextOfKin nok){
             String query="SELECT kin_id,name,surname,telephone FROM next_of_kin WHERE kin_id="+index;
             try(
-                    Connection connection = DriverManager.getConnection(DBURL);
+                    Connection connection=ConnectionPooling.getDataSource().getConnection();
                     PreparedStatement statement = connection.prepareStatement(query)
             )
             {
@@ -309,7 +307,7 @@ public class DBTools {
         if (tp instanceof Doctor doc){
             String query="SELECT doctor_id,name,surname,telephone FROM player_doctors WHERE doctor_id="+index;
             try(
-                    Connection connection = DriverManager.getConnection(DBURL);
+                    Connection connection =ConnectionPooling.getDataSource().getConnection();
                     PreparedStatement statement = connection.prepareStatement(query)
             )
             {
@@ -327,16 +325,14 @@ public class DBTools {
         return null;
     }
 
-
     /**
      * Function to get the role description of a non-player member from its ID.
      * @param roleID The role ID to search for.
      * @return The role description.
      */
     public static String getRole(int roleID){
-
         try(
-                Connection connection = DriverManager.getConnection(DBURL);
+                Connection connection=ConnectionPooling.getDataSource().getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT role_description FROM non_players_roles WHERE role_id="+roleID)
                 ){
             ResultSet rs=statement.executeQuery();
@@ -357,17 +353,15 @@ public class DBTools {
         //databaseConnect();
         if (squad instanceof SeniorSquad){
             try (
-                    Connection connection = DriverManager.getConnection(DBURL);
+                    Connection connection=ConnectionPooling.getDataSource().getConnection();
                     PreparedStatement statement1 = connection.prepareStatement("INSERT INTO replacement_team(PLAYER_1,PLAYER_2,PLAYER_3,PLAYER_4,PLAYER_5) VALUES (?,?,?,?,?)");
                     PreparedStatement statement2=connection.prepareStatement("INSERT INTO squad_coaches(COACH_1,COACH_2,COACH_3) VALUES (?,?,?)");
                     PreparedStatement statement3=connection.prepareStatement("INSERT INTO squad_admin_team(CHAIRMAN,FIXTURE_SEC) VALUES (?,?)");
                     PreparedStatement statement4=connection.prepareStatement( "INSERT INTO senior_squads(squad_name,loose_head_prop,hooker,tight_head_prop,second_row,second_row2,blind_side_flanker,open_side_flanker,number_8,scrum_half," +
                             "fly_half,left_wing,inside_centre,outside_center,right_side,full_back,cogroup_id,adteam_id,repteam_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
                     ){
-                // opening the connection
 
                 // variables to save the inner teams IDs.
-
                 int cogroup_id;
                 int adteam_id;
                 int repteam_id;
@@ -429,15 +423,13 @@ public class DBTools {
 
                 statement4.executeUpdate();
                 for(Player player:((SeniorSquad) squad).getSquadPlayers()){
-
                     try (
-                            Connection connection1=DriverManager.getConnection(DBURL);
+                            Connection connection1=ConnectionPooling.getDataSource().getConnection();
                             PreparedStatement statement5= connection1.prepareStatement("UPDATE players SET is_assigned_to_squad='YES' WHERE player_id='"+player.getPlayerID()+"'");
                             ){
                         statement5.executeUpdate();
                     }
                     catch (SQLException w){w.printStackTrace();}
-
                 }
             }
             catch (SQLException e){
@@ -448,9 +440,8 @@ public class DBTools {
         }
 
         else if(squad instanceof JuniorSquad){
-
             try(
-                    Connection connection = DriverManager.getConnection(DBURL);
+                    Connection connection=ConnectionPooling.getDataSource().getConnection();
                     PreparedStatement statement1 = connection.prepareStatement("INSERT INTO replacement_team(PLAYER_1,PLAYER_2,PLAYER_3,PLAYER_4,PLAYER_5) VALUES (?,?,?,?,?)");
                     PreparedStatement statement2=connection.prepareStatement("INSERT INTO squad_coaches(COACH_1,COACH_2,COACH_3) VALUES (?,?,?)");
                     PreparedStatement statement3=connection.prepareStatement("INSERT INTO squad_admin_team(CHAIRMAN,FIXTURE_SEC) VALUES (?,?)");
@@ -523,8 +514,8 @@ public class DBTools {
 
                 for(Player player:((JuniorSquad) squad).getSquadPlayers()){
                     try(
-                            Connection connection1=DriverManager.getConnection(DBURL);
-                            PreparedStatement statement5= connection.prepareStatement("UPDATE players SET is_assigned_to_squad = 'YES' WHERE player_id='"+player.getPlayerID()+"'");
+                            Connection connection1=ConnectionPooling.getDataSource().getConnection();
+                            PreparedStatement statement5= connection1.prepareStatement("UPDATE players SET is_assigned_to_squad = 'YES' WHERE player_id='"+player.getPlayerID()+"'");
                             )
                     {
                         statement5.executeUpdate();
@@ -548,9 +539,8 @@ public class DBTools {
     public static Club  getClub(int club_id) {
         // getting the data from the database and creating the object.
         try (
-                Connection connection = DriverManager.getConnection(DBURL);
-                PreparedStatement statement = connection.prepareStatement("SELECT name,address,telephone,email FROM clubs WHERE club_id='" + club_id + "'");
-
+                Connection connection=ConnectionPooling.getDataSource().getConnection();
+                PreparedStatement statement = connection.prepareStatement("SELECT name,address,telephone,email FROM clubs WHERE club_id='" + club_id + "'")
         ) {
             ResultSet rs = statement.executeQuery();
             Club club = new Club(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
@@ -571,11 +561,11 @@ public class DBTools {
     public static void saveClub(Club club){
         ResultSet rs;
         try(
-                Connection connection=DriverManager.getConnection(DBURL);
+                Connection connection=ConnectionPooling.getDataSource().getConnection();
                 PreparedStatement statement= connection.prepareStatement("INSERT INTO clubs (name,address,telephone,email) VALUES (?,?,?,?)");
-                QueryResult qs=executeSelectQuery("SELECT name FROM Clubs");
-        ){
 
+        ){
+            QueryResult qs=executeSelectQuery("SELECT name FROM Clubs");
             if (qs!=null){
                 rs=qs.getResultSet();
                 // checking there are no name duplicates in the DB.
@@ -584,8 +574,10 @@ public class DBTools {
                         throw new ValidationException("A Club with this name already exists in the database");
                 }
             }
+
             else
                 throw new ValidationException("There are no Clubs saved in the database");
+            qs.close();
             // if not, we save the club in the DB.
             // setting each value in the statement
             statement.setString(1,club.getName());
@@ -611,10 +603,8 @@ public class DBTools {
         int game_id;
         // First, we insert the game in the database.
         try(
-                Connection connection=DriverManager.getConnection(DBURL);
-
+                Connection connection=ConnectionPooling.getDataSource().getConnection();
                 PreparedStatement statement=connection.prepareStatement("INSERT INTO games (date,club_id,location_id) VALUES (?,?,?)");
-                QueryResult qs=executeSelectQuery("SELECT MAX(game_id) FROM games LIMIT 1");
                 PreparedStatement statement1=connection.prepareStatement("INSERT INTO senior_games_played VALUES (?,?,?)");
                 PreparedStatement statement2=connection.prepareStatement("INSERT INTO junior_games_played VALUES (?,?,?)")
                 )
@@ -624,24 +614,28 @@ public class DBTools {
             statement.setInt(3,game.getLocation());
             statement.executeUpdate();
             // getting the last gameID inserted
+            QueryResult qs=executeSelectQuery("SELECT MAX(game_id) FROM games LIMIT 1");
             game_id=qs.getResultSet().getInt(1);
+            System.out.println("Game ID: "+game_id);
+            qs.close();
 
             // If the squad is a Senior squad, we need to update the intersection table Senior_games_played
             if (game.getSquad() instanceof SeniorSquad){
                 SeniorSquad squad=(SeniorSquad) game.getSquad();
-                statement1.setInt(1,game_id);
-                statement1.setInt(2,getID("SELECT squad_id FROM senior_squads WHERE squad_name='"+squad.getSquadName()+"'"));
-                statement1.setString(3, game.getDate());
+                statement1.setInt(1,getID("SELECT squad_id FROM senior_squads WHERE squad_name='"+squad.getSquadName()+"'"));
+                statement1.setString(2, game.getDate());
+                statement1.setInt(3,game_id);
                 statement1.executeUpdate();
             }
             //else, the squad is junior.
             else{
                 JuniorSquad squad=(JuniorSquad) game.getSquad();
-                statement2.setInt(1,game_id);
-                statement2.setInt(2,getID("SELECT squad_id FROM junior_squads WHERE squad_name='"+squad.getSquadName()+"'"));
-                statement2.setString(3, game.getDate());
+                statement2.setInt(1,getID("SELECT squad_id FROM junior_squads WHERE squad_name='"+squad.getSquadName()+"'"));
+                statement2.setString(2, game.getDate());
+                statement2.setInt(3,game_id);
                 statement2.executeUpdate();
             }
+
 
         }catch(ValidationException|SQLException e){
             CustomAlert alert=new CustomAlert("Save Game Error:",e.getMessage());
@@ -658,7 +652,7 @@ public class DBTools {
      */
     public static Squad loadSquad(Squad squad,int squad_id) throws ValidationException{
          try(
-                 Connection connection=DriverManager.getConnection(DBURL);
+                 Connection connection=ConnectionPooling.getDataSource().getConnection();
                  PreparedStatement statement1=connection.prepareStatement("SELECT loose_head_prop,hooker,tight_head_prop,second_row,second_row2,blind_side_flanker,open_side_flanker,number_8,scrum_half," +
                          "fly_half,left_wing,inside_centre,outside_center,right_side,full_back FROM senior_squads WHERE squad_id='"+squad_id+"'");
                  PreparedStatement statement2=connection.prepareStatement("SELECT squad_name,cogroup_id,adteam_id,repteam_id FROM senior_squads WHERE squad_id='"+squad_id+"'");
@@ -744,7 +738,7 @@ public class DBTools {
         ResultSet rs;
 
             try(
-                    Connection connection=DriverManager.getConnection(DBURL);
+                    Connection connection=ConnectionPooling.getDataSource().getConnection();
                     PreparedStatement statement1= connection.prepareStatement("SELECT chairman,fixture_sec FROM squad_admin_team WHERE adteam_id='"+team_id+"'");
                     PreparedStatement statement2= connection.prepareStatement("SELECT coach_1,coach_2,coach_3 FROM squad_coaches WHERE cogroup_id='"+team_id+"'");
 
@@ -769,6 +763,12 @@ public class DBTools {
             }
             return null;
     }
+
+    public static Game loadGame(){
+
+        return null;
+    }
+
     /**
      * Unused at the moment
      * @param player the profile to update.

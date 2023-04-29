@@ -3,12 +3,18 @@ package com.application.simplyrugby.Control;
 import com.application.simplyrugby.Model.Game;
 import com.application.simplyrugby.Model.JuniorSquad;
 import com.application.simplyrugby.Model.SeniorSquad;
-import com.application.simplyrugby.System.DBTools;
+import com.application.simplyrugby.System.*;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.security.spec.ECField;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  * Controller for the Game creation confirmation panel
@@ -45,9 +51,11 @@ public class ConfirmGameCreationCtlr {
             lDate.setText(game.getDate());
         }
     bCreateGame.setOnAction((event)->{
+        System.out.println("Create Game button clicked");
         DBTools.saveGame(game);
         Stage stage=(Stage) bCreateGame.getScene().getWindow();
         stage.close();
+
     });
 
     }

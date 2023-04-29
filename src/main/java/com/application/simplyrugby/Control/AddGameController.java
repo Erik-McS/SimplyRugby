@@ -42,7 +42,7 @@ public class AddGameController {
     @FXML
     private Pane firstPane,secondPane;
     @FXML
-    private Label lClubSelect,lClub1,lClub2,lClub3,lClub4,lClub5;
+    private Label lClubSelect,lClub1,lClub2,lClub3,lClub4,lClub5,lOr;
     @FXML
     private DatePicker dpDate;
     boolean clubIsInserted=false;
@@ -60,9 +60,6 @@ public class AddGameController {
         cbClub.getStyleClass().add("bckg5");
         cbSquadSenior.getStyleClass().add("bckg5");
         cbSquadJunior.getStyleClass().add("bckg5");
-
-
-
 
         // creating a Toggle group for the location radio buttons, so only one value can be selected
         ToggleGroup group=new ToggleGroup();
@@ -109,17 +106,27 @@ public class AddGameController {
         });
         // if a junior squad is selected, the senior squad combobox disappear
         cbSquadJunior.setOnAction((event)->{
-            if (cbSquadJunior.getSelectionModel().getSelectedIndex()==0)
+            if (cbSquadJunior.getSelectionModel().getSelectedIndex()==0){
                 cbSquadSenior.setVisible(true);
+                lOr.setVisible(true);
+            }
             else
+            {
                 cbSquadSenior.setVisible(false);
+                lOr.setVisible(false);
+            }
+
         });
         // if a senior squad is selected, the senior squad combobox disappear
         cbSquadSenior.setOnAction((event)->{
-            if (cbSquadSenior.getSelectionModel().getSelectedIndex()==0)
+            if (cbSquadSenior.getSelectionModel().getSelectedIndex()==0){
                 cbSquadJunior.setVisible(true);
-            else
+                lOr.setVisible(true);
+            }
+            else{
                 cbSquadJunior.setVisible(false);
+                lOr.setVisible(false);
+            }
         });
 
         // here, once the createGame button is pressed, we will gather and test the data collected in the form
@@ -130,8 +137,7 @@ public class AddGameController {
             int location;
             DateTimeFormatter dt=DateTimeFormatter.ofPattern("dd/MM/yyyy");
             try{
-                // we check that a team has been selected.
-
+                // we check that team has been selected.
                 if (cbSquadSenior.getSelectionModel().getSelectedIndex()==0 && cbSquadJunior.getSelectionModel().getSelectedIndex()==0)
                     throw new ValidationException("A Junior or Senior squad must be selected to create a game.");
                 // if a Senior squad is selected.
@@ -166,9 +172,9 @@ public class AddGameController {
                     if (!clubIsInserted)
                         throw new ValidationException("A rival club must either be selected or created");
                     else {
-                        System.out.println("bCreateGame button clicked");
+
                         game=new Game(DBTools.loadSquad(new SeniorSquad(),cbSquadSenior.getSelectionModel().getSelectedIndex()),club,date.format(dt),location);
-                        System.out.println("Game object created : "+game.getDate());
+                        System.out.println("Game object created : "+game.getPlayingClub().getName());
                         //preparing and showing the confirmation window
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/application/simplyrugby/ConfirmGameCreation.fxml"));
                         Parent root=loader.load();
@@ -189,8 +195,9 @@ public class AddGameController {
                 // End of SeniorSquad parts
                 }
                 // otherwise it means it's a Junior squad
-                else
+                else if (cbSquadJunior.getSelectionModel().getSelectedIndex()!=0)
                 {
+                    System.out.println("Junior Squad");
                     // testing a date has been picked
                     if (dpDate.getValue()!=null)
                         date=dpDate.getValue();
@@ -211,11 +218,13 @@ public class AddGameController {
 
                     // creating the Club object
                     // if selected from the comboBox
-                    if (cbClub.getSelectionModel().getSelectedIndex()!=0)
+                    if (cbClub.getSelectionModel().getSelectedIndex()!=0){
                         club=DBTools.getClub(cbClub.getSelectionModel().getSelectedIndex());
-                        // we check if the club was created, if not flagged as such, gives an error message
-                        // otherwise, it means the club object was created by the createClub button
-                    else if (!clubIsInserted)
+                        clubIsInserted=true;
+                    }
+                    // we check if the club was created, if not flagged as such, gives an error message
+                    // otherwise, it means the club object was created by the createClub button
+                    if (!clubIsInserted)
                         throw new ValidationException("A rival club must either be selected or created");
                     else {
 
@@ -241,7 +250,7 @@ public class AddGameController {
                     // End of JuniorSquad parts
                 }
             }catch(IOException | ValidationException e){
-                CustomAlert alert=new CustomAlert("No Squad Selected",e.getMessage());
+                CustomAlert alert=new CustomAlert("Game Creation Error:",e.getMessage());
                 e.printStackTrace();
                 alert.showAndWait();
             }
