@@ -6,8 +6,7 @@ import javafx.collections.ObservableList;
 
 
 import java.lang.reflect.Array;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -404,7 +403,34 @@ public class ObsListFactory {
                     alert.showAndWait();
                     e.printStackTrace();return null;}
             }
+            else if(s.equals("JuniorGames")){
 
+                try(
+                        QueryResult qs=DBTools.executeSelectQuery("SELECT squad_id FROM junior_games_played")
+                ){
+                    oList.add("Select a Junior squad game");
+                    while(qs.getResultSet().next()){
+                        // add the club to the list
+                        String line="";
+                        QueryResult qs1=DBTools.executeSelectQuery("SELECT squad_name FROM junior_squads WHERE squad_id='"+qs.getResultSet().getInt(1)+"'");
+                        line=line+qs1.getResultSet().getString(1)+" VS ";
+                        qs1=DBTools.executeSelectQuery("SELECT name FROM clubs " +
+                                "WHERE club_id=(SELECT club_id FROM games " +
+                                "WHERE game_id=(SELECT game_id FROM junior_games_played " +
+                                "WHERE squad_id='"+qs.getResultSet().getInt(1)+"'))");
+                        line=line+qs1.getResultSet().getString(1)+" - ";
+                        // SELECT date FROM senior_games_played WHERE squad_id=
+                        qs1=DBTools.executeSelectQuery("SELECT date FROM junior_games_played WHERE squad_id='"+qs.getResultSet().getInt(1)+"'");
+                        line=line+qs1.getResultSet().getString(1);
+                        qs1.close();
+                        oList.add(line);
+                    }
+                    return oList;
+                }catch (ValidationException|SQLException e){
+                    CustomAlert alert=new CustomAlert("Error creating the Game Obs List",e.getMessage());
+                    alert.showAndWait();
+                    e.printStackTrace();return null;}
+            }
 
             // and if not of any known command, display an error message.
             // for internal and testing uses

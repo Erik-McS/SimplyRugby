@@ -9,7 +9,7 @@ import com.zaxxer.hikari.HikariDataSource;
  */
 public class ConnectionPooling {
 
-    private static final String DBURL="JDBC:sqlite:SimplyRugbyDB.db";
+    public static final String DBURL="JDBC:sqlite:SimplyRugbyDB.db";
 
     private static HikariDataSource dataSource;
 
@@ -21,5 +21,9 @@ public class ConnectionPooling {
             dataSource=new HikariDataSource(config);
         }
         return dataSource;
+    }
+
+    public static void closeDataSource(){
+        dataSource.close();
     }
 }

@@ -122,10 +122,6 @@ public class DBTools {
         // if it is a Player record:
         if (member instanceof Player player){
             // Execute the query and return a boolean.
-            System.out.println("INSERT INTO players (first_name,surname,address,date_of_birth,gender,telephone,email,scrums_number,is_assigned_to_squad,doctor_id,kin_id " +
-                    "VALUES " +
-                    "('"+player.getFirstName()+"','"+player.getSurname()+"','"+ player.getAddress()+"','"+player.getDateOfBirth()+"','"+player.getGender()+"','"+player.getTelephone()
-                    +"','"+player.getEmail()+"','"+player.getScrumsNumber()+"','"+player.isAssignedToSquad()+"','"+player.getDoctorID()+"','"+player.getKinID()+"')");
             return executeUpdateQuery("INSERT INTO players (first_name,surname,address,date_of_birth,gender,telephone,email,scrums_number,is_assigned_to_squad,doctor_id,kin_id) " +
                     "VALUES " +
                     "('"+player.getFirstName()+"','"+player.getSurname()+"','"+ player.getAddress()+"','"+player.getDateOfBirth()+"','"+player.getGender()+"','"+player.getTelephone()
@@ -616,7 +612,6 @@ public class DBTools {
             // getting the last gameID inserted
             QueryResult qs=executeSelectQuery("SELECT MAX(game_id) FROM games LIMIT 1");
             game_id=qs.getResultSet().getInt(1);
-            System.out.println("Game ID: "+game_id);
             qs.close();
 
             // If the squad is a Senior squad, we need to update the intersection table Senior_games_played
@@ -657,7 +652,7 @@ public class DBTools {
                          "fly_half,left_wing,inside_centre,outside_center,right_side,full_back FROM senior_squads WHERE squad_id='"+squad_id+"'");
                  PreparedStatement statement2=connection.prepareStatement("SELECT squad_name,cogroup_id,adteam_id,repteam_id FROM senior_squads WHERE squad_id='"+squad_id+"'");
                  PreparedStatement statement3=connection.prepareStatement("SELECT loose_head_prop,hooker,tight_head_prop,scrum_half,fly_half,centre,wing FROM junior_squads WHERE squad_id='"+squad_id+"'");
-                 PreparedStatement statement4=connection.prepareStatement("SELECT squad_name,cogroup_id,adteam_id,repteam_id FROM senior_squads WHERE squad_id='"+squad_id+"'");
+                 PreparedStatement statement4=connection.prepareStatement("SELECT squad_name,cogroup_id,adteam_id,repteam_id FROM junior_squads WHERE squad_id='"+squad_id+"'");
                  PreparedStatement statement5 = connection.prepareStatement("SELECT player_1,player_2,player_3,player_4,player_5 FROM replacement_team WHERE repteam_ID='" + squad_id + "'");
                  )
          {
