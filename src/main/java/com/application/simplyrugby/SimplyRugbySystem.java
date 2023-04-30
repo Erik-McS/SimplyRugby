@@ -14,13 +14,13 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 /**
- * This is the entry point of the program. this will launch the main menu window
+ * This is the entry point of the program. This will launch the main menu window
  * @author Erik McSeveney
  */
 public class SimplyRugbySystem extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-
+        DBTools.databaseConnect();
         // Database creation object will test DB presence and create it if it doesn't exist
         DatabaseCreation db=new DatabaseCreation();
         // load the main menu fxml file

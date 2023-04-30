@@ -373,30 +373,34 @@ public class ObsListFactory {
                     e.printStackTrace();return null;}
                 }
             else if(s.equals("SeniorGames")){
+                // This command is to get the obs list for the Senior game played comboBox.
+                // Starting by getting a list of the entries in senior_game_played
                 try(
-                        QueryResult qs=DBTools.executeSelectQuery("SELECT squad_id FROM senior_games_played")
+                        QueryResult qs=DBTools.executeSelectQuery("SELECT squad_id,date FROM senior_games_played")
                 ){
                     oList.add("Select a Senior squad game");
-
-                    // SeniorSquad squad=DBTools.loadSquad()
+                    // going through the QueryResult qs data
                     while(qs.getResultSet().next()){
-                        // add the club to the list
+                        // preparing the line to add to the list
+                        // format: squad_id - squad_name VS club_name - Date
                         String line="";
+                        // getting the squad name
                         QueryResult qs1=DBTools.executeSelectQuery("SELECT squad_name FROM senior_squads WHERE squad_id='"+qs.getResultSet().getInt(1)+"'");
-                        line=line+qs1.getResultSet().getString(1)+" VS ";
-
+                        // adding it to the line
+                        line=line+qs.getResultSet().getInt(1)+" - "+qs1.getResultSet().getString(1)+" VS ";
+                        // getting the opponent club name for that game;
                         qs1=DBTools.executeSelectQuery("SELECT name FROM clubs " +
                                 "WHERE club_id=(SELECT club_id FROM games " +
                                 "WHERE game_id=(SELECT game_id FROM senior_games_played " +
-                                "WHERE squad_id='"+qs.getResultSet().getInt(1)+"'))");
-                        line=line+qs1.getResultSet().getString(1)+" - ";
-                        // SELECT date FROM senior_games_played WHERE squad_id=
-                        qs1=DBTools.executeSelectQuery("SELECT date FROM senior_games_played WHERE squad_id='"+qs.getResultSet().getInt(1)+"'");
-                        line=line+qs1.getResultSet().getString(1);
+                                "WHERE squad_id='"+qs.getResultSet().getInt(1)+"' AND date='"+qs.getResultSet().getString(2)+"'))");
+                        // adding the rest of the info to the line
+                        line=line+qs1.getResultSet().getString(1)+" - "+qs.getResultSet().getString(2);
+                        // closing the QueryResult qs1 to free its resources
                         qs1.close();
+                        // adding the line to the list
                         oList.add(line);
-
                     }
+                    // returning the list to the caller
                     return oList;
                 }catch (ValidationException|SQLException e){
                     CustomAlert alert=new CustomAlert("Error creating the Game Obs List",e.getMessage());
@@ -406,22 +410,19 @@ public class ObsListFactory {
             else if(s.equals("JuniorGames")){
 
                 try(
-                        QueryResult qs=DBTools.executeSelectQuery("SELECT squad_id FROM junior_games_played")
+                        QueryResult qs=DBTools.executeSelectQuery("SELECT squad_id,date FROM junior_games_played")
                 ){
                     oList.add("Select a Junior squad game");
                     while(qs.getResultSet().next()){
                         // add the club to the list
                         String line="";
                         QueryResult qs1=DBTools.executeSelectQuery("SELECT squad_name FROM junior_squads WHERE squad_id='"+qs.getResultSet().getInt(1)+"'");
-                        line=line+qs1.getResultSet().getString(1)+" VS ";
+                        line=line+qs.getResultSet().getInt(1)+" - "+qs1.getResultSet().getString(1)+" VS ";
                         qs1=DBTools.executeSelectQuery("SELECT name FROM clubs " +
                                 "WHERE club_id=(SELECT club_id FROM games " +
                                 "WHERE game_id=(SELECT game_id FROM junior_games_played " +
-                                "WHERE squad_id='"+qs.getResultSet().getInt(1)+"'))");
-                        line=line+qs1.getResultSet().getString(1)+" - ";
-                        // SELECT date FROM senior_games_played WHERE squad_id=
-                        qs1=DBTools.executeSelectQuery("SELECT date FROM junior_games_played WHERE squad_id='"+qs.getResultSet().getInt(1)+"'");
-                        line=line+qs1.getResultSet().getString(1);
+                                "WHERE squad_id='"+qs.getResultSet().getInt(1)+"' AND date='"+qs.getResultSet().getString(2)+"'))");
+                        line=line+qs1.getResultSet().getString(1)+" - "+qs.getResultSet().getString(2);
                         qs1.close();
                         oList.add(line);
                     }

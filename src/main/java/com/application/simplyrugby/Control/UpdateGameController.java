@@ -1,9 +1,23 @@
 package com.application.simplyrugby.Control;
 
+import com.application.simplyrugby.Model.Game;
+import com.application.simplyrugby.System.CustomAlert;
+import com.application.simplyrugby.System.DBTools;
 import com.application.simplyrugby.System.ObsListFactory;
+import com.application.simplyrugby.System.ValidationException;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Objects;
 
 /**
  * This controller manages the Update game panel, where the game outcome and scores can be updated.
@@ -15,13 +29,16 @@ public class UpdateGameController {
     @FXML
     private RadioButton rbWon,rbLost,rbWonForfeit,rbLostForfeit,rbCancelled;
     @FXML
-    private Spinner <Integer>spTry,spPenaltyTry,spPenalty,spConversion,spDropGoal;
+    private Spinner <Integer>spTry,spPenalty,spConversion,spDropGoal,spOppScore;
     @FXML
     private Button bUpdateGame,bCancel;
     @FXML
     private Pane firstPane,secondPane;
     @FXML
-    Label lOr;
+    private Label lOr;
+    // local variables used to store selected data
+    private String outcome;
+    private Game game;
 
     public void initialize(){
         // setting up the panel style
@@ -65,6 +82,126 @@ public class UpdateGameController {
             }
         });
 
-    }
+        // creating a Toggle group for the Game outcome
+        ToggleGroup gameOutcome=new ToggleGroup();
+        rbCancelled.setToggleGroup(gameOutcome);
+        rbLost.setToggleGroup(gameOutcome);
+        rbWon.setToggleGroup(gameOutcome);
+        rbLostForfeit.setToggleGroup(gameOutcome);
+        rbWonForfeit.setToggleGroup(gameOutcome);
 
+        // setting up the spinners to get a value between 0 and 100;
+        ArrayList<Spinner<Integer>> spinners=new ArrayList<>();
+        Collections.addAll(spinners,spConversion,spDropGoal,spTry,spPenalty,spOppScore);
+        int maxValue=100;
+        for(Spinner<Integer> sp:spinners){
+            SpinnerValueFactory.IntegerSpinnerValueFactory valueFactory= new SpinnerValueFactory.IntegerSpinnerValueFactory(0,maxValue);
+            sp.setValueFactory(valueFactory);
+            sp.getStyleClass().add("bckg5");
+        }
+
+        // Here we create the event handler for the updateGame button.
+        // It will gather the info and validate it, then pass it to the confirmation window
+        bUpdateGame.setOnAction((event)->{
+            //try-catch for Validation errors.
+            try{
+                // getting the game outcome selected.if, nothing is selected, we give an error message
+                if (gameOutcome.getSelectedToggle()!=null){
+                    RadioButton selectedOutcome =(RadioButton) gameOutcome.getSelectedToggle();
+                    outcome=selectedOutcome.getText();
+                    //System.out.println("outcome: "+outcome);
+                }
+                else
+                    throw new ValidationException("A game outcome must be selected.");
+
+                // now we get the squad and game data.
+                // if the gam was played by a senior squad:
+                if (cbSeniorGame.getSelectionModel().getSelectedIndex()!=0){
+                    // getting the squad ID from the string of the comboBox.
+                    String squad_id= cbSeniorGame.getValue().split(" - ")[0];
+                    //getting the game object
+                    game=DBTools.loadNonUpdatedGame(cbSeniorGame.getSelectionModel().getSelectedIndex());
+                    // checking if the game has been properly loaded form the DB.
+                    if (game!=null){
+
+                        game.setGame_id(DBTools.getID("SELECT game_id FROM senior_games_played WHERE squad_id='"+squad_id+"' AND date='"+game.getDate()+"'"));
+                        game.setSquad_id(Integer.parseInt(squad_id));
+                        game.setOutcome(outcome);
+                        game.setNbConversion(spConversion.getValue());
+                        game.setNbDropGoal(spDropGoal.getValue());
+                        game.setNbPenalty(spPenalty.getValue());
+                        game.setNbTry(spTry.getValue());
+                        game.setOpponentScore(spOppScore.getValue());
+                        if (game.getOutcome().equals("Won") && (game.getNbTry()*5+ game.getNbPenalty()*3+ game.getNbConversion()*2
+                                + game.getNbDropGoal()*3)<=spOppScore.getValue() )
+                            throw new ValidationException("The squad scores cannot be lower that the opponent score in case of a Win");
+                        System.out.println(game.toString());
+                    }
+                    else
+                        throw new ValidationException("Error while getting the game");
+                    // calling the confirmation window and passing it the game object.
+                    FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/application/simplyrugby/confirmUpdateGame.fxml"));
+                    Parent root=loader.load();
+                    // passing the game to the next window controller.
+                    ConfirmGameUptCntlr controller=loader.getController();
+                    controller.receiveGame(game);
+                    // setting up the next window.
+                    Scene scene=new Scene(root);
+                    scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/application/simplyrugby/styles.css"),"CSS not found").toExternalForm());
+                    Stage stage=new Stage();
+                    stage.setTitle("Updating a Game");
+                    stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/application/simplyrugby/logo.png")));
+                    stage.setScene(scene);
+                    stage.showAndWait();
+                    firstPane.getChildren().clear();
+                }
+                // or if played by a junior squad.
+                else if (cbJuniorGame.getSelectionModel().getSelectedIndex()!=0){
+
+                    // getting the squad ID from the string of the comboBox.
+                    String squad_id= cbJuniorGame.getValue().split(" - ")[0];
+                    //getting the game object
+                    game=DBTools.loadNonUpdatedGame(cbJuniorGame.getSelectionModel().getSelectedIndex());
+                    // checking if the game has been properly loaded form the DB.
+                    if (game!=null){
+
+                        game.setGame_id(DBTools.getID("SELECT game_id FROM senior_games_played WHERE squad_id='"+squad_id+"' AND date='"+game.getDate()+"'"));
+                        game.setSquad_id(Integer.parseInt(squad_id));
+                        game.setOutcome(outcome);
+                        game.setNbConversion(spConversion.getValue());
+                        game.setNbDropGoal(spDropGoal.getValue());
+                        game.setNbPenalty(spPenalty.getValue());
+                        game.setNbTry(spTry.getValue());
+                        game.setOpponentScore(spOppScore.getValue());
+                        if (game.getOutcome().equals("Won") && (game.getNbTry()*5+ game.getNbPenalty()*3+ game.getNbConversion()*2
+                                + game.getNbDropGoal()*3)<=spOppScore.getValue() )
+                            throw new ValidationException("The squad scores cannot be lower that the opponent score in case of a Win");
+                        System.out.println(game.toString());
+                    }
+                    else
+                        throw new ValidationException("Error while getting the game");
+                    // calling the confirmation window and passing it the game object.
+                    FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/application/simplyrugby/confirmUpdateGame.fxml"));
+                    Parent root=loader.load();
+                    // passing the game to the next window controller.
+                    ConfirmGameUptCntlr controller=loader.getController();
+                    controller.receiveGame(game);
+                    // setting up the next window.
+                    Scene scene=new Scene(root);
+                    scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/application/simplyrugby/styles.css"),"CSS not found").toExternalForm());
+                    Stage stage=new Stage();
+                    stage.setTitle("Updating a Game");
+                    stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/application/simplyrugby/logo.png")));
+                    stage.setScene(scene);
+                    stage.showAndWait();
+                    firstPane.getChildren().clear();
+                }
+
+            }catch (ValidationException  |IOException r){
+                CustomAlert alert=new CustomAlert("Error:",r.getMessage());
+                alert.showAndWait();
+            }
+        });
+    }
+//END OF CLASS
 }
