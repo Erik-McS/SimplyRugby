@@ -21,7 +21,12 @@ public class MainMenuController {
     @FXML
     private AnchorPane mainPane;
     @FXML
-    protected void exitApp(){ConnectionPooling.closeDataSource(); System.exit(0);}
+    protected void exitApp(){
+        // closing the Connection pooling object if open
+        if (ConnectionPooling.getDataSource()!=null)
+            ConnectionPooling.closeDataSource();
+        // once done, closing the app.
+        System.exit(0);}
 
     public void initialize(){
 

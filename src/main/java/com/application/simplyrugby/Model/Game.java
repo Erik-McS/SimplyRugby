@@ -13,11 +13,12 @@ public class Game {
     private String outcome;
     private String date;
     private int nbTry;
-    private int nbPenaltyTry;
     private int nbPenalty;
     private int nbConversion;
     private int nbDropGoal;
+    private int game_id;
     private int squad_id;
+    private int opponentScore;
 
     public Game(){}
 
@@ -88,14 +89,6 @@ public class Game {
         this.nbTry = nbTry;
     }
 
-    public int getNbPenaltyTry() {
-        return nbPenaltyTry;
-    }
-
-    public void setNbPenaltyTry(int nbPenaltyTry) {
-        this.nbPenaltyTry = nbPenaltyTry;
-    }
-
     public int getNbPenalty() {
         return nbPenalty;
     }
@@ -119,4 +112,44 @@ public class Game {
     public void setNbDropGoal(int nbDropGoal) {
         this.nbDropGoal = nbDropGoal;
     }
+
+    public int getGame_id() {return game_id;}
+
+    public void setGame_id(int game_id) {this.game_id = game_id;}
+
+    public int getSquad_id() {
+        return squad_id;
+    }
+
+    public void setSquad_id(int squad_id) {
+        this.squad_id = squad_id;
+    }
+
+    public int getOpponentScore() {
+        return opponentScore;
+    }
+
+    public void setOpponentScore(int opponentScore) {
+        this.opponentScore = opponentScore;
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "squad=" + squad +
+                ", playingClub=" + playingClub +
+                ", location=" + location +
+                ", outcome='" + outcome + '\'' +
+                ", date='" + date + '\'' +
+                ", nbTry=" + nbTry +
+                ", nbPenalty=" + nbPenalty +
+                ", nbConversion=" + nbConversion +
+                ", nbDropGoal=" + nbDropGoal +
+                ", game_id=" + game_id +
+                ", squad_id=" + squad_id +
+                ", opponentScore=" + opponentScore +
+                '}';
+    }
+
+    //END OF CLASS
 }

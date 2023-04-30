@@ -11,8 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CreateProfileController {
@@ -24,7 +22,6 @@ public class CreateProfileController {
     @FXML
     private Button bCreateProfile,bCancel;
 
-    ResultSet result;
     public void initialize(){
 
         mainPane.getStyleClass().add("bckg1");
@@ -39,18 +36,18 @@ public class CreateProfileController {
         try(
                 QueryResult queryResult=DBTools.executeSelectQuery("SELECT PLAYER_ID,FIRST_NAME|| ' ' || SURNAME FROM players " +
                 "WHERE NOT EXISTS (" +
-                "SELECT * FROM training_profiles WHERE training_profiles.player_id=players.player_id)");
+                "SELECT * FROM training_profiles WHERE training_profiles.player_id=players.player_id)")
                 )
         {
             cbPlayerProfile.getItems().add("Select a player from the list");
-            result= queryResult.getResultSet();
-            while (result.next()){
-                cbPlayerProfile.getItems().add(result.getString(2));
+            while (queryResult.getResultSet().next()){
+                cbPlayerProfile.getItems().add(queryResult.getResultSet().getString(2));
             }
             cbPlayerProfile.getSelectionModel().select(0);
         }catch (ValidationException|SQLException e){
             e.printStackTrace();
             CustomAlert alert=new CustomAlert("Profile List Error",e.getMessage());
+            alert.showAndWait();
         }
 
         bCreateProfile.setOnAction((event)->{
