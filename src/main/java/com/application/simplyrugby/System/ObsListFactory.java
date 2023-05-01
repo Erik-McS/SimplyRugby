@@ -387,7 +387,7 @@ public class ObsListFactory {
                         // getting the squad name
                         QueryResult qs1=DBTools.executeSelectQuery("SELECT squad_name FROM senior_squads WHERE squad_id='"+qs.getResultSet().getInt(1)+"'");
                         // adding it to the line
-                        line=line+qs.getResultSet().getInt(1)+" - "+qs1.getResultSet().getString(1)+" VS ";
+                        line=line+qs.getResultSet().getInt(1)+" - "+qs1.getResultSet().getString(1)+" - ";
                         // getting the opponent club name for that game;
                         qs1=DBTools.executeSelectQuery("SELECT name FROM clubs " +
                                 "WHERE club_id=(SELECT club_id FROM games " +
@@ -417,7 +417,7 @@ public class ObsListFactory {
                         // add the club to the list
                         String line="";
                         QueryResult qs1=DBTools.executeSelectQuery("SELECT squad_name FROM junior_squads WHERE squad_id='"+qs.getResultSet().getInt(1)+"'");
-                        line=line+qs.getResultSet().getInt(1)+" - "+qs1.getResultSet().getString(1)+" VS ";
+                        line=line+qs.getResultSet().getInt(1)+" - "+qs1.getResultSet().getString(1)+" - ";
                         qs1=DBTools.executeSelectQuery("SELECT name FROM clubs " +
                                 "WHERE club_id=(SELECT club_id FROM games " +
                                 "WHERE game_id=(SELECT game_id FROM junior_games_played " +

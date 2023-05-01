@@ -139,5 +139,16 @@ public class JuniorSquad implements Squad{
     public ArrayList<Player> getSquadPlayers() {
         return squadPlayers;
     }
+
+    @Override
+    public String toString() {
+        return "JuniorSquad{" +
+                "squadPlayers=" + squadPlayers +
+                ", squadName='" + squadName + '\'' +
+                ", replacementTeam=" + replacementTeam +
+                ", adminTeam=" + adminTeam +
+                ", coachTeam=" + coachTeam +
+                '}';
+    }
 }
 

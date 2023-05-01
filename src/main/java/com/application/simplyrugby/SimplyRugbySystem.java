@@ -20,7 +20,7 @@ import java.util.Objects;
 public class SimplyRugbySystem extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        DBTools.databaseConnect();
+        //DBTools.databaseConnect();
         // Database creation object will test DB presence and create it if it doesn't exist
         DatabaseCreation db=new DatabaseCreation();
         // load the main menu fxml file

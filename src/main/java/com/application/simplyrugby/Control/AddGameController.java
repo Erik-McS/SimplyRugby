@@ -225,7 +225,8 @@ public class AddGameController {
                     if (!clubIsInserted)
                         throw new ValidationException("A rival club must either be selected or created");
                     else {
-                        game=new Game(DBTools.loadSquad(new JuniorSquad(),cbSquadJunior.getSelectionModel().getSelectedIndex()),club,date.format(dt),location);
+                        JuniorSquad jn=(JuniorSquad) DBTools.loadSquad(new JuniorSquad(),cbSquadJunior.getSelectionModel().getSelectedIndex());
+                        game=new Game(jn,club,date.format(dt),location);
                         //preparing and showing the confirmation window
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/application/simplyrugby/ConfirmGameCreation.fxml"));
                         Parent root=loader.load();

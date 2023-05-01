@@ -2,6 +2,9 @@ package com.application.simplyrugby.System;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
 /**
@@ -27,6 +30,13 @@ public class DatabaseCreation {
             System.out.println("Database do not exists");
             createTables();
             insertData();
+            try(
+                    Connection connection=ConnectionPooling.getDataSource().getConnection();
+                    ){
+                Statement statement= connection.createStatement();
+                statement.execute("PRAGMA journal_mode = wal;");
+                statement.execute("PRAGMA synchronous = NORMAL;");
+            }catch (SQLException e){e.printStackTrace();}
         }
     }
 

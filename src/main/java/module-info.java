@@ -3,6 +3,7 @@ module com.application.simplyrugby {
     requires javafx.fxml;
     requires java.sql;
     requires com.zaxxer.hikari;
+    requires org.xerial.sqlitejdbc;
 
 
     opens com.application.simplyrugby to javafx.fxml;
