@@ -3,7 +3,11 @@ package com.application.simplyrugby.System;
 import com.application.simplyrugby.Model.*;
 
 import java.lang.reflect.InvocationTargetException;
+import java.security.PublicKey;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -893,6 +897,10 @@ public class DBTools {
         }
     }
 
+    /**
+     * This method will update an existing game with the match outcome and scores
+     * @param game The game to update in the database.
+     */
     public static void updateGame(Game game){
          try(
                  Connection connection=ConnectionPooling.getDataSource().getConnection();
@@ -916,6 +924,12 @@ public class DBTools {
              alert.showAndWait();
          }
     }
+
+    /**
+     * This method will create a Club object from the database.
+     * @param club_id The club ID to retrieve
+     * @return The requested Club object
+     */
     public static Club loadClub(int club_id){
         try(
                 Connection connection=ConnectionPooling.getDataSource().getConnection();
@@ -936,6 +950,109 @@ public class DBTools {
             alert.showAndWait();
             return null;
         }
+    }
+
+    /**
+     * Function to return the squad ID of a player<br>
+     * if the squadID is 0, the player is not in any squad. it will test the player DoB to determine which squad type
+     * @param player_id Player ID
+     * @return The Squad_ID
+     */
+    public static int getPlayerSquadID(int player_id){
+        int age=0;
+        LocalDate date;
+        DateTimeFormatter dt=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try(
+                Connection connection=ConnectionPooling.getDataSource().getConnection();
+                PreparedStatement statement=connection.prepareStatement("SELECT date_of_birth FROM players WHERE player_id=?");
+                PreparedStatement statement1= connection.prepareStatement("SELECT squad_id FROM senior_squads WHERE ? " +
+                        "IN (loose_head_prop, hooker, tight_head_prop, second_row, second_row2, blind_side_flanker, open_side_flanker, number_8, " +
+                        "scrum_half, fly_half, left_wing, inside_centre, outside_center, right_side, full_back)");
+                PreparedStatement statement2= connection.prepareStatement("SELECT squad_id FROM junior_squads WHERE ? " +
+                        "IN (loose_head_prop,hooker,tight_head_prop,scrum_half,fly_half,centre,wing)")
+                )
+        {
+            // getting the player date of birth
+            statement.setInt(1,player_id);
+            try(ResultSet rs=statement.executeQuery())
+            {
+                // calculating the age
+                // https://www.w3schools.blog/java-period-class
+                date=LocalDate.parse(rs.getString(1),dt);
+                age= Period.between(date,LocalDate.now()).getYears();
+            }catch (SQLException e){e.printStackTrace();}
+            // if player > 17yo, we will look into the senior squads
+            if (age>17){
+                // looking for the player id in each role column
+                statement1.setInt(1,player_id);
+                try(ResultSet rs=statement1.executeQuery())
+                {
+                    // if found, return the squad id
+                    if (rs.getInt(1)!=0)
+                        return rs.getInt(1);
+                    // otherwise return 0;
+                    else
+                        return 0;
+                }
+                catch (SQLException e){e.printStackTrace();}
+
+            }
+            // if under 17, we look into the junior squads
+            else{
+                statement.setInt(1,player_id);
+                try(ResultSet rs=statement2.executeQuery())
+                {
+                    if (rs.getInt(1)!=0)
+                        return rs.getInt(1);
+                    else
+                        return 0;
+                }catch (SQLException e){e.printStackTrace();}
+            }
+
+        }catch (SQLException e){
+            CustomAlert alert=new CustomAlert("Get the player's Squad ID",e.getMessage());
+            alert.showAndWait();
+            return 0;
+        }
+        return 0;
+    }
+
+    /**
+     * insert a training session in the database, and create an entry in each player training log.
+     * @param trainingSession the training session to save
+     * @param squad_id the squad id of the participating squad.
+     */
+    public static void saveTrainingSession(TrainingSession trainingSession,int squad_id,String squadType){
+
+        try(
+                Connection connection=ConnectionPooling.getDataSource().getConnection();
+                PreparedStatement statement= connection.prepareStatement("INSERT INTO training_sessions (date,location_id,type_id) VALUES (?,?,?)");
+                QueryResult qs=executeSelectQuery("SELECT MAX(session_id) FROM training_sessions LIMIT 1");
+                PreparedStatement statementSenior= connection.prepareStatement("SELECT loose_head_prop, hooker, tight_head_prop, second_row, second_row2, blind_side_flanker, " +
+                        "open_side_flanker, number_8,scrum_half, fly_half, left_wing, inside_centre, outside_center, right_side, full_back FROM senior_squads WHERE squad_id=?")
+                )
+        {
+            // inserting the record
+            statement.setString(1,trainingSession.getDate());
+            statement.setInt(2,trainingSession.getTrainingFacility());
+            statement.setInt(3,trainingSession.getTrainingType());
+            statement.executeUpdate();
+            // getting it session_id
+            int session_id=qs.getResultSet().getInt(1);
+            ArrayList<Integer> playersID=new ArrayList<>();
+            // if the training squad is senior
+            if (squadType.equals("Senior")){
+                // get all the players in the squad
+                statementSenior.setInt(1,squad_id);
+                --try(ResultSet rs=statementSenior.executeQuery())
+                {
+                    for (int i=1;i<=15;i++){
+                        playersID.add(rs.getInt(i));
+                    }
+                }catch (SQLException e){}
+            }
+
+        }catch (ValidationException|SQLException e){}
     }
 // END OF CLASS
 }

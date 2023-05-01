@@ -293,9 +293,9 @@ public class AddPlayerController {
 
                 }
             }catch (ValidationException e){
-                nPlayer=null;
+                //nPlayer=null;
                 CustomAlert alert=new CustomAlert("Error ",e.getMessage());
-                e.printStackTrace();
+                //e.printStackTrace();
                 alert.showAndWait();
             }
 

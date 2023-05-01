@@ -55,6 +55,9 @@ public class CustomAlert extends Stage {
 
     }
 
+    /**
+     * Display the custom alert window
+     */
     @Override
     public void showAndWait() {
         super.showAndWait();

@@ -10,6 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * class to manage the non player member deletion
+ */
 public class MemberDeletionController {
     @FXML
     private Button bConfirmDeletion,bCancel;
@@ -18,12 +21,15 @@ public class MemberDeletionController {
     @FXML
     private Pane mainPane;
 
+    /**
+     * Function to receive the member object to delete
+     * @param member member to delete
+     */
     public void deleteMember(Member member){
 
         if (member instanceof Player player){
 
             lMemberName.setText(player.getFirstName()+" "+player.getSurname());
-
             bConfirmDeletion.setOnAction((event)->{
                 DBTools.executeUpdateQuery("DELETE FROM players WHERE player_id="+player.getPlayerID());
                 Stage stage=(Stage) bConfirmDeletion.getScene().getWindow();
@@ -40,16 +46,17 @@ public class MemberDeletionController {
                 stage.close();
             });
         }
-
     }
 
+    /**
+     * initialise the window
+     */
     public void initialize(){
         bConfirmDeletion.getStyleClass().add("bckg5");
         bCancel.getStyleClass().add("bckg5");
         mainPane.getStyleClass().add("bckg3");
 
         bCancel.setOnAction((event)->{
-
             Stage stage=(Stage) bCancel.getScene().getWindow();
             stage.close();
         });

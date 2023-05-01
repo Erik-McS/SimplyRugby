@@ -55,18 +55,6 @@ public class newPlayerConfirmController {
                 // saving the new player in the database, the saveMember() will return true no error happened
                 if (newPlayer.saveMember(newPlayer)){
 
-                    /*
-                        if (age<=17){
-                        ByteArrayOutputStream consentFormFile=new ByteArrayOutputStream();
-                        BufferedImage
-                        try{
-
-                        }catch (IOException e){
-                            CustomAlert alert=new CustomAlert("Consent Form error:",e.getMessage());
-                        }
-
-                    }
-                     */
                     // create a confirmation window
                     CustomAlert cs=new CustomAlert("Player Record Created",
                             "Player : "+newPlayer.getFirstName()+" "+newPlayer.getSurname());

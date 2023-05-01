@@ -12,29 +12,30 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Class to manage the games function panel
+ */
 public class GamesController {
-
-
     @FXML
     private Button addGame,updateGame,mainMenu;
     @FXML
     private Pane mainPane,menuPane;
 
+    /**
+     * Initialise the window
+     */
     public void initialize(){
-
+        // add styles
         menuPane.getStyleClass().add("bckg1");
         mainPane.getStyleClass().add("bckg1");
         addGame.getStyleClass().add("bckg5");
         updateGame.getStyleClass().add("bckg5");
         mainMenu.getStyleClass().add("bckg5");
-
-
+        // add event handlers
         mainMenu.setOnAction((event)->{
             try{
-
                 FXMLLoader loader=new FXMLLoader(MainMenuController.class.getResource("/com/application/simplyrugby/main_menu.fxml"));
                 Parent root=loader.load();
-
                 Scene scene=new Scene(root);
                 scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/application/simplyrugby/styles.css"),"CSS File not found").toExternalForm());
                 Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
@@ -47,7 +48,6 @@ public class GamesController {
         });
 
         addGame.setOnAction((event)->{
-
             try{
                 mainPane.getChildren().clear();
                 // create a loader to store the addPlayer pane

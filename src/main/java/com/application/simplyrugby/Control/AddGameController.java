@@ -247,7 +247,7 @@ public class AddGameController {
                 }
             }catch(IOException | ValidationException e){
                 CustomAlert alert=new CustomAlert("Game Creation Error:",e.getMessage());
-                e.printStackTrace();
+                //e.printStackTrace();
                 alert.showAndWait();
             }
         });

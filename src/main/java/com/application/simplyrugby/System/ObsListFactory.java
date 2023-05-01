@@ -432,7 +432,44 @@ public class ObsListFactory {
                     alert.showAndWait();
                     e.printStackTrace();return null;}
             }
+            else if(s.equals("PlayerProfiles"))
+            {
+                try(
+                        QueryResult qs=DBTools.executeSelectQuery("SELECT first_name,surname FROM players WHERE player_id IN (SELECT player_id FROM training_profiles)");
+                        )
+                {
+                    oList.add("Select a player Profile");
+                    if (qs.getResultSet()!=null){
+                        while (qs.getResultSet().next()){
+                            oList.add(qs.getResultSet().getString(1)+" "+qs.getResultSet().getString(2));
+                        }
+                        return oList;
+                    }
+                    else
+                        throw new ValidationException("Empty resultSet");
+                }catch (ValidationException|SQLException e){
+                    CustomAlert alert=new CustomAlert("Error creating the Profiles Obs List",e.getMessage());
+                    alert.showAndWait();
+                    e.printStackTrace();return null;
+                }
+            }
 
+            else if(s.equals("PerformanceLevels"))
+            {
+                try(QueryResult qs=DBTools.executeSelectQuery("SELECT LEVEL_DESCRIPTION FROM performance_levels"))
+                {
+                    oList.add("Select a level");
+                    while (qs.getResultSet().next()){
+                        oList.add(qs.getResultSet().getString(1));
+                    }
+                    return oList;
+                }catch (ValidationException|SQLException e){
+                    CustomAlert alert=new CustomAlert("Error creating the Profiles Obs List",e.getMessage());
+                    alert.showAndWait();
+                    e.printStackTrace();return null;
+                }
+
+            }
             // and if not of any known command, display an error message.
             // for internal and testing uses
             else{

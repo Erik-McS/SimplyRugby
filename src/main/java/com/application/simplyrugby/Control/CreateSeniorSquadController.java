@@ -192,40 +192,6 @@ public class CreateSeniorSquadController {
                 SeniorSquad seniorSquad=new SeniorSquad(squadArray,txSquadName.getText(),replacementTeam,adminTeam,coachTeam);
 
                 // loading the resources for the confirmation window
-
-
-                //***********test code *******************
-                /*
-                ArrayList<Player> squadTest=new ArrayList<>();
-                ArrayList<Player> repTest=new ArrayList<>();
-                //Player pl=Player.dummyPlayer();
-                for (int i=1;i<=15;i++){
-                    squadTest.add((Player) Player.dummyPlayer().loadMember(Player.dummyPlayer(),i));
-                }
-
-
-                for (int i=1;i<=5;i++){
-                    repTest.add((Player) Player.dummyPlayer().loadMember(Player.dummyPlayer(),i));
-                }
-
-                ReplacementTeam replacementTeamTest=new ReplacementTeam(repTest);
-
-                NonPlayer c1=new NonPlayer(1,"Name","Surname","address","1111111111","eamil@a.asd",1);
-                NonPlayer c2=new NonPlayer(2,"Name","Surname","address","1111111111","eamil@a.asd",1);
-                NonPlayer c3=new NonPlayer(3,"Name","Surname","address","1111111111","eamil@a.asd",1);
-                NonPlayer c4=new NonPlayer(4,"Name","Surname","address","1111111111","eamil@a.asd",1);
-                NonPlayer c5=new NonPlayer(5,"Name","Surname","address","1111111111","eamil@a.asd",1);
-                NonPlayer c6=new NonPlayer(6,"Name","Surname","address","1111111111","eamil@a.asd",1);
-                NonPlayer c7=new NonPlayer(7,"Name","Surname","address","1111111111","eamil@a.asd",1);
-
-
-                CoachTeam coachTeamTest=new CoachTeam(c1,c2,c3);
-                AdminTeam adminTeamTest=new AdminTeam(c4,c5);
-
-                SeniorSquad seniorSquadTest =new SeniorSquad(squadTest,"Squadname",replacementTeamTest,adminTeamTest,coachTeamTest);
-
-                //***********************************
-                */
                 FXMLLoader loader= new FXMLLoader(getClass().getResource("/com/application/simplyrugby/ConfirmNewSeniorSquad.fxml"));
                 Parent root=loader.load();
                 // getting the Confirmation window controller. will be used to pass the 3 teams created here.

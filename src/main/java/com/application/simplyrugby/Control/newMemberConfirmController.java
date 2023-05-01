@@ -10,6 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * Class to manage the Add new member window
+ */
 public class newMemberConfirmController {
     @FXML
     private Pane confirmMainPane,leftCPane;
@@ -18,10 +21,12 @@ public class newMemberConfirmController {
     @FXML
     private Button bCreation,bCancel;
 
+    /**
+     * method to receive the new memeber to add
+     * @param member
+     */
     public void receiveMember(NonPlayer member){
-
         try{
-
             if (member!=null){
                 lName.setText(member.getFirstName());
                 lSurname.setText(member.getSurname());

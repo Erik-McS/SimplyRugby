@@ -13,14 +13,20 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Class to manage the membership functions panel
+ */
 public class MembershipMenuController {
-
     @FXML
     private Button addPlayer,deletePlayer,addMember,deleteMember,mainMenu;
     @FXML
     private Pane menuPane,mainPane;
-    public void initialize(){
 
+    /**
+     * Initialise the window
+     */
+    public void initialize(){
+        // setting the styles
         menuPane.getStyleClass().add("bckg1");
         mainPane.getStyleClass().add("bckg1");
         addPlayer.getStyleClass().add("bckg5");
@@ -48,7 +54,6 @@ public class MembershipMenuController {
         deletePlayer.setOnAction((event)->{
 
             try{
-
                 FXMLLoader loader =new FXMLLoader(MembershipMenuController.class.getResource("/com/application/simplyrugby/deletePlayer.fxml"));
                 Parent root=loader.load();
                 Scene scene=new Scene(root);
@@ -95,7 +100,6 @@ public class MembershipMenuController {
 
                 FXMLLoader loader=new FXMLLoader(MainMenuController.class.getResource("/com/application/simplyrugby/main_menu.fxml"));
                 Parent root=loader.load();
-
                 Scene scene=new Scene(root);
                 scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/application/simplyrugby/styles.css"),"CSS File not found").toExternalForm());
                 Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();

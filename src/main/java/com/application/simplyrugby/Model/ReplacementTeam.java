@@ -45,7 +45,6 @@ public class ReplacementTeam implements Squad{
             }
             else
                 throw new ValidationException("The team is already full.");
-
         }
         else
             throw new ValidationException("The player record is empty: Null object");
@@ -61,8 +60,18 @@ public class ReplacementTeam implements Squad{
 
     }
 
+    /**
+     * This method returns the player arraylist containing the replacement team
+     * @return Team arrayList
+     */
     public ArrayList<Player> getReplacements(){
         return replacementTeam;
     }
+
+    /**
+     * Get a player from the arrayList
+     * @param index index
+     * @return Player
+     */
     public Player getPlayer(int index){return replacementTeam.get(index);}
 }

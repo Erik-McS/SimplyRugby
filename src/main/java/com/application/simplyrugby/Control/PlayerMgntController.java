@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Class to manage the Player management menu
+ */
 public class PlayerMgntController {
 
     @FXML
@@ -19,6 +22,9 @@ public class PlayerMgntController {
     @FXML
     private Button bCreateProfile,bUpdtProfile, bConsultProfile;
 
+    /**
+     * Initialise the window
+     */
     public void initialize(){
 
         firstPane.getStyleClass().add("bckg2");

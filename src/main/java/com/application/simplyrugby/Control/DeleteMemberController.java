@@ -17,6 +17,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * class to manage the delete member function
+ */
 public class DeleteMemberController {
 
     @FXML
@@ -26,6 +29,9 @@ public class DeleteMemberController {
     @FXML
     private ComboBox <String >cbMember;
 
+    /**
+     * initialise the window
+     */
     public void initialize(){
 
         mainPane.getStyleClass().add("bckg1");
@@ -40,7 +46,7 @@ public class DeleteMemberController {
             Stage stage=(Stage) bCancel.getScene().getWindow();
             stage.close();
         });
-
+        // event handler for the delete button
         bDeleteMember.setOnAction((event)->{
             if (cbMember.getSelectionModel().getSelectedIndex()!=0){
                 NonPlayer member;
@@ -70,7 +76,6 @@ public class DeleteMemberController {
                     alert.showAndWait();
                     e.printStackTrace();
                 }
-
             }
             else{
                 CustomAlert alert=new CustomAlert("Error","Please select a player in the list first");

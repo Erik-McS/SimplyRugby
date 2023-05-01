@@ -21,6 +21,10 @@ public class ConfirmGameUptCntlr {
     @FXML
     private Button bUpdateGame,bCancel;
 
+    /**
+     * Method used to pass the game object to update from the previous panel
+     * @param game the game to update
+     */
     public void receiveGame(Game game){
 
         lOutcome.setText(game.getOutcome());
@@ -40,6 +44,10 @@ public class ConfirmGameUptCntlr {
             stage.close();
         });
     }
+
+    /**
+     * initialise the window
+     */
     public void initialize(){
 
         // setting up styles

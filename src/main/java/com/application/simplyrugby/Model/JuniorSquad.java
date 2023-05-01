@@ -140,6 +140,10 @@ public class JuniorSquad implements Squad{
         return squadPlayers;
     }
 
+    /**
+     * Display the object's info
+     * @return info
+     */
     @Override
     public String toString() {
         return "JuniorSquad{" +

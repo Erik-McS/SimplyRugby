@@ -13,6 +13,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Class to manage the player management panel
+ */
 public class PlayersController {
 
     @FXML
@@ -20,10 +23,13 @@ public class PlayersController {
     @FXML
     private Button squadMgnt,playerMgnt,createSession,mainMenu;
 
+    /**
+     * initialise the window
+     */
     public void initialize(){
 
-        menuPane.getStyleClass().add("bckg1");
-        mainPane.getStyleClass().add("bckg1");
+        menuPane.getStyleClass().addAll("bckg1","borderBlack");
+        mainPane.getStyleClass().addAll("bckg1","borderBlack");
         squadMgnt.getStyleClass().add("bckg5");
         playerMgnt.getStyleClass().add("bckg5");
         createSession.getStyleClass().add("bckg5");
@@ -84,9 +90,7 @@ public class PlayersController {
                 stage.show();
 
             }catch(IOException e){e.printStackTrace();}
-
         });
-
     }
 }
 
