@@ -10,6 +10,13 @@ public class TrainingSession {
     private int trainingFacility;
     private int session_id;
 
+    public TrainingSession(String date,int location,int type){
+        this.date=date;
+        this.trainingFacility=location;
+        this.trainingType=type;
+    }
+
+
     /**
      * Get the session date
      * @return date

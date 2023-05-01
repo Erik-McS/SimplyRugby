@@ -1020,18 +1020,19 @@ public class DBTools {
     /**
      * insert a training session in the database, and create an entry in each player training log.
      * @param trainingSession the training session to save
-     * @param squad_id the squad id of the participating squad.
+     * @param squad the squad id of the participating squad.
      */
-    public static void saveTrainingSession(TrainingSession trainingSession,int squad_id,String squadType){
+    public static void saveTrainingSession(TrainingSession trainingSession,Squad squad){
 
         try(
                 Connection connection=ConnectionPooling.getDataSource().getConnection();
                 PreparedStatement statement= connection.prepareStatement("INSERT INTO training_sessions (date,location_id,type_id) VALUES (?,?,?)");
                 QueryResult qs=executeSelectQuery("SELECT MAX(session_id) FROM training_sessions LIMIT 1");
-                PreparedStatement statementSenior= connection.prepareStatement("SELECT loose_head_prop, hooker, tight_head_prop, second_row, second_row2, blind_side_flanker, " +
-                        "open_side_flanker, number_8,scrum_half, fly_half, left_wing, inside_centre, outside_center, right_side, full_back FROM senior_squads WHERE squad_id=?")
+                PreparedStatement statementTrainingLog= connection.prepareStatement("INSERT INTO player_training_logs (profile_id,session_id) VALUES (?,?)")
                 )
         {
+            if (squad==null)
+                throw new ValidationException("The squad object is empty");
             // inserting the record
             statement.setString(1,trainingSession.getDate());
             statement.setInt(2,trainingSession.getTrainingFacility());
@@ -1039,19 +1040,36 @@ public class DBTools {
             statement.executeUpdate();
             // getting it session_id
             int session_id=qs.getResultSet().getInt(1);
-            ArrayList<Integer> playersID=new ArrayList<>();
             // if the training squad is senior
-            if (squadType.equals("Senior")){
-                // get all the players in the squad
-                statementSenior.setInt(1,squad_id);
-                --try(ResultSet rs=statementSenior.executeQuery())
-                {
-                    for (int i=1;i<=15;i++){
-                        playersID.add(rs.getInt(i));
-                    }
-                }catch (SQLException e){}
+            if (squad instanceof SeniorSquad){
+                SeniorSquad seniorSquad =(SeniorSquad)squad;
+                // looping each player to add the training session to their profile training log.
+                 for (Player player: seniorSquad.getSquadPlayers()){
+                    statementTrainingLog.setInt(1,getID("SELECT profile_id FROM training_profiles WHERE player_id='"+player.getPlayerID()+"'"));
+                    statementTrainingLog.setInt(2,session_id);
+                    statementTrainingLog.executeUpdate();
+                 }
+                 // same to add the players from the replacement team
+                for (Player player: seniorSquad.getReplacementTeam().getReplacements()){
+                    statementTrainingLog.setInt(1,getID("SELECT profile_id FROM training_profiles WHERE player_id='"+player.getPlayerID()+"'"));
+                    statementTrainingLog.setInt(2,session_id);
+                    statementTrainingLog.executeUpdate();
+                }
             }
 
+            else{
+                JuniorSquad juniorSquad=(JuniorSquad) squad;
+                for (Player player: juniorSquad.getSquadPlayers()){
+                    statementTrainingLog.setInt(1,getID("SELECT profile_id FROM training_profiles WHERE player_id='"+player.getPlayerID()+"'"));
+                    statementTrainingLog.setInt(2,session_id);
+                    statementTrainingLog.executeUpdate();
+                }
+                for (Player player:juniorSquad.getReplacementTeam().getReplacements()){
+                    statementTrainingLog.setInt(1,getID("SELECT profile_id FROM training_profiles WHERE player_id='"+player.getPlayerID()+"'"));
+                    statementTrainingLog.setInt(2,session_id);
+                    statementTrainingLog.executeUpdate();
+                }
+            }
         }catch (ValidationException|SQLException e){}
     }
 // END OF CLASS
