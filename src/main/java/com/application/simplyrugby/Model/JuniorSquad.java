@@ -21,6 +21,7 @@ public class JuniorSquad implements Squad{
     private ReplacementTeam replacementTeam;
     private AdminTeam adminTeam;
     private CoachTeam coachTeam;
+    private int squad_id;
 
     public JuniorSquad(){}
 
@@ -44,6 +45,7 @@ public class JuniorSquad implements Squad{
                 this.replacementTeam=replacementTeam;
                 this.coachTeam=coachTeam;
                 this.adminTeam=adminTeam;
+                this.squad_id=DBTools.getID("SELECT squad_id FROM junior_squads WHERE squad_name='"+this.squadName+"'");
             }
             // otherwise, error message.
             else
@@ -138,6 +140,15 @@ public class JuniorSquad implements Squad{
      */
     public ArrayList<Player> getSquadPlayers() {
         return squadPlayers;
+    }
+
+    public int getSquad_id() {
+        return squad_id;
+    }
+
+    public JuniorSquad setSquad_id(int squad_id) {
+        this.squad_id = squad_id;
+        return this;
     }
 
     /**
