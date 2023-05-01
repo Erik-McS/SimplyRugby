@@ -93,6 +93,10 @@ public class NextOfKin implements ThirdParty{
         this.telephone = telephone;
     }
 
+    /**
+     * return the object info
+     * @return info
+     */
     @Override
     public String toString() {
         return "NextOfKin{" +

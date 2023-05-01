@@ -54,6 +54,10 @@ public class CoachTeam implements MemberTeam{
     public void saveTeam(MemberTeam team) {
     }
 
+    /**
+     * Returns the coach team
+     * @return the Coach team.
+     */
     public ArrayList<NonPlayer> getCoaches() {
         return coaches;
     }

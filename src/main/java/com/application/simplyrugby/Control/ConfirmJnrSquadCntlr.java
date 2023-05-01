@@ -162,26 +162,50 @@ public class ConfirmJnrSquadCntlr {
             this.surname=new SimpleStringProperty(surname);
         }
 
+        /**
+         * get the firstname
+         * @return firstname
+         */
         public String getFirstname() {
             return firstname.get();
         }
 
+        /**
+         * get the firstname as property
+         * @return firstname
+         */
         public SimpleStringProperty firstnameProperty() {
             return firstname;
         }
 
+        /**
+         * get the surname
+         * @return surname
+         */
         public String getSurname() {
             return surname.get();
         }
 
+        /**
+         * get the surname as property
+         * @return surname
+         */
         public SimpleStringProperty surnameProperty() {
             return surname;
         }
 
+        /**
+         * get the role
+         * @return role
+         */
         public String getRole() {
             return role.get();
         }
 
+        /**
+         * get the role as property
+         * @return role
+         */
         public SimpleStringProperty roleProperty() {
             return role;
         }
@@ -196,117 +220,222 @@ public class ConfirmJnrSquadCntlr {
         private  SimpleStringProperty surname;
         private SimpleStringProperty role;
 
+        /**
+         * Constructor of the admin table
+         * @param role the role of the person
+         * @param name the name
+         * @param surname the surname
+         */
         public AdminTableView(String role, String name, String surname){
             this.role=new SimpleStringProperty(role);
             this.firstname=new SimpleStringProperty(name);
             this.surname=new SimpleStringProperty(surname);
         }
 
+        /**
+         * get the first name
+         * @return firtname
+         */
         public String getFirstname() {
             return firstname.get();
         }
 
+        /**
+         * get the firstname as a SimpleString property, used for the cells.
+         * @return
+         */
         public SimpleStringProperty firstnameProperty() {
             return firstname;
         }
 
+        /**
+         * set the first nane
+         * @param firstname name
+         */
         public void setFirstname(String firstname) {
             this.firstname.set(firstname);
         }
 
+        /**
+         * get the surname
+         * @return surname
+         */
         public String getSurname() {
             return surname.get();
         }
 
+        /**
+         * get the surname as a property
+         * @return surname
+         */
         public SimpleStringProperty surnameProperty() {
             return surname;
         }
 
+        /**
+         * set the surname
+         * @param surname surname
+         */
         public void setSurname(String surname) {
             this.surname.set(surname);
         }
 
+        /**
+         * get the role
+         * @return role
+         */
         public String getRole() {
             return role.get();
         }
 
+        /**
+         * get the role as property
+         * @return role
+         */
         public SimpleStringProperty roleProperty() {
             return role;
         }
 
+        /**
+         * set role
+         * @param role role
+         */
         public void setRole(String role) {
             this.role.set(role);
         }
     }
+
+    /**
+     * Method to handle the coach team table
+     */
     public static class CoachTableView{
 
         private SimpleStringProperty firstname;
         private  SimpleStringProperty surname;
 
-
+        /**
+         * constructor
+         * @param name name
+         * @param surname surname
+         */
         public CoachTableView(String name, String surname){
 
             this.firstname=new SimpleStringProperty(name);
             this.surname=new SimpleStringProperty(surname);
         }
 
+        /**
+         * get the firstname
+         * @return firstname
+         */
         public String getFirstname() {
             return firstname.get();
         }
 
+        /**
+         * get the firstname as property
+         * @return firstname
+         */
         public SimpleStringProperty firstnameProperty() {
             return firstname;
         }
 
+        /**
+         * set the surname
+         * @param firstname surname
+         */
         public void setFirstname(String firstname) {
             this.firstname.set(firstname);
         }
 
+        /**
+         * get the surname
+         * @return surname
+         */
         public String getSurname() {
             return surname.get();
         }
 
+        /**
+         *  get surname as property
+         * @return surname
+         */
         public SimpleStringProperty surnameProperty() {
             return surname;
         }
 
+        /**
+         * set the surname
+         * @param surname surname
+         */
         public void setSurname(String surname) {
             this.surname.set(surname);
         }
     }
 
+    /**
+     * method to handle the replacement team table
+     */
     public static class RepTableView {
 
         private SimpleStringProperty firstname;
         private SimpleStringProperty surname;
 
-
+        /**
+         * constructor
+         * @param name name
+         * @param surname surname
+         */
         public RepTableView(String name, String surname) {
 
             this.firstname = new SimpleStringProperty(name);
             this.surname = new SimpleStringProperty(surname);
         }
 
+        /**
+         * get the firstname
+         * @return firstname
+         */
         public String getFirstname() {
             return firstname.get();
         }
 
+        /**
+         * get the surname as property
+         * @return surname
+         */
         public SimpleStringProperty firstnameProperty() {
             return firstname;
         }
 
+        /**
+         * set the firstname
+         * @param firstname firstname
+         */
         public void setFirstname(String firstname) {
             this.firstname.set(firstname);
         }
 
+        /**
+         * get the surname
+         * @return surname
+         */
         public String getSurname() {
             return surname.get();
         }
 
+        /**
+         * get the surname as property
+         * @return surname
+         */
         public SimpleStringProperty surnameProperty() {
             return surname;
         }
 
+        /**
+         * set the surname
+         * @param surname surname
+         */
         public void setSurname(String surname) {
             this.surname.set(surname);
         }

@@ -52,7 +52,7 @@
             </Button>
          </children>
       </Pane>
-      <Label layoutX="61.0" layoutY="138.0" text="Core Skills" textFill="WHITE">
+      <Label fx:id="lCore" layoutX="61.0" layoutY="138.0" text="Core Skills" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -65,14 +65,14 @@
                </font>
             </Label>
             <ComboBox fx:id="cbTrainingSession" layoutX="14.0" layoutY="46.0" prefHeight="25.0" prefWidth="370.0" />
-            <Button fx:id="bAddSession" layoutX="125.0" layoutY="85.0" mnemonicParsing="false" text="Add Training Session" textFill="WHITE">
+            <Button fx:id="bAddSession" layoutX="125.0" layoutY="85.0" mnemonicParsing="false" text="Add Training Session">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
          </children>
       </Pane>
-      <Label layoutX="516.0" layoutY="138.0" text="Training Session" textFill="WHITE">
+      <Label fx:id="lTraining" layoutX="516.0" layoutY="138.0" text="Training Session" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -98,10 +98,11 @@
             </Button>
          </children>
       </Pane>
-      <Label layoutX="516.0" layoutY="330.0" text="Game Performance" textFill="WHITE">
+      <Label fx:id="lGamePerf" layoutX="516.0" layoutY="330.0" text="Game Performance" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
+      <Button fx:id="bCancel" layoutX="901.0" layoutY="647.0" mnemonicParsing="false" text="Cancel" />
    </children>
 </Pane>

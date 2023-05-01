@@ -16,6 +16,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Class to manage the delete palyer window
+ */
 public class DeletePlayerController {
 
     @FXML
@@ -25,6 +28,9 @@ public class DeletePlayerController {
     @FXML
     private ComboBox <String> cbPlayer;
 
+    /**
+     * initialise the window
+     */
      public void initialize(){
 
          mainPane.getStyleClass().add("bckg1");
@@ -39,7 +45,7 @@ public class DeletePlayerController {
          cbPlayer.setItems(ObsListFactory.createObsList(Player.dummyPlayer()));
          cbPlayer.getSelectionModel().select(0);
 
-
+         // event handler to delele member.
          bDeletePlayer.setOnAction((event)->{
 
              if (cbPlayer.getSelectionModel().getSelectedIndex()!=0){
@@ -54,9 +60,7 @@ public class DeletePlayerController {
                      String[] name=playerName.split(" ");
                      player=(Player)  DBTools.loadMember(Player.dummyPlayer(),
                              DBTools.getID("SELECT player_id FROM players WHERE first_name='"+name[0]+"' AND surname='"+name[1]+"'"));
-
                      controller.deleteMember(player);
-
                      Scene scene = new Scene(root);
                      scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/application/simplyrugby/styles.css"), "CSS not found").toExternalForm());
                      Stage stage1 = new Stage();
@@ -72,7 +76,6 @@ public class DeletePlayerController {
                      alert.showAndWait();
                      e.printStackTrace();
                  }
-
              }
              else{
                  CustomAlert alert=new CustomAlert("Error","Please select a player in the list first");

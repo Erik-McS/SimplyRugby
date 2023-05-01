@@ -77,35 +77,62 @@ public class SeniorSquad implements Squad{
         DBTools.saveSquad(this);
     }
 
+    /**
+     * This method returns the players' list of the squad as an observable list. Can be used in comboBoxes
+     * @return Player List
+     */
     public ObservableList<Player> getSquadList(){
         ObservableList<Player> oList= FXCollections.observableArrayList();
-
         for(Player pl:squadPlayers){
             oList.add(pl);
         }
         return oList;
     }
 
+    /**
+     * returns the squad name
+     * @return squad name
+     */
     public String getSquadName() {
         return squadName;
     }
 
+    /**
+     * set the squad name
+     * @param squadName squad name
+     */
     public void setSquadName(String squadName) {
         this.squadName = squadName;
     }
 
+    /**
+     * Get the squad replacement team
+     * @return Replacement team
+     */
     public ReplacementTeam getReplacementTeam() {
         return replacementTeam;
     }
 
+    /**
+     * return the squad admin team
+     * @return Admin team
+     */
     public AdminTeam getAdminTeam() {
         return adminTeam;
     }
 
+    /**
+     * returns the squad coach team
+     * @return Coach team
+     */
     public CoachTeam getCoachTeam() {
         return coachTeam;
     }
 
+    /**
+     * Get the squad players as an arraylist
+     * @return players arrayList
+     */
     public ArrayList<Player> getSquadPlayers() {
         return squadPlayers;
     }

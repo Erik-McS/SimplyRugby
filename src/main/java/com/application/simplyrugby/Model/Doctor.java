@@ -29,38 +29,74 @@ public class Doctor implements ThirdParty{
         return temp;
     }
 
+    /**
+     * Returns the doctor ID.
+     * @return Doctor ID
+     */
     public int getDoctorID() {
         return doctorID;
     }
 
+    /**
+     * Set the doctorID
+     * @param doctorID Doctor ID
+     */
     public void setDoctorID(int doctorID) {
         this.doctorID = doctorID;
     }
 
+    /**
+     * Returns the doctor's first name
+     * @return First name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Set the first name
+     * @param firstName first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * return the surname
+     * @return surname
+     */
     public String getSurname() {
         return surname;
     }
 
+    /**
+     * set the surname
+     * @param surname surname
+     */
     public void setSurname(String surname) {
         this.surname = surname;
     }
 
+    /**
+     * return the telephone
+     * @return telephone
+     */
     public String getTelephone() {
         return telephone;
     }
 
+    /**
+     * set the telephone
+     * @param telephone telephone
+     */
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
+    /**
+     * get the object info
+     * @return String.
+     */
     @Override
     public String toString() {
         return "Doctor{" +

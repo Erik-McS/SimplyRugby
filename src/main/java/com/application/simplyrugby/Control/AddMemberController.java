@@ -74,7 +74,7 @@ public class AddMemberController {
             }
             catch (IOException | ValidationException e){
                 CustomAlert alert=new CustomAlert("Error Add Member panel.",e.getMessage());
-                e.printStackTrace();
+                //e.printStackTrace();
                 alert.showAndWait();
             }
         });

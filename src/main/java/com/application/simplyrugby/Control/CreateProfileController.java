@@ -13,6 +13,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.sql.SQLException;
 
+/**
+ * controller to manage rhe create Profile panel
+ */
 public class CreateProfileController {
 
     @FXML
@@ -22,6 +25,9 @@ public class CreateProfileController {
     @FXML
     private Button bCreateProfile,bCancel;
 
+    /**
+     * initialise the window
+     */
     public void initialize(){
 
         mainPane.getStyleClass().add("bckg1");

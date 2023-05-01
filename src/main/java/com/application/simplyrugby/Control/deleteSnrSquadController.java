@@ -8,6 +8,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * Class to manage the deleteSenior squad window
+ */
 public class deleteSnrSquadController {
 
     @FXML
@@ -17,15 +20,17 @@ public class deleteSnrSquadController {
     @FXML
     private ComboBox <String>cbSquad;
 
+    /**
+     * Initialise the class
+     */
     public void initialize(){
 
         mainPane.getStyleClass().add("bckg1");
         bDeleteSquad.getStyleClass().add("bckg5");
         bCancel.getStyleClass().add("bckg5");
-
         cbSquad.getStyleClass().add("bckg5");
-        cbSquad.setItems(ObsListFactory.createObsList(new SeniorSquad()));
 
+        cbSquad.setItems(ObsListFactory.createObsList(new SeniorSquad()));
         bCancel.setOnAction((event)->{
             // https://9to5answer.com/how-to-close-a-java-window-with-a-button-click-javafx-project
             Stage stage=(Stage) bCancel.getScene().getWindow();

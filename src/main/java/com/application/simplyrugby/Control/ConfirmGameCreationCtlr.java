@@ -27,6 +27,11 @@ public class ConfirmGameCreationCtlr {
     private Button bCreateGame,bCancel;
     @FXML
     private Pane firstPane;
+
+    /**
+     * Method used to receive a Game object from the previous window.
+     * @param game the Game object to save.
+     */
     public void receiveGame(Game game){
 
         if (game.getSquad() instanceof SeniorSquad){
@@ -59,12 +64,15 @@ public class ConfirmGameCreationCtlr {
 
     }
 
+    /**
+     * initialise the window panel
+     */
     public void initialize(){
-
+        // set the styles
         firstPane.getStyleClass().add("bckg1");
         bCreateGame.getStyleClass().add("bckg5");
         bCancel.getStyleClass().add("bckg5");
-
+        // cancel button event handler
         bCancel.setOnAction((event)->{
 
             Stage stage=(Stage) bCancel.getScene().getWindow();

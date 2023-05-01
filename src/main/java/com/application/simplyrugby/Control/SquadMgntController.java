@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * class to manage the squad management menu
+ */
 public class SquadMgntController {
 
     @FXML
@@ -19,6 +22,9 @@ public class SquadMgntController {
     @FXML
     private Button bCreateSeniorSquad,bUpdtSeniorSquad,bDelSeniorSquad,bCreateJuniorSquad,bJUpdtJuniorSquad,bDelJuniorSquad;
 
+    /**
+     * initialise the window
+     */
     public void initialize(){
 
         firstPane.getStyleClass().add("bckg2");

@@ -40,6 +40,9 @@ public class UpdateGameController {
     private String outcome;
     private Game game;
 
+    /**
+     * initialise the window
+     */
     public void initialize(){
         // setting up the panel style
         firstPane.getStyleClass().add("bckg2");
