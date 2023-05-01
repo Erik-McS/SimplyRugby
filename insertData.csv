@@ -101,3 +101,31 @@ INSERT INTO players(first_name,surname,address,date_of_birth,gender,telephone,em
 INSERT INTO players(first_name,surname,address,date_of_birth,gender,telephone,email,scrums_number,doctor_id,kin_id,is_assigned_to_squad) VALUES ('Emilyd', 'Campbell', '19, Melrose Terrace, G41 2BJ Glasgow', '27/05/2009', 'Female', '07869876543', 'emily.campbell@hotmail.co.uk', '4386607', '1', '1', 'NO');
 INSERT INTO players(first_name,surname,address,date_of_birth,gender,telephone,email,scrums_number,doctor_id,kin_id,is_assigned_to_squad) VALUES ('Emilye', 'Campbell', '19, Melrose Terrace, G41 2BJ Glasgow', '27/05/2009', 'Female', '07869876543', 'emily.campbell@hotmail.co.uk', '4777207', '1', '1', 'NO');
 INSERT INTO players(first_name,surname,address,date_of_birth,gender,telephone,email,scrums_number,doctor_id,kin_id,is_assigned_to_squad) VALUES ('Emilyaf', 'Campbell', '19, Melrose Terrace, G41 2BJ Glasgow', '27/05/2009', 'Female', '07869876543', 'emily.campbell@hotmail.co.uk', '43823407', '1', '1', 'NO');
+INSERT INTO replacement_team (player_1, player_2, player_3, player_4, player_5) VALUES (1, 2, 3, 4, 5);
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 1;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 2;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 3;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 4;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 5;
+INSERT INTO squad_coaches (coach_1, coach_2, coach_3) VALUES (1, 2, 3);
+INSERT INTO squad_admin_team (chairman, fixture_sec) VALUES (1, 2);
+INSERT INTO senior_squads (  SQUAD_NAME, LOOSE_HEAD_PROP, HOOKER, TIGHT_HEAD_PROP, SECOND_ROW, SECOND_ROW2, BLIND_SIDE_FLANKER,   OPEN_SIDE_FLANKER, NUMBER_8, SCRUM_HALF, FLY_HALF, LEFT_WING, INSIDE_CENTRE, OUTSIDE_CENTER,   RIGHT_SIDE, FULL_BACK, COGROUP_ID, ADTEAM_ID, REPTEAM_ID
+) VALUES (  'Senior 1-Lions',6, 8, 10, 11, 12, 13, 15, 16, 17, 19, 20, 22, 23, 24, 25, 1, 1, 1);
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 6;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 8;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 10;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 11;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 12;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 13;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 15;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 16;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 17;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 19;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 20;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 22;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 23;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 24;
+UPDATE players SET is_assigned_to_squad='YES' WHERE player_id = 25;
+
+
+

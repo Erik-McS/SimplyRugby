@@ -117,15 +117,17 @@ public class UpdateGameController {
                 // now we get the squad and game data.
                 // if the gam was played by a senior squad:
                 if (cbSeniorGame.getSelectionModel().getSelectedIndex()!=0){
-                    // getting the squad ID from the string of the comboBox.
-                    String squad_id= cbSeniorGame.getValue().split(" - ")[0];
+                    // getting the squad ID /date from the string of the comboBox.
+                    String[] gameData= cbSeniorGame.getValue().split(" - ");
+                    System.out.println("Squad ID: "+gameData[0]+" Date: "+gameData[3]);
+                    int game_id=DBTools.getID("SELECT game_id FROM senior_games_played WHERE squad_id='"+gameData[0]+"' AND date='"+gameData[3]+"'");
                     //getting the game object
-                    game=DBTools.loadNonUpdatedGame(cbSeniorGame.getSelectionModel().getSelectedIndex());
+                    game=DBTools.loadNonUpdatedGame(game_id);
                     // checking if the game has been properly loaded form the DB.
                     if (game!=null){
 
-                        game.setGame_id(DBTools.getID("SELECT game_id FROM senior_games_played WHERE squad_id='"+squad_id+"' AND date='"+game.getDate()+"'"));
-                        game.setSquad_id(Integer.parseInt(squad_id));
+                        game.setGame_id(game_id);
+                        game.setSquad_id(Integer.parseInt(gameData[0]));
                         game.setOutcome(outcome);
                         game.setNbConversion(spConversion.getValue());
                         game.setNbDropGoal(spDropGoal.getValue());
@@ -159,14 +161,15 @@ public class UpdateGameController {
                 else if (cbJuniorGame.getSelectionModel().getSelectedIndex()!=0){
 
                     // getting the squad ID from the string of the comboBox.
-                    String squad_id= cbJuniorGame.getValue().split(" - ")[0];
+                    String[] gameData= cbJuniorGame.getValue().split(" - ");
                     //getting the game object
-                    game=DBTools.loadNonUpdatedGame(cbJuniorGame.getSelectionModel().getSelectedIndex());
+                    int game_id=DBTools.getID("SELECT game_id FROM junior_games_played WHERE squad_id='"+gameData[0]+"' AND date='"+gameData[3]+"'");
+                    System.out.println("gameID: "+game_id+" Date: "+gameData[3]);
+                    game=DBTools.loadNonUpdatedGame(game_id);
                     // checking if the game has been properly loaded form the DB.
                     if (game!=null){
-
-                        game.setGame_id(DBTools.getID("SELECT game_id FROM senior_games_played WHERE squad_id='"+squad_id+"' AND date='"+game.getDate()+"'"));
-                        game.setSquad_id(Integer.parseInt(squad_id));
+                        game.setGame_id(game_id);
+                        game.setSquad_id(Integer.parseInt(gameData[0]));
                         game.setOutcome(outcome);
                         game.setNbConversion(spConversion.getValue());
                         game.setNbDropGoal(spDropGoal.getValue());

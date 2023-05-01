@@ -24,13 +24,11 @@ public class DBTools {
      */
     public static void databaseConnect(){
         try (
-                Connection connection=ConnectionPooling.getDataSource().getConnection();
+                Connection connection=ConnectionPooling.getDataSource().getConnection()
                 ){
             // loading sqlite/JDBC drivers
             Class.forName("org.sqlite.JDBC").getDeclaredConstructor().newInstance();
-            Statement statement= connection.createStatement();
-            statement.execute("PRAGMA journal_mode = wal;");
-            statement.execute("PRAGMA synchronous = NORMAL;");
+
         }
         catch (ClassNotFoundException | IllegalAccessException | InstantiationException |
                NoSuchMethodException | SQLException| InvocationTargetException e){
@@ -102,7 +100,7 @@ public class DBTools {
         try (
                 Connection connection=ConnectionPooling.getDataSource().getConnection();
                 PreparedStatement statement = connection.prepareStatement(query);
-                ResultSet rs = statement.executeQuery();
+                ResultSet rs = statement.executeQuery()
                 )
         {
             // return the ID found
@@ -146,8 +144,8 @@ public class DBTools {
 
     /**
      * This function will look for a member of the club in the database from its memberID and create the corresponding object from it.<br>
-     * the member object passed as parameter will be a dummy one, it will indicate to the function what kind of object to return.
-     * @param member a dummy Player or NonPlayer object
+     * the member object passed as parameter will be a test one, it will indicate to the function what kind of object to return.
+     * @param member a test Player or NonPlayer object
      * @param memberID the mumberID to look for.
      * @return The record found, sent back as a Player or NonPlayer object.
      */
@@ -159,14 +157,14 @@ public class DBTools {
             try(
                     Connection connection=ConnectionPooling.getDataSource().getConnection();
                     PreparedStatement statement = connection.prepareStatement("SELECT player_id,first_name,surname,address,date_of_birth,gender,telephone" +
-                            ",email,scrums_number,is_assigned_to_squad,doctor_id,kin_id FROM players WHERE player_id=?");
+                            ",email,scrums_number,is_assigned_to_squad,doctor_id,kin_id FROM players WHERE player_id=?")
 
                     )
             {
                 // the ResultSet returned by the query is used to create the object that is sent back to the calling class.
                 statement.setInt(1,memberID);
 
-                try(ResultSet rs=statement.executeQuery();)
+                try(ResultSet rs=statement.executeQuery())
                 {
                     return new Player.PlayerBuilder().setPlayerID(rs.getInt(1)).setFirstName(rs.getString(2)).setSurname(rs.getString(3))
                             .setAddress(rs.getString(4)).setDoB(rs.getString(5)).setGender(rs.getString(6)).setTelephone(rs.getString(7))
@@ -192,11 +190,11 @@ public class DBTools {
             try(
                     Connection connection=ConnectionPooling.getDataSource().getConnection();
                     PreparedStatement statement = connection.prepareStatement("SELECT member_id,first_name,surname,address,telephone" +
-                            ",email,role_id FROM non_players WHERE member_id=?");
+                            ",email,role_id FROM non_players WHERE member_id=?")
             )
             {
                 statement.setInt(1,memberID);
-                try(ResultSet rs=statement.executeQuery();)
+                try(ResultSet rs=statement.executeQuery())
                 {
                     return new NonPlayer(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4)
                             ,rs.getString(5),rs.getString(6),rs.getInt(7));
@@ -258,7 +256,7 @@ public class DBTools {
             try(
                     Connection connection=ConnectionPooling.getDataSource().getConnection();
                     PreparedStatement statement = connection.prepareStatement(query);
-                    ResultSet rs = statement.executeQuery();
+                    ResultSet rs = statement.executeQuery()
                     )
             {
                 // using the ResultSet to populate the NoK object and sending it back
@@ -279,7 +277,7 @@ public class DBTools {
             try(
                     Connection connection=ConnectionPooling.getDataSource().getConnection();
                     PreparedStatement statement = connection.prepareStatement(query);
-                    ResultSet rs= statement.executeQuery();
+                    ResultSet rs= statement.executeQuery()
                     )
             {
                 doc.setDoctorID(rs.getInt(1));
@@ -308,11 +306,11 @@ public class DBTools {
 
             try(
                     Connection connection=ConnectionPooling.getDataSource().getConnection();
-                    PreparedStatement statement = connection.prepareStatement("SELECT kin_id,name,surname,telephone FROM next_of_kin WHERE kin_id=?");
+                    PreparedStatement statement = connection.prepareStatement("SELECT kin_id,name,surname,telephone FROM next_of_kin WHERE kin_id=?")
             )
             {
                 statement.setInt(1,index);
-                try(ResultSet rs = statement.executeQuery();)
+                try(ResultSet rs = statement.executeQuery())
                 {
                     nok.setKinID(rs.getInt(1));
                     nok.setFirstName(rs.getString(2));
@@ -333,12 +331,12 @@ public class DBTools {
         if (tp instanceof Doctor doc){
             try(
                     Connection connection =ConnectionPooling.getDataSource().getConnection();
-                    PreparedStatement statement = connection.prepareStatement("SELECT doctor_id,name,surname,telephone FROM player_doctors WHERE doctor_id=?");
+                    PreparedStatement statement = connection.prepareStatement("SELECT doctor_id,name,surname,telephone FROM player_doctors WHERE doctor_id=?")
             )
             {
                 statement.setInt(1,index);
                 try(
-                        ResultSet rs= statement.executeQuery();
+                        ResultSet rs= statement.executeQuery()
                         )
                 {
                     doc.setDoctorID(rs.getInt(1));
@@ -366,11 +364,11 @@ public class DBTools {
     public static String getRole(int roleID){
         try(
                 Connection connection=ConnectionPooling.getDataSource().getConnection();
-                PreparedStatement statement = connection.prepareStatement("SELECT role_description FROM non_players_roles WHERE role_id=?");
+                PreparedStatement statement = connection.prepareStatement("SELECT role_description FROM non_players_roles WHERE role_id=?")
                 )
         {
             statement.setInt(1,roleID);
-            try (ResultSet rs=statement.executeQuery();)
+            try (ResultSet rs=statement.executeQuery())
             {
                 return rs.getString(1);
             }
@@ -400,7 +398,7 @@ public class DBTools {
                     PreparedStatement statement2=connection.prepareStatement("INSERT INTO squad_coaches(COACH_1,COACH_2,COACH_3) VALUES (?,?,?)");
                     PreparedStatement statement3=connection.prepareStatement("INSERT INTO squad_admin_team(CHAIRMAN,FIXTURE_SEC) VALUES (?,?)");
                     PreparedStatement statement4=connection.prepareStatement( "INSERT INTO senior_squads(squad_name,loose_head_prop,hooker,tight_head_prop,second_row,second_row2,blind_side_flanker,open_side_flanker,number_8,scrum_half," +
-                            "fly_half,left_wing,inside_centre,outside_center,right_side,full_back,cogroup_id,adteam_id,repteam_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                            "fly_half,left_wing,inside_centre,outside_center,right_side,full_back,cogroup_id,adteam_id,repteam_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
                     ){
 
                 // variables to save the inner teams IDs.
@@ -467,7 +465,7 @@ public class DBTools {
                 for(Player player:((SeniorSquad) squad).getSquadPlayers()){
                     try (
                             Connection connection1=ConnectionPooling.getDataSource().getConnection();
-                            PreparedStatement statement5= connection1.prepareStatement("UPDATE players SET is_assigned_to_squad='YES' WHERE player_id='"+player.getPlayerID()+"'");
+                            PreparedStatement statement5= connection1.prepareStatement("UPDATE players SET is_assigned_to_squad='YES' WHERE player_id='"+player.getPlayerID()+"'")
                             ){
                         statement5.executeUpdate();
                     }
@@ -488,7 +486,7 @@ public class DBTools {
                     PreparedStatement statement2=connection.prepareStatement("INSERT INTO squad_coaches(COACH_1,COACH_2,COACH_3) VALUES (?,?,?)");
                     PreparedStatement statement3=connection.prepareStatement("INSERT INTO squad_admin_team(CHAIRMAN,FIXTURE_SEC) VALUES (?,?)");
                     PreparedStatement statement4=connection.prepareStatement( "INSERT INTO junior_squads(squad_name,loose_head_prop,hooker,tight_head_prop,scrum_half," +
-                            "fly_half,centre,wing,cogroup_id,adteam_id,repteam_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+                            "fly_half,centre,wing,cogroup_id,adteam_id,repteam_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)")
                     ){
 
                 // variables to save the inner teams IDs.
@@ -557,7 +555,7 @@ public class DBTools {
                 for(Player player:((JuniorSquad) squad).getSquadPlayers()){
                     try(
                             Connection connection1=ConnectionPooling.getDataSource().getConnection();
-                            PreparedStatement statement5= connection1.prepareStatement("UPDATE players SET is_assigned_to_squad = 'YES' WHERE player_id='"+player.getPlayerID()+"'");
+                            PreparedStatement statement5= connection1.prepareStatement("UPDATE players SET is_assigned_to_squad = 'YES' WHERE player_id='"+player.getPlayerID()+"'")
                             )
                     {
                         statement5.executeUpdate();
@@ -582,11 +580,11 @@ public class DBTools {
         // getting the data from the database and creating the object.
         try (
                 Connection connection=ConnectionPooling.getDataSource().getConnection();
-                PreparedStatement statement = connection.prepareStatement("SELECT name,address,telephone,email FROM clubs WHERE club_id=?");
+                PreparedStatement statement = connection.prepareStatement("SELECT name,address,telephone,email FROM clubs WHERE club_id=?")
 
         ) {
             statement.setInt(1,club_id);
-            try(ResultSet rs = statement.executeQuery();)
+            try(ResultSet rs = statement.executeQuery())
             {
                 Club club = new Club(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
                 club.setClub_id(club_id);
@@ -614,7 +612,7 @@ public class DBTools {
         try(
                 Connection connection=ConnectionPooling.getDataSource().getConnection();
                 PreparedStatement statement= connection.prepareStatement("INSERT INTO clubs (name,address,telephone,email) VALUES (?,?,?,?)");
-                QueryResult qs=executeSelectQuery("SELECT name FROM Clubs");
+                QueryResult qs=executeSelectQuery("SELECT name FROM Clubs")
         ){
 
             if (qs!=null){
@@ -651,14 +649,14 @@ public class DBTools {
      */
     public static void saveGame(Game game){
        // ConnectionPooling.resetDatasource();
-        int game_id;
+        int game_id=0;
         // First, we insert the game in the database.
         try(
                 Connection connection=ConnectionPooling.getDataSource().getConnection();
                 PreparedStatement statement=connection.prepareStatement("INSERT INTO games (date,club_id,location_id) VALUES (?,?,?)");
                 PreparedStatement statement1=connection.prepareStatement("INSERT INTO senior_games_played VALUES (?,?,?)");
                 PreparedStatement statement2=connection.prepareStatement("INSERT INTO junior_games_played VALUES (?,?,?)");
-                QueryResult qs=executeSelectQuery("SELECT MAX(game_id) FROM games LIMIT 1");
+
                 )
         {
             statement.setString(1,game.getDate());
@@ -666,8 +664,14 @@ public class DBTools {
             statement.setInt(3,game.getLocation());
             statement.executeUpdate();
             // getting the last gameID inserted
-            game_id=qs.getResultSet().getInt(1);
-            qs.close();
+            try(QueryResult qs=executeSelectQuery("SELECT MAX(game_id) FROM games LIMIT 1"))
+            {
+                game_id=qs.getResultSet().getInt(1);
+            }catch (SQLException e){
+                CustomAlert alert=new CustomAlert("Save Game Error:",e.getMessage());
+                alert.showAndWait();
+                e.printStackTrace();
+            }
 
             // If the squad is a Senior squad, we need to update the intersection table Senior_games_played
             if (game.getSquad() instanceof SeniorSquad){
@@ -707,19 +711,17 @@ public class DBTools {
                  PreparedStatement statement2=connection.prepareStatement("SELECT squad_name,cogroup_id,adteam_id,repteam_id FROM senior_squads WHERE squad_id=?");
                  PreparedStatement statement3=connection.prepareStatement("SELECT loose_head_prop,hooker,tight_head_prop,scrum_half,fly_half,centre,wing FROM junior_squads WHERE squad_id=?");
                  PreparedStatement statement4=connection.prepareStatement("SELECT squad_name,cogroup_id,adteam_id,repteam_id FROM junior_squads WHERE squad_id=?");
-                 PreparedStatement statement5 = connection.prepareStatement("SELECT player_1,player_2,player_3,player_4,player_5 FROM replacement_team WHERE repteam_ID=?");
+                 PreparedStatement statement5 = connection.prepareStatement("SELECT player_1,player_2,player_3,player_4,player_5 FROM replacement_team WHERE repteam_ID=?")
                  )
          {
-             // need to review, test may not be necessary.
-             if (squad==null)
-                 throw new ValidationException("The Squad object cannot be null");
+
              // if we want a SeniorSquad
-             else if (squad instanceof SeniorSquad){
+            if (squad instanceof SeniorSquad){
                  // arraylist to contain the players of the squad.
                  ArrayList<Player> players =new ArrayList<>();
                  // query to get all the players in the squad
                 statement1.setInt(1,squad_id);
-                try(ResultSet rs1=statement1.executeQuery();){
+                try(ResultSet rs1=statement1.executeQuery()){
                     // assigning the players in the arraylist.
                     for(int i=1;i<=15;i++){
                         players.add((Player) loadMember(Player.dummyPlayer(),rs1.getInt(i)));
@@ -733,7 +735,7 @@ public class DBTools {
 
                  // getting the squad name, and the IDs of the related teams. they will be used to get the corresponding team objects to create the Senior Squad.
                  statement2.setInt(1,squad_id);
-                try(ResultSet rs2=statement2.executeQuery();)
+                try(ResultSet rs2=statement2.executeQuery())
                 {
                     // we then create and return a SeniorSquad object
                     return new SeniorSquad(players,rs2.getString(1),
@@ -753,7 +755,7 @@ public class DBTools {
                  ArrayList<Player> players =new ArrayList<>();
                  // assigning the players in the arraylist.
                  statement3.setInt(1,squad_id);
-                 try(ResultSet rs3=statement3.executeQuery();)
+                 try(ResultSet rs3=statement3.executeQuery())
                  {
                      for(int i=1;i<=7;i++){
                          players.add((Player) loadMember(Player.dummyPlayer(),rs3.getInt(i)));
@@ -764,8 +766,8 @@ public class DBTools {
                      alert.showAndWait();
                      return null;
                  }
-
-                 try(ResultSet rs4=statement4.executeQuery();)
+                 statement4.setInt(1,squad_id);
+                 try(ResultSet rs4=statement4.executeQuery())
                  {
                      // we then create and return a SeniorSquad object
                      return new JuniorSquad(players,rs4.getString(1),
@@ -782,12 +784,9 @@ public class DBTools {
              // finally, if we need to get a replacement team. which is a kind of squad as it is composed of playing members.
              else if (squad instanceof ReplacementTeam) {
 
-                     if (squad instanceof ReplacementTeam) {
-
                          ArrayList<Player> players = new ArrayList<>();
                          statement5.setInt(1,squad_id);
-
-                         try(ResultSet rs5 = statement5.executeQuery();)
+                         try(ResultSet rs5 = statement5.executeQuery())
                          {
                              for(int i=1;i<=5;i++){
                                  players.add((Player) loadMember(Player.dummyPlayer(),rs5.getInt(i)));
@@ -798,7 +797,7 @@ public class DBTools {
                              e.printStackTrace();
                              alert.showAndWait();
                              return null;}
-                     }
+
              }
          }catch (SQLException e){
                 CustomAlert alert=new CustomAlert("Error Squad creation","Could not load the requested squad");
@@ -822,12 +821,12 @@ public class DBTools {
             try(
                     Connection connection=ConnectionPooling.getDataSource().getConnection();
                     PreparedStatement statement1= connection.prepareStatement("SELECT chairman,fixture_sec FROM squad_admin_team WHERE adteam_id=?");
-                    PreparedStatement statement2= connection.prepareStatement("SELECT coach_1,coach_2,coach_3 FROM squad_coaches WHERE cogroup_id=?");
+                    PreparedStatement statement2= connection.prepareStatement("SELECT coach_1,coach_2,coach_3 FROM squad_coaches WHERE cogroup_id=?")
                     ){
                 // if the requested team is an AdminTeam
                 if (memberTeam instanceof AdminTeam){
                     statement1.setInt(1,team_id);
-                    try(ResultSet rs1= statement1.executeQuery();)
+                    try(ResultSet rs1= statement1.executeQuery())
                     {
                         return new AdminTeam((NonPlayer) loadMember(new NonPlayer(),rs1.getInt(1)),(NonPlayer) loadMember(new NonPlayer(),rs1.getInt(2)));
                     }catch (SQLException e){
@@ -840,7 +839,7 @@ public class DBTools {
                 // if it's a coach
                 if (memberTeam instanceof CoachTeam){
                     statement2.setInt(1,team_id);
-                    try(ResultSet rs2= statement2.executeQuery();)
+                    try(ResultSet rs2= statement2.executeQuery())
                     {
                         return new CoachTeam((NonPlayer) loadMember(new NonPlayer(),rs2.getInt(1)),(NonPlayer) loadMember(new NonPlayer(),rs2.getInt(2)),
                                 (NonPlayer) loadMember(new NonPlayer(), rs2.getInt(3)));
@@ -869,12 +868,11 @@ public class DBTools {
         // managing resources/exceptions
         try (
                 Connection connection = ConnectionPooling.getDataSource().getConnection();
-                PreparedStatement statement = connection.prepareStatement("SELECT date,club_id,location_id FROM games WHERE game_id=?");
+                PreparedStatement statement = connection.prepareStatement("SELECT date,club_id,location_id FROM games WHERE game_id=?")
         ) {
             // getting the requested game
             statement.setInt(1, game_id);
-
-            try (ResultSet rs = statement.executeQuery();) {
+            try (ResultSet rs = statement.executeQuery()) {
                 // creating a game with the data from the database
                 Game game = new Game();
                 game.setGame_id(game_id);
@@ -899,7 +897,7 @@ public class DBTools {
          try(
                  Connection connection=ConnectionPooling.getDataSource().getConnection();
                 PreparedStatement statement= connection.prepareStatement("UPDATE games " +
-                        "SET nb_of_try=?,nb_of_penalty=?,nb_of_conversion=?,nb_of_drop_goal=?,opponent_score=?,outcome_id=? WHERE game_id=?");
+                        "SET nb_of_try=?,nb_of_penalty=?,nb_of_conversion=?,nb_of_drop_goal=?,opponent_score=?,outcome_id=? WHERE game_id=?")
                  )
          {
             statement.setInt(1,game.getNbTry());
@@ -921,13 +919,11 @@ public class DBTools {
     public static Club loadClub(int club_id){
         try(
                 Connection connection=ConnectionPooling.getDataSource().getConnection();
-                PreparedStatement statement= connection.prepareStatement("SELECT name,address,telephone,email FROM clubs WHERE club_id=?");
-                )
+                PreparedStatement statement= connection.prepareStatement("SELECT name,address,telephone,email FROM clubs WHERE club_id=?")                )
         {
             statement.setInt(1,club_id);
-            try(ResultSet rs= statement.executeQuery();)
-            {
-                Club club= new Club(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4));
+            try(ResultSet rs= statement.executeQuery())
+            {                Club club= new Club(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4));
                 club.setClub_id(club_id);
                 return club;
             }catch (SQLException e){
@@ -940,13 +936,6 @@ public class DBTools {
             alert.showAndWait();
             return null;
         }
-    }
-    /**
-     * Unused at the moment
-     * @param player the profile to update.
-     */
-    public static void updatePlayerProfile(Player player){
-
     }
 // END OF CLASS
 }
