@@ -42,9 +42,9 @@ public class DBTools {
     }
 
     /**
-     * Method to execute an INSERT, CREATE or UPDATE<br>
+     * Method to execute an INSERT, CREATE or UPDATE statement.<br>
      * will return true if the execution is successful or false if not.<br>
-     * it will use a Try with resource feature to make sure the connection and PreparedStatement are closed each time
+     * it will use a Try with resource feature to make sure the connection and PreparedStatement are closed each time<br>
      * @see <a href="https://www.geeksforgeeks.org/try-with-resources-feature-in-java/">Try with resources in Java</a>
      * @param query The query to execute
      * @return the result of the function
@@ -970,7 +970,8 @@ public class DBTools {
 
     /**
      * Function to return the squad ID of a player<br>
-     * if the squadID is 0, the player is not in any squad. it will test the player DoB to determine which squad type
+     * if the squadID is 0, the player is not in any squad.
+     * It will test the player DoB to determine which squad type
      * @param player_id Player ID
      * @return The Squad_ID
      */
@@ -1024,7 +1025,6 @@ public class DBTools {
                         return 0;
                 }catch (SQLException e){e.printStackTrace();}
             }
-
         }catch (SQLException e){
             CustomAlert alert=new CustomAlert("Get the player's Squad ID",e.getMessage());
             alert.showAndWait();
@@ -1033,6 +1033,69 @@ public class DBTools {
         return 0;
     }
 
+    /**
+     * Get the player's squad type.
+     * @param player_id The player ID
+     * @return A squad object of the corresponding type.
+     */
+    public static Squad getPlayerSquadType(int player_id){
+        int age=0;
+        LocalDate date;
+        DateTimeFormatter dt=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try(
+                Connection connection=ConnectionPooling.getDataSource().getConnection();
+                PreparedStatement statement=connection.prepareStatement("SELECT date_of_birth FROM players WHERE player_id=?");
+                PreparedStatement statement1= connection.prepareStatement("SELECT squad_id FROM senior_squads WHERE ? " +
+                        "IN (loose_head_prop, hooker, tight_head_prop, second_row, second_row2, blind_side_flanker, open_side_flanker, number_8, " +
+                        "scrum_half, fly_half, left_wing, inside_centre, outside_center, right_side, full_back)");
+                PreparedStatement statement2= connection.prepareStatement("SELECT squad_id FROM junior_squads WHERE ? " +
+                        "IN (loose_head_prop,hooker,tight_head_prop,scrum_half,fly_half,centre,wing)")
+        )
+        {
+            // getting the player date of birth
+            statement.setInt(1,player_id);
+            try(ResultSet rs=statement.executeQuery())
+            {
+                // calculating the age
+                // https://www.w3schools.blog/java-period-class
+                date=LocalDate.parse(rs.getString(1),dt);
+                age= Period.between(date,LocalDate.now()).getYears();
+            }catch (SQLException e){e.printStackTrace();}
+            // if player > 17yo, we will look into the senior squads
+            if (age>17){
+                // looking for the player id in each role column
+                statement1.setInt(1,player_id);
+                try(ResultSet rs=statement1.executeQuery())
+                {
+                    int squad=rs.getInt(1);
+                    // if found, return the squad id
+                    if (rs.getInt(1)!=0)
+                        return new SeniorSquad();
+                        // otherwise return 0;
+                    else
+                        return null;
+                }
+                catch (SQLException e){e.printStackTrace();}
+            }
+            // if under 17, we look into the junior squads
+            else{
+                statement.setInt(1,player_id);
+                try(ResultSet rs=statement2.executeQuery())
+                {
+                    if (rs.getInt(1)!=0)
+                        return new JuniorSquad();
+                    else
+                        return null ;
+                }catch (SQLException e){e.printStackTrace();}
+            }
+        }catch (SQLException e){
+            CustomAlert alert=new CustomAlert("Get the player's Squad type",e.getMessage());
+            alert.showAndWait();
+            return null;
+        }
+        return null;
+
+    }
     /**
      * insert a training session in the database, and create an entry in each player training log.
      * @param trainingSession the training session to save
@@ -1121,52 +1184,161 @@ public class DBTools {
      */
     public static boolean updateTrainingProfile(ArrayList<Integer> levels,int profile_id){
 
-        try(
-                Connection connection=ConnectionPooling.getDataSource().getConnection();
-                )
+        try
         {
+            /*
+            as there can be a different combination of skills to update, we will use two arrays to build a custom query.
+            the first array will contain the name of the columns to update.
+            if no skill was selected in the pane, the corresponding value in the level array is 0.
+            testing if a level value is equal to 0 or not, we can build the list of skills to update and the new level.
+            */
             ArrayList<String> skillsToUodate=new ArrayList<>();
             ArrayList<Integer> values =new ArrayList<>();
-
-            if (levels.get(1)!=0) {
+            //System.out.println("Size: "+levels.size());
+            // building the two arrays.
+            if (levels.get(0)!=0) {
                 skillsToUodate.add("passing_skill");
+                values.add(levels.get(0));
+            }
+            if (levels.get(1)!=0) {
+                skillsToUodate.add("running_skill");
                 values.add(levels.get(1));
             }
             if (levels.get(2)!=0) {
-                skillsToUodate.add("running_skill");
+                skillsToUodate.add("support_skill");
                 values.add(levels.get(2));
             }
             if (levels.get(3)!=0) {
-                skillsToUodate.add("support_skill");
+                skillsToUodate.add("tackling_skill");
                 values.add(levels.get(3));
             }
             if (levels.get(4)!=0) {
-                skillsToUodate.add("support_skill");
+                skillsToUodate.add("decision_skill");
                 values.add(levels.get(4));
             }
-            if (levels.get(5)!=0) {
-                skillsToUodate.add("decision_skill");
-                values.add(levels.get(5));
-            }
-            if (skillsToUodate!=null){
+            // here we will create the sql query to use
+            // if the skillsToUpdate has a 0 size, means that no skills were selected to update.
+            if (skillsToUodate.size()!=0){
                 String query="UPDATE training_profiles SET ";
-                int i=1;
+                int i=0;
                 for(String s:skillsToUodate){
                     query=query+s+"='"+values.get(i)+"',";
                     i++;
                 }
-                System.out.println(query);
-                return true;
+                // take out the last comma and complete the query
+                query=(query.substring(0,query.length()-1))+" WHERE profile_id='"+profile_id+"'";
+                // testing that the update was done
+                if (executeUpdateQuery(query)) {
+                    System.out.println(query);
+                    return true;
+                }
+                // if not, error message.
+                else
+                    throw new ValidationException("The profile could not be updated");
             }
+            // if no skills to update, we display an error message.
             else
                 throw new ValidationException("There are no skills selected to update");
-        }catch (ValidationException |SQLException e){
+        }catch (ValidationException e){
             CustomAlert alert=new CustomAlert("Update Profile Error",e.getMessage());
             e.printStackTrace();
             alert.showAndWait();
             return false;
         }
+    }
 
+    /**
+     * Check if the player is in a replacement team
+     * @param player_id the player to check
+     * @return True or False
+     */
+    public static boolean isReplacement(int player_id){
+        try(
+                Connection connection=ConnectionPooling.getDataSource().getConnection();
+                PreparedStatement statement= connection.prepareStatement("SELECT repteam_id FROM replacement_team " +
+                        "WHERE ? IN (player_1,player_2,player_3,player_4,player_5)")
+                )
+        {
+            statement.setInt(1,player_id);
+            try(ResultSet rs= statement.executeQuery()){
+                if (rs.getInt(1)!=0)
+                    return true;
+                else
+                    return false;
+            }
+        }catch (SQLException e){e.printStackTrace();return false;}
+    }
+
+    /**
+     * Get the replacement team ID of the player. iIf not found return 0.
+     * @param player_id the player id
+     * @return the repteam_ID
+     */
+    public static int getReplacementTeamID(int player_id){
+        try(
+                Connection connection=ConnectionPooling.getDataSource().getConnection();
+                PreparedStatement statement= connection.prepareStatement("SELECT repteam_id FROM replacement_team " +
+                        "WHERE ? IN (player_1,player_2,player_3,player_4,player_5)")
+        )
+        {
+            statement.setInt(1,player_id);
+            try(ResultSet rs= statement.executeQuery()){
+                if (rs.getInt(1)!=0)
+                    return rs.getInt(1);
+                else
+                    return 0;
+            }
+        }catch (SQLException e){e.printStackTrace();return 0;}
+    }
+
+    /**
+     * Check what kind of squad is a replacement team in
+     * @param repTeamID the rep team to check
+     * @return the type of squad.
+     */
+    public static Squad getReplacementSquadType(int repTeamID){
+        try(
+                Connection connection=ConnectionPooling.getDataSource().getConnection();
+                PreparedStatement statement= connection.prepareStatement("SELECT squad_id from senior_squads WHERE repteam_id=?")
+                )
+        {
+            // look for a squad id that has that replacement team
+            statement.setInt(1,repTeamID);
+            try(ResultSet rs=statement.executeQuery())
+            {
+                // if found in the senior squad table, sent a senior object
+                if (rs.getInt(1)!=0)
+                    return new SeniorSquad();
+                // otherwise, it's a junior squad.
+                else
+                    return new JuniorSquad();
+            }
+        }catch (SQLException e){e.printStackTrace();return null;}
+    }
+
+    /**
+     * Function to check if the player is in a squad
+     * @param player the player to check
+     * @return true or false
+     */
+    public static boolean playerIsAssignedToSquad(int player){
+        try(
+                Connection connection=ConnectionPooling.getDataSource().getConnection();
+                PreparedStatement statement= connection.prepareStatement("SELECT is_assigned_to_squad FROM players WHERE player_id=?");
+                )
+        {
+            statement.setInt(1,player);
+            try(ResultSet rs= statement.executeQuery())
+            {
+                if (rs.getString(1).equals("YES"))
+                    return true;
+                else
+                    return false;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 // END OF CLASS
 }
