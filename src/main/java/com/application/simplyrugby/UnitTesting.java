@@ -21,6 +21,8 @@ public class UnitTesting {
 
         System.out.println("Squad :" +DBTools.getPlayerSquadID(30));
 
+        System.out.println("Squad id of player 16: "+DBTools.getPlayerSquadID(16));
+
 
 }
 }

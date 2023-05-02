@@ -27,7 +27,7 @@ public class ObsListFactory {
     /**
      * The function takes an object in parameter and will test it<br>
      * If the object is a Player, NonPLayer, Doctor or NextOfKIn, it will create and return a list from the database.<br>
-     * It can also take a String that will act as a 'command', for example to get a list of non-player roles from the DB.<br>
+     * It can also take a String that will act as a 'command', for example, to get a list of non-player roles from the DB.<br>
      * otherwise, it will display an error message.
      * @param o The object to get a list for or a string command.
      * @return The compiled list.
@@ -55,7 +55,7 @@ public class ObsListFactory {
                 alert.showAndWait();
                 e.printStackTrace();return null;}
         }
-        // same but fot non-players
+        // same but for non-players
         if (o instanceof NonPlayer){
             try (
                     QueryResult qs=DBTools.executeSelectQuery("SELECT first_name,surname,role_id,role_description FROM non_players NATURAL JOIN non_players_roles");
@@ -468,8 +468,9 @@ public class ObsListFactory {
                     alert.showAndWait();
                     e.printStackTrace();return null;
                 }
-
             }
+
+
             // and if not of any known command, display an error message.
             // for internal and testing uses
             else{
