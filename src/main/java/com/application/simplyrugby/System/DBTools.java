@@ -1027,7 +1027,6 @@ public class DBTools {
         try(
                 Connection connection=ConnectionPooling.getDataSource().getConnection();
                 PreparedStatement statement= connection.prepareStatement("INSERT INTO training_sessions (date,location_id,type_id) VALUES (?,?,?)");
-                QueryResult qs=executeSelectQuery("SELECT MAX(session_id) FROM training_sessions LIMIT 1");
                 PreparedStatement statementTrainingLog= connection.prepareStatement("INSERT INTO player_training_logs (profile_id,session_id) VALUES (?,?)")
                 )
         {
@@ -1039,7 +1038,17 @@ public class DBTools {
             statement.setInt(3,trainingSession.getTrainingType());
             statement.executeUpdate();
             // getting it session_id
-            int session_id=qs.getResultSet().getInt(1);
+            int session_id=0;
+            try(QueryResult qs=executeSelectQuery("SELECT MAX(session_id) FROM training_sessions LIMIT 1"))
+            {
+                session_id=qs.getResultSet().getInt(1);
+            }catch (SQLException e){
+                CustomAlert alert=new CustomAlert("Get the player's Squad ID",e.getMessage());
+                e.printStackTrace();
+                alert.showAndWait();
+            }
+            if (session_id==0)
+                throw new ValidationException("Wrong Session_id returned: 0");
             // if the training squad is senior
             if (squad instanceof SeniorSquad){
                 SeniorSquad seniorSquad =(SeniorSquad)squad;
@@ -1070,7 +1079,10 @@ public class DBTools {
                     statementTrainingLog.executeUpdate();
                 }
             }
-        }catch (ValidationException|SQLException e){}
+        }catch (ValidationException|SQLException e){
+            CustomAlert alert=new CustomAlert("Get the player's Squad ID",e.getMessage());
+            e.printStackTrace();
+            alert.showAndWait();}
     }
 // END OF CLASS
 }
