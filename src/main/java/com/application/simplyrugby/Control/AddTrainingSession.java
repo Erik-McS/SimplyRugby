@@ -80,7 +80,6 @@ public class AddTrainingSession {
         // event handler for the Create button
         bCreate.setOnAction((event)->{
             try{
-                System.out.println("Create training clicked");
                 LocalDate date;
                 Squad squad=null;
                 DateTimeFormatter dt=DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -89,6 +88,12 @@ public class AddTrainingSession {
                 }
                 else
                     throw new ValidationException("A date for the session must be selected");
+                // checking a facility was selected.
+                if (cbFacility.getSelectionModel().getSelectedIndex()==0)
+                    throw new ValidationException("Please select the facility used for the training");
+                // same for the training type.
+                if (cbType.getSelectionModel().getSelectedIndex()==0)
+                    throw new ValidationException("Please select the type of training done");
                 // if a senior squad is selected
                 if (cbSeniorSquad.getSelectionModel().getSelectedIndex()!=0) {
                     squad = DBTools.loadSquad(new SeniorSquad(), cbSeniorSquad.getSelectionModel().getSelectedIndex());
@@ -97,13 +102,25 @@ public class AddTrainingSession {
                     squad=DBTools.loadSquad(new JuniorSquad(),cbJuniorSquad.getSelectionModel().getSelectedIndex());
                 }
                 TrainingSession t=new TrainingSession(date.format(dt),cbFacility.getSelectionModel().getSelectedIndex(),cbType.getSelectionModel().getSelectedIndex());
-                System.out.println(t.toString());
-                DBTools.saveTrainingSession(t,squad);
+
+                boolean check=DBTools.saveTrainingSession(t,squad);
+                if (check) {
+                    CustomAlert alert =new CustomAlert("Create a training session","The training session has been created, the players' profiles have been updated accordingly.");
+                    alert.showAndWait();
+                    Stage stage=(Stage) bCreate.getScene().getWindow();
+                    stage.close();
+                }
+                else
+                {
+                    CustomAlert alert =new CustomAlert("Create a training session","Training session not created.");
+                    alert.showAndWait();
+                    Stage stage=(Stage) bCreate.getScene().getWindow();
+                    stage.close();
+                }
             }
             catch (ValidationException e){
                 CustomAlert alert=new CustomAlert("Create a training session",e.getMessage());
                 alert.showAndWait();
-                e.printStackTrace();
             }
         });
     }
