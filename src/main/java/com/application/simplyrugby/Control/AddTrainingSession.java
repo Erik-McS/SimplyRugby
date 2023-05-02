@@ -80,6 +80,7 @@ public class AddTrainingSession {
         // event handler for the Create button
         bCreate.setOnAction((event)->{
             try{
+                System.out.println("Create training clicked");
                 LocalDate date;
                 Squad squad=null;
                 DateTimeFormatter dt=DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -95,7 +96,9 @@ public class AddTrainingSession {
                 else if(cbJuniorSquad.getSelectionModel().getSelectedIndex()!=0){
                     squad=DBTools.loadSquad(new JuniorSquad(),cbJuniorSquad.getSelectionModel().getSelectedIndex());
                 }
-                DBTools.saveTrainingSession(new TrainingSession(date.format(dt),cbFacility.getSelectionModel().getSelectedIndex(),cbType.getSelectionModel().getSelectedIndex()),squad);
+                TrainingSession t=new TrainingSession(date.format(dt),cbFacility.getSelectionModel().getSelectedIndex(),cbType.getSelectionModel().getSelectedIndex());
+                System.out.println(t.toString());
+                DBTools.saveTrainingSession(t,squad);
             }
             catch (ValidationException e){
                 CustomAlert alert=new CustomAlert("Create a training session",e.getMessage());
