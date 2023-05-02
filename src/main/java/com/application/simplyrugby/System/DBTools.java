@@ -402,7 +402,8 @@ public class DBTools {
                     PreparedStatement statement2=connection.prepareStatement("INSERT INTO squad_coaches(COACH_1,COACH_2,COACH_3) VALUES (?,?,?)");
                     PreparedStatement statement3=connection.prepareStatement("INSERT INTO squad_admin_team(CHAIRMAN,FIXTURE_SEC) VALUES (?,?)");
                     PreparedStatement statement4=connection.prepareStatement( "INSERT INTO senior_squads(squad_name,loose_head_prop,hooker,tight_head_prop,second_row,second_row2,blind_side_flanker,open_side_flanker,number_8,scrum_half," +
-                            "fly_half,left_wing,inside_centre,outside_center,right_side,full_back,cogroup_id,adteam_id,repteam_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
+                            "fly_half,left_wing,inside_centre,outside_center,right_side,full_back,cogroup_id,adteam_id,repteam_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    PreparedStatement statement5= connection.prepareStatement("INSERT INTO training_profiles (passing_skill,running_skill,support_skill,tackling_skill,decision_skill,player_id) VALUES (1,1,1,1,1,?)")
                     ){
 
                 // variables to save the inner teams IDs.
@@ -423,6 +424,10 @@ public class DBTools {
                 // going through the rep team array to set each statement parameter
                 for (int i=0;i<repTeam.size();i++){
                     statement1.setInt(i+1,repTeam.get(i));
+                    // also preparing the query to create the player training profile
+                    statement5.setInt(1,repTeam.get(i));
+                    // creating the player profile
+                    statement5.executeUpdate();
                 }
                 // inserting the rep team
                 statement1.executeUpdate();
@@ -460,18 +465,23 @@ public class DBTools {
                 statement4.setString(1,((SeniorSquad) squad).getSquadName());
                 for (int i=0;i<squadPlayers.size();i++){
                     statement4.setInt(i+2,squadPlayers.get(i));
+                    // preparing the profile insert query
+                    statement5.setInt(1,squadPlayers.get(i));
+                    // inserting the player profile
+                    statement5.executeUpdate();
                 }
+                // assinging the associated replacement, coach and admin team.
                 statement4.setInt(17,cogroup_id);
                 statement4.setInt(18,adteam_id);
                 statement4.setInt(19,repteam_id);
-
                 statement4.executeUpdate();
+                // updated the player squad status in the player table.
                 for(Player player:((SeniorSquad) squad).getSquadPlayers()){
                     try (
                             Connection connection1=ConnectionPooling.getDataSource().getConnection();
-                            PreparedStatement statement5= connection1.prepareStatement("UPDATE players SET is_assigned_to_squad='YES' WHERE player_id='"+player.getPlayerID()+"'")
+                            PreparedStatement statement6= connection1.prepareStatement("UPDATE players SET is_assigned_to_squad='YES' WHERE player_id='"+player.getPlayerID()+"'")
                             ){
-                        statement5.executeUpdate();
+                        statement6.executeUpdate();
                     }
                     catch (SQLException w){w.printStackTrace();}
                 }
@@ -482,7 +492,7 @@ public class DBTools {
                 alert.showAndWait();
             }
         }
-
+        // here we update the junior squad table.
         else if(squad instanceof JuniorSquad){
             try(
                     Connection connection=ConnectionPooling.getDataSource().getConnection();
@@ -490,8 +500,9 @@ public class DBTools {
                     PreparedStatement statement2=connection.prepareStatement("INSERT INTO squad_coaches(COACH_1,COACH_2,COACH_3) VALUES (?,?,?)");
                     PreparedStatement statement3=connection.prepareStatement("INSERT INTO squad_admin_team(CHAIRMAN,FIXTURE_SEC) VALUES (?,?)");
                     PreparedStatement statement4=connection.prepareStatement( "INSERT INTO junior_squads(squad_name,loose_head_prop,hooker,tight_head_prop,scrum_half," +
-                            "fly_half,centre,wing,cogroup_id,adteam_id,repteam_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)")
-                    ){
+                            "fly_half,centre,wing,cogroup_id,adteam_id,repteam_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+                    PreparedStatement statement6= connection.prepareStatement("INSERT INTO training_profiles (passing_skill,running_skill,support_skill,tackling_skill,decision_skill,player_id) VALUES (1,1,1,1,1,?)")
+            ){
 
                 // variables to save the inner teams IDs.
                 int cogroup_id;
@@ -511,6 +522,9 @@ public class DBTools {
                 // going through the rep team array to set each statement parameter
                 for (int i=0;i<repTeam.size();i++){
                     statement1.setInt(i+1,repTeam.get(i));
+                    // creating the player profile
+                    statement6.setInt(1,repTeam.get(i));
+                    statement6.executeUpdate();
                 }
                 // inserting the rep team
                 statement1.executeUpdate();
@@ -549,6 +563,8 @@ public class DBTools {
                 statement4.setString(1,((JuniorSquad) squad).getSquadName());
                 for (int i=0;i<squadPlayers.size();i++){
                     statement4.setInt(i+2,squadPlayers.get(i));
+                    statement6.setInt(1,squadPlayers.get(i));
+                    statement6.executeUpdate();
                 }
                 statement4.setInt(9,cogroup_id);
                 statement4.setInt(10,adteam_id);
@@ -1021,17 +1037,25 @@ public class DBTools {
      * insert a training session in the database, and create an entry in each player training log.
      * @param trainingSession the training session to save
      * @param squad the squad id of the participating squad.
+     * @return If the session was created or not.
      */
-    public static void saveTrainingSession(TrainingSession trainingSession,Squad squad){
+    public static boolean saveTrainingSession(TrainingSession trainingSession,Squad squad){
 
         try(
                 Connection connection=ConnectionPooling.getDataSource().getConnection();
                 PreparedStatement statement= connection.prepareStatement("INSERT INTO training_sessions (date,location_id,type_id) VALUES (?,?,?)");
-                PreparedStatement statementTrainingLog= connection.prepareStatement("INSERT INTO player_training_logs (profile_id,session_id) VALUES (?,?)")
+                PreparedStatement statementTrainingLog= connection.prepareStatement("INSERT INTO player_training_logs (profile_id,session_id) VALUES (?,?)");
+                QueryResult qs1=executeSelectQuery("SELECT session_id FROM training_sessions WHERE date='"+trainingSession.getDate()+"' AND location_id='"+trainingSession.getTrainingFacility()+"'")
                 )
         {
+            // checking that the squad object is correct
             if (squad==null)
                 throw new ValidationException("The squad object is empty");
+
+            // checking that the facility is not used that day.
+            if (qs1.getResultSet().getInt(1)!=0)
+                throw new ValidationException("The facility is already booked that day");
+
             // inserting the record
             statement.setString(1,trainingSession.getDate());
             statement.setInt(2,trainingSession.getTrainingFacility());
@@ -1046,6 +1070,7 @@ public class DBTools {
                 CustomAlert alert=new CustomAlert("Get the player's Squad ID",e.getMessage());
                 e.printStackTrace();
                 alert.showAndWait();
+                return false;
             }
             if (session_id==0)
                 throw new ValidationException("Wrong Session_id returned: 0");
@@ -1064,6 +1089,7 @@ public class DBTools {
                     statementTrainingLog.setInt(2,session_id);
                     statementTrainingLog.executeUpdate();
                 }
+                return true;
             }
 
             else{
@@ -1078,11 +1104,69 @@ public class DBTools {
                     statementTrainingLog.setInt(2,session_id);
                     statementTrainingLog.executeUpdate();
                 }
+                return true;
             }
         }catch (ValidationException|SQLException e){
             CustomAlert alert=new CustomAlert("Get the player's Squad ID",e.getMessage());
             e.printStackTrace();
-            alert.showAndWait();}
+            alert.showAndWait();
+        return false;}
+    }
+
+    /**
+     * Method to update a player's training profile with new performance level values.
+     * @param levels The array containing the levels to update
+     * @param profile_id the profile id to update
+     * @return If the update was successful.
+     */
+    public static boolean updateTrainingProfile(ArrayList<Integer> levels,int profile_id){
+
+        try(
+                Connection connection=ConnectionPooling.getDataSource().getConnection();
+                )
+        {
+            ArrayList<String> skillsToUodate=new ArrayList<>();
+            ArrayList<Integer> values =new ArrayList<>();
+
+            if (levels.get(1)!=0) {
+                skillsToUodate.add("passing_skill");
+                values.add(levels.get(1));
+            }
+            if (levels.get(2)!=0) {
+                skillsToUodate.add("running_skill");
+                values.add(levels.get(2));
+            }
+            if (levels.get(3)!=0) {
+                skillsToUodate.add("support_skill");
+                values.add(levels.get(3));
+            }
+            if (levels.get(4)!=0) {
+                skillsToUodate.add("support_skill");
+                values.add(levels.get(4));
+            }
+            if (levels.get(5)!=0) {
+                skillsToUodate.add("decision_skill");
+                values.add(levels.get(5));
+            }
+            if (skillsToUodate!=null){
+                String query="UPDATE training_profiles SET ";
+                int i=1;
+                for(String s:skillsToUodate){
+                    query=query+s+"='"+values.get(i)+"',";
+                    i++;
+                }
+                System.out.println(query);
+                return true;
+            }
+            else
+                throw new ValidationException("There are no skills selected to update");
+        }catch (ValidationException |SQLException e){
+            CustomAlert alert=new CustomAlert("Update Profile Error",e.getMessage());
+            e.printStackTrace();
+            alert.showAndWait();
+            return false;
+        }
+
     }
 // END OF CLASS
 }
