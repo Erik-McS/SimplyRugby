@@ -17,27 +17,27 @@
       <ComboBox fx:id="cbPlayer" layoutX="228.0" layoutY="41.0" prefHeight="25.0" prefWidth="270.0" />
       <Pane fx:id="skillsPane" layoutX="61.0" layoutY="179.0" prefHeight="157.0" prefWidth="840.0">
          <children>
-            <Label layoutX="16.0" layoutY="50.0" prefHeight="20.0" prefWidth="69.0" text="Running:" textFill="WHITE">
+            <Label fx:id="lSkill1" layoutX="16.0" layoutY="50.0" prefHeight="20.0" prefWidth="69.0" text="Running:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="16.0" layoutY="100.0" text="Decision-Making:" textFill="WHITE">
+            <Label fx:id="lSkill2" layoutX="16.0" layoutY="100.0" text="Decision-Making:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="327.0" layoutY="50.0" text="Passing:" textFill="WHITE">
+            <Label fx:id="lSkill3" layoutX="327.0" layoutY="50.0" text="Passing:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="327.0" layoutY="100.0" text="Tackling:" textFill="WHITE">
+            <Label fx:id="lSkill4" layoutX="327.0" layoutY="100.0" text="Tackling:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="601.0" layoutY="50.0" text="Support:" textFill="WHITE">
+            <Label fx:id="lSkill5" layoutX="601.0" layoutY="50.0" text="Support:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -49,31 +49,31 @@
             <Label fx:id="lSupport" layoutX="696.0" layoutY="50.0" text="Label" textFill="WHITE" />
          </children>
       </Pane>
-      <Label layoutX="61.0" layoutY="138.0" text="Core Skills" textFill="WHITE">
+      <Label fx:id="lTitle1" layoutX="61.0" layoutY="138.0" text="Core Skills" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="61.0" layoutY="354.0" text="Training Session attended" textFill="WHITE">
+      <Label fx:id="lTitle2" layoutX="61.0" layoutY="354.0" text="Training Session attended" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="461.0" layoutY="354.0" text="Game Performances" textFill="WHITE">
+      <Label fx:id="lTitle3" layoutX="461.0" layoutY="354.0" text="Game Performances" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="bUpdtProfile" layoutX="844.0" layoutY="634.0" mnemonicParsing="false" text="Exit">
+      <Button fx:id="bExit" layoutX="844.0" layoutY="634.0" mnemonicParsing="false" text="Exit">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
       <TableView fx:id="tvTrainingSessions" layoutX="61.0" layoutY="387.0" prefHeight="240.0" prefWidth="350.0">
         <columns>
-          <TableColumn prefWidth="125.0" text="Type" />
-          <TableColumn prefWidth="91.0" text="Date" />
-            <TableColumn prefWidth="133.0" text="Facility" />
+          <TableColumn fx:id="rType" prefWidth="125.0" text="Type" />
+          <TableColumn fx:id="rDate" prefWidth="91.0" text="Date" />
+            <TableColumn fx:id="rFacility" prefWidth="133.0" text="Facility" />
         </columns>
       </TableView>
       <TableView fx:id="tvGamePerfs" layoutX="461.0" layoutY="387.0" prefHeight="240.0" prefWidth="436.0">

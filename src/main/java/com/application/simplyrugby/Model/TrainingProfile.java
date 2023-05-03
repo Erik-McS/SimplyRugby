@@ -37,6 +37,7 @@ public class TrainingProfile {
         setPassingLevel(level);
         setRunningLevel(level);
         setSupportLevel(level);
+        setTacklingLevel(level);
     }
 
     /**
@@ -219,7 +220,7 @@ public class TrainingProfile {
      * @return the level id
      * @throws ValidationException Error if exceptions.
      */
-    public int getLevelID(String levelDesc) throws ValidationException{
+    public static int getLevelID(String levelDesc) throws ValidationException{
         if (levelDesc.equals("Poor"))
             return 1;
         else if (levelDesc.equals("Developing"))
@@ -233,6 +234,28 @@ public class TrainingProfile {
         else
             throw new ValidationException("Incorrect Level Description");
         }
+
+    /**
+     * Method to return the level desciption based on the id
+     * @param level level id
+     * @return level description
+     */
+    public static String getLevelDesc(int level){
+        switch (level){
+            case 1:
+                return "Poor";
+            case 2:
+                return "Developing";
+            case 3:
+                return "Proficient";
+            case 4:
+                return "Advanced";
+            case 5:
+                return "Leading";
+            default:
+                return "";
+        }
+    }
 
     /**
      * Test that the correct level descriptions are passed to a function
