@@ -3,7 +3,6 @@ package com.application.simplyrugby.System;
 import com.application.simplyrugby.Model.*;
 
 import java.lang.reflect.InvocationTargetException;
-import java.security.PublicKey;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.Period;
@@ -27,15 +26,13 @@ public class DBTools {
      * This method loads the JDBC drivers and allows access to a database
      */
     public static void databaseConnect(){
-        try (
-                Connection connection=ConnectionPooling.getDataSource().getConnection()
-                ){
+        try {
             // loading sqlite/JDBC drivers
             Class.forName("org.sqlite.JDBC").getDeclaredConstructor().newInstance();
 
         }
         catch (ClassNotFoundException | IllegalAccessException | InstantiationException |
-               NoSuchMethodException | SQLException| InvocationTargetException e){
+               NoSuchMethodException | InvocationTargetException e){
             CustomAlert alert=new CustomAlert("Error loading the JDBC drivers",e.getMessage());
             alert.showAndWait();
         }
@@ -243,8 +240,16 @@ public class DBTools {
      */
     public static boolean insertTrainingProfile(TrainingProfile tp) {
         // insert the profile in the database. and test if ok
-         return executeUpdateQuery("INSERT INTO training_profiles (passing_skill,running_skill,support_skill,tackling_skill,decision_skill,player_id)" +
-                " VALUES ('" + tp.getPassingLevel() + "','" + tp.getRunningLevel() + "','" + tp.getSupportLevel() + "','" + tp.getTacklingLevel() + "','" + tp.getDecisionLevel() + "','"+tp.getPlayerID()+"')");
+        try{
+            return executeUpdateQuery("INSERT INTO training_profiles (passing_skill,running_skill,support_skill,tackling_skill,decision_skill,player_id)" +
+                    " VALUES ('" + TrainingProfile.getLevelID(tp.getPassingLevel()) + "','" + TrainingProfile.getLevelID(tp.getRunningLevel()) + "','" + TrainingProfile.getLevelID(tp.getSupportLevel())
+                    + "','" + TrainingProfile.getLevelID(tp.getTacklingLevel()) + "','" + TrainingProfile.getLevelID(tp.getDecisionLevel()) + "','"+tp.getPlayerID()+"')");
+        }
+        catch (ValidationException e){
+            CustomAlert alert=new CustomAlert("Insert Training Profile",e.getMessage());
+            alert.showAndWait();
+            return false;
+        }
     }
 
     /**
@@ -1266,7 +1271,11 @@ public class DBTools {
                 else
                     return false;
             }
-        }catch (SQLException e){e.printStackTrace();return false;}
+        }catch (SQLException e){
+            CustomAlert alert=new CustomAlert("Is Replacement",e.getMessage());
+            e.printStackTrace();
+            alert.showAndWait();
+            return false;}
     }
 
     /**
@@ -1288,7 +1297,11 @@ public class DBTools {
                 else
                     return 0;
             }
-        }catch (SQLException e){e.printStackTrace();return 0;}
+        }catch (SQLException e){
+            CustomAlert alert=new CustomAlert("Get Replacement ID",e.getMessage());
+            e.printStackTrace();
+            alert.showAndWait();
+            return 0;}
     }
 
     /**
@@ -1313,7 +1326,11 @@ public class DBTools {
                 else
                     return new JuniorSquad();
             }
-        }catch (SQLException e){e.printStackTrace();return null;}
+        }catch (SQLException e){
+            CustomAlert alert=new CustomAlert("Replacement Squad type",e.getMessage());
+            alert.showAndWait();
+            e.printStackTrace();
+            return null;}
     }
 
     /**
@@ -1336,9 +1353,114 @@ public class DBTools {
                     return false;
             }
         }catch (SQLException e){
+            CustomAlert alert=new CustomAlert("Is player assigned to squad",e.getMessage());
             e.printStackTrace();
+            alert.showAndWait();
             return false;
         }
+    }
+
+    /**
+     * Finction to save a game performance in the database
+     * @param profileID the profile id of the player
+     * @param gameID the game id to rate
+     * @param levelID the performance level id
+     */
+    public static void saveGamePerformance(int profileID,int gameID,int levelID)
+    {
+        // try-with resource
+        try(
+                Connection connection=ConnectionPooling.getDataSource().getConnection();
+                PreparedStatement statement= connection.prepareStatement("INSERT INTO game_performances (profile_id,game_id,level_id) " +
+                    "VALUES (?,?,?)")
+                )
+        {
+            // setting the prepared statement values
+            statement.setInt(1,profileID);
+            statement.setInt(2,gameID);
+            statement.setInt(3,levelID);
+            // checking the line was inserted
+            if (statement.executeUpdate()==0)
+                throw new ValidationException("No record was inserted");
+
+        }catch (ValidationException|SQLException e){
+            CustomAlert alert=new CustomAlert("Save game performance",e.getMessage());
+            e.printStackTrace();
+            alert.showAndWait();
+        }
+    }
+
+    /**
+     * Method to get a training profile from the database
+     * @param player The player to look for
+     * @return the training profile
+     */
+    public static TrainingProfile getTrainingProfile(Player player) {
+        try (
+                Connection connection = ConnectionPooling.getDataSource().getConnection();
+                PreparedStatement statement = connection.prepareStatement("SELECT profile_id,passing_skill,running_skill,support_skill,tackling_skill,decision_skill FROM training_profiles " +
+                        "WHERE player_id=?")
+        ) {
+            statement.setInt(1, player.getPlayerID());
+            try (ResultSet rs = statement.executeQuery()) {
+                TrainingProfile trainingProfile = new TrainingProfile();
+                trainingProfile.setProfileID(rs.getInt(1));
+                trainingProfile.setPassingLevel(TrainingProfile.getLevelDesc(rs.getInt(2)));
+                trainingProfile.setRunningLevel(TrainingProfile.getLevelDesc(rs.getInt(3)));
+                trainingProfile.setSupportLevel(TrainingProfile.getLevelDesc(rs.getInt(4)));
+                trainingProfile.setTacklingLevel(TrainingProfile.getLevelDesc(rs.getInt(5)));
+                trainingProfile.setDecisionLevel(TrainingProfile.getLevelDesc(rs.getInt(6)));
+                return trainingProfile;
+            }
+        } catch (ValidationException | SQLException e) {
+            CustomAlert alert = new CustomAlert("Get training session", e.getMessage());
+            e.printStackTrace();
+            alert.showAndWait();
+            return null;
+        }
+    }
+
+    /**
+     * Method to create an arraylist of the training sessions attended by a player
+     * @param player the player
+     * @return the session arraylist.
+     */
+    public static ArrayList<TrainingSession> getPlayerTrainingSessions(Player player){
+        // preparing the connections and statement
+        try(
+                Connection connection=ConnectionPooling.getDataSource().getConnection();
+                PreparedStatement statementLogs= connection.prepareStatement("SELECT session_id FROM player_training_logs WHERE profile_id=?");
+                PreparedStatement statementSession=connection.prepareStatement("SELECT date,location_id,type_id FROM training_sessions " +
+                        "WHERE session_id=?")
+                )
+        {
+            // declaring the sessions arrayList
+            ArrayList<TrainingSession> playerSessions=new ArrayList<>();
+            // looking ofr all the sessions attended by the player
+            statementLogs.setInt(1,getID("SELECT profile_ID FROM training_profiles WHERE player_id='"+player.getPlayerID()+"'"));
+            try(ResultSet logs=statementLogs.executeQuery())
+            {
+                // for each session attended, we will add the corresponding object to the arraylist
+                while (logs.next())
+                {
+                    // getting the session details.
+                    statementSession.setInt(1,logs.getInt(1));
+                    try(ResultSet sessions=statementSession.executeQuery())
+                    {
+                        // creating the session object and adding it to the arrayList
+                        playerSessions.add(new TrainingSession(sessions.getString(1),sessions.getInt(2),sessions.getInt(3)));
+                    }
+                }
+            }
+            return playerSessions;
+
+        }catch (SQLException e){
+            CustomAlert alert=new CustomAlert("Get training sessions",e.getMessage());
+            e.printStackTrace();
+            alert.showAndWait();
+            return null;
+        }
+
     }
 // END OF CLASS
 }

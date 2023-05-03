@@ -94,4 +94,40 @@ public class TrainingSession {
                 ", session_id=" + session_id +
                 '}';
     }
+
+    /**
+     * gives the location description
+     * @param location location ID.
+     * @return description
+     */
+    public static String getFacility(int location){
+        switch (location){
+            case 1:
+                return "Main Field";
+            case 2:
+                return "Fitness Suite";
+            case 3:
+                return "Swimming Pool";
+            default:
+                return "";
+        }
+    }
+
+    public static String getTypeDescription(int type) {
+        switch (type) {
+            case 1:
+                return "Strength";
+            case 2:
+                return "Endurance";
+            case 3:
+                return "Core";
+            case 4:
+                return "Team play";
+            case 5:
+                return "Tactics";
+            default:
+                return "";
+        }
+    }
+// END OF CLASS
 }
