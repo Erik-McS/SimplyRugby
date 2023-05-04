@@ -78,10 +78,10 @@
       </TableView>
       <TableView fx:id="tvGamePerfs" layoutX="461.0" layoutY="387.0" prefHeight="240.0" prefWidth="436.0">
         <columns>
-          <TableColumn prefWidth="96.0" text="Date" />
-          <TableColumn prefWidth="121.0" text="vs Team" />
-            <TableColumn prefWidth="92.0" text="Where" />
-            <TableColumn prefWidth="126.0" text="Performance" />
+          <TableColumn fx:id="rgDate" prefWidth="96.0" text="Date" />
+          <TableColumn fx:id="rgTeam" prefWidth="121.0" text="vs Team" />
+            <TableColumn fx:id="rgWhere" prefWidth="92.0" text="Where" />
+            <TableColumn fx:id="rgPerf" prefWidth="126.0" text="Performance" />
         </columns>
       </TableView>
    </children>

@@ -66,9 +66,7 @@ public class ConfirmSnrSquadCntlr {
             squadRoleLines.add(line);
         }
 
-
         squadRoles.setCellValueFactory(new PropertyValueFactory<>("role"));
-
         squadName.setCellValueFactory(new PropertyValueFactory<>("firstname"));
         squadSurname.setCellValueFactory(new PropertyValueFactory<>("surname"));
         squadTable.setItems(squadRoleLines);

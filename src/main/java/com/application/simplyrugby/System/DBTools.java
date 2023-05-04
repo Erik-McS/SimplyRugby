@@ -1460,7 +1460,30 @@ public class DBTools {
             alert.showAndWait();
             return null;
         }
-
+    }
+    public static ArrayList<GamePerformance> getPlayerGamesPerformances(Player player){
+        try(
+                Connection connection=ConnectionPooling.getDataSource().getConnection();
+                PreparedStatement statementGames=connection.prepareStatement("SELECT profile_id,game_id,level_description,date,DESCRIPTION,name " +
+                        "FROM game_performances NATURAL JOIN performance_levels NATURAL JOIN games NATURAL JOIN game_location NATURAL JOIN clubs" +
+                        " WHERE profile_id=(SELECT profile_id FROM training_profiles WHERE player_ID=?)");
+                )
+        {
+            ArrayList<GamePerformance> gamesPerfs=new ArrayList<>();
+            statementGames.setInt(1,player.getPlayerID());
+            try(ResultSet rs= statementGames.executeQuery())
+            {
+                while (rs.next()){
+                    gamesPerfs.add(new GamePerformance(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4), rs.getString(5), rs.getString(6)));
+                }
+            }
+            return gamesPerfs;
+        }catch (SQLException e){
+            CustomAlert alert=new CustomAlert("Get Games Performances",e.getMessage());
+            e.printStackTrace();
+            alert.showAndWait();
+            return null;
+        }
     }
 // END OF CLASS
 }

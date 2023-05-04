@@ -20,8 +20,8 @@ public class PlayerMgntController {
     @FXML
     private Pane firstPane,secondPane;
     @FXML
-    private Button bCreateProfile,bUpdtProfile, bConsultProfile;
-
+    private Button bCreateProfile,bUpdtProfile, bConsultProfile,bViewSquad;
+    // TODO add a consult squad view
     /**
      * Initialise the window
      */
@@ -31,6 +31,7 @@ public class PlayerMgntController {
         bCreateProfile.getStyleClass().add("bckg5");
         bUpdtProfile.getStyleClass().add("bckg5");
         bConsultProfile.getStyleClass().add("bckg5");
+        bViewSquad.getStyleClass().add("bckg5");
 
         bCreateProfile.setOnAction((event)->{
             try{
@@ -66,6 +67,16 @@ public class PlayerMgntController {
                 Parent root=loader.load();
                 secondPane.getChildren().add(root);
             }catch (IOException e){e.printStackTrace();}
+        });
+        bViewSquad.setOnAction((event)->{
+
+            try{
+                secondPane.getChildren().clear();
+                FXMLLoader loader=new FXMLLoader(SquadMgntController.class.getResource("/com/application/simplyrugby/viewSquads.fxml"));
+                Parent root=loader.load();
+                secondPane.getChildren().add(root);
+            }catch (IOException e){e.printStackTrace();}
+
         });
     }
 //END OF CLASS
