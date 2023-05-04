@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<Pane fx:id="firstPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="774.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.Control.PlayerMgntController">
+<Pane fx:id="firstPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="774.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.Control.PlayerMgntController">
    <children>
-      <Pane fx:id="secondPane" layoutY="94.0" prefHeight="686.0" prefWidth="967.0" />
-      <Button fx:id="bCreateProfile" layoutX="132.0" layoutY="14.0" mnemonicParsing="false" prefWidth="180.0" text="Create Player Profile" />
-      <Button fx:id="bUpdtProfile" layoutX="377.0" layoutY="14.0" mnemonicParsing="false" prefWidth="180.0" text="Update Player Profile" />
-      <Button fx:id="bConsultProfile" layoutX="634.0" layoutY="14.0" mnemonicParsing="false" prefWidth="180.0" text="Consult Player Profile" />
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="774.0" prefWidth="967.0">
+         <children>
+            <HBox prefHeight="64.0" prefWidth="967.0" spacing="50.0" styleClass="bckg3" stylesheets="@styles.css">
+               <children>
+                  <Button fx:id="bCreateProfile" mnemonicParsing="false" prefWidth="180.0" text="Create Player Profile" />
+                  <Button fx:id="bUpdtProfile" mnemonicParsing="false" prefWidth="180.0" text="Update Player Profile" />
+                  <Button fx:id="bConsultProfile" mnemonicParsing="false" prefWidth="180.0" text="Consult Player Profile" />
+                  <Button fx:id="bViewSquad" mnemonicParsing="false" prefWidth="180.0" text="View a Squad" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="50.0" right="20.0" top="20.0" />
+               </padding>
+            </HBox>
+            <Pane fx:id="secondPane" prefHeight="710.0" prefWidth="716.0" styleClass="bckg1" stylesheets="@styles.css" />
+         </children>
+      </VBox>
    </children>
 </Pane>
