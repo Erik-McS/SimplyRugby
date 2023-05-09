@@ -8,9 +8,6 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Objects;
 
 /**
@@ -20,9 +17,10 @@ import java.util.Objects;
 public class SimplyRugbySystem extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        //DBTools.databaseConnect();
+        // load the drivers
+        DBTools.databaseConnect();
         // Database creation object will test DB presence and create it if it doesn't exist
-        DatabaseCreation db=new DatabaseCreation();
+        LinkDatabase db=new LinkDatabase();
         // load the main menu fxml file
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/application/simplyrugby/main_menu.fxml"));
         // set the scene for the menu

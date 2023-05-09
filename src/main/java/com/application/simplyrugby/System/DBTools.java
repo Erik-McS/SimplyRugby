@@ -77,13 +77,13 @@ public class DBTools {
 
         try {
             // connecting to the database.
-            Connection connection=ConnectionPooling.getDataSource().getConnection();            // executing the query
+            Connection connection=ConnectionPooling.getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             //
             ResultSet rs = statement.executeQuery();
             return new QueryResult(rs,connection,statement);
         } catch (SQLException e) {
-            CustomAlert alert=new CustomAlert("Error",e.getMessage());
+            CustomAlert alert=new CustomAlert("Error Executing Query: ",e.getMessage());
             alert.showAndWait();
         }
         return null;
@@ -117,7 +117,7 @@ public class DBTools {
      * Function to insert a Player or NonPlayer in the database. <br>
      * the test is done using 'pattern variable in Java 16'. This was suggested by the IDE.
      * It replaces the explicit cast I was doing.<br>
-     * this will be used from now anywhere we test an object class.
+     * this will be used from now anywhere we test an object class(when appropriate).
      * @see <a href="https://www.baeldung.com/java-16-new-features">Pattern variables</a>
      * @param member The club member to save in the database.
      * @return True if successful, false otherwise.
@@ -147,7 +147,7 @@ public class DBTools {
      * This function will look for a member of the club in the database from its memberID and create the corresponding object from it.<br>
      * the member object passed as parameter will be a test one, it will indicate to the function what kind of object to return.
      * @param member a test Player or NonPlayer object
-     * @param memberID the mumberID to look for.
+     * @param memberID the memberID to look for.
      * @return The record found, sent back as a Player or NonPlayer object.
      */
     public static Member loadMember(Member member,int memberID){
