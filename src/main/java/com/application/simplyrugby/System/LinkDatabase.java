@@ -13,15 +13,11 @@ import java.util.Scanner;
  * If the database does not exist, it will create it and populate it with some data
  * @author Erik McSeveney
  */
-public class DatabaseCreation {
-
-    // https://dba.stackexchange.com/questions/223267/in-sqlite-how-to-check-the-table-is-empty-or-not
-    // String tableTest = "SELECT count(*) FROM (select 1 from players limit 1)";
-
+public class LinkDatabase {
     /**
      * The constructor will test if the DB exist and call the methods if needed.
      */
-    public DatabaseCreation() {
+    public LinkDatabase() {
 
         File db = new File("SimplyRugbyDB.db");
         if (db.isFile())

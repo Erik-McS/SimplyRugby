@@ -48,9 +48,8 @@ public class ConfirmSnrSquadCntlr {
      * @param squad The created squad.
      */
     public void receiveTeams(Squad squad){
-        //AdminTeam adminTeam, ReplacementTeam replacementTeam, CoachTeam coachTeam
 
-        // here we will create a table view to show the squad.
+        // first, we cast the Squad object to its correct child form
         SeniorSquad dSquad=(SeniorSquad)squad;
 
         squadNameLabel.setText("Squad : "+dSquad.getSquadName());

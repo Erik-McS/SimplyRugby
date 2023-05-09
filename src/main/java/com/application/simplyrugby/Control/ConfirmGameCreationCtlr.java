@@ -73,11 +73,9 @@ public class ConfirmGameCreationCtlr {
         bCreateGame.getStyleClass().add("bckg5");
         bCancel.getStyleClass().add("bckg5");
         // cancel button event handler
-        bCancel.setOnAction((event)->{
-
+        bCancel.setOnAction( (event)->{
             Stage stage=(Stage) bCancel.getScene().getWindow();
             stage.close();
-
         });
     }
 }
