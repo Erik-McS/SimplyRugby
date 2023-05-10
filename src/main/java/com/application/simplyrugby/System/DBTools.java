@@ -18,8 +18,7 @@ import java.util.ArrayList;
  */
 public class DBTools {
 
-    //private static Connection connection;
-    //private static PreparedStatement statement;
+    // private constructor to prevent objects creation
     private DBTools(){}
 
     /**

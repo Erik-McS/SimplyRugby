@@ -27,7 +27,6 @@ public class CustomAlert extends Stage {
         lMessage=new Label(message);
         okButton=new Button("OK");
 
-
         HBox hbox=new HBox(okButton);
         hbox.setAlignment(Pos.CENTER);
         VBox vbox=new VBox(10,lTitle,lMessage,hbox);
@@ -54,7 +53,6 @@ public class CustomAlert extends Stage {
         setScene(scene);
 
     }
-
     /**
      * Display the custom alert window
      */

@@ -33,7 +33,7 @@ public class ObsListFactory {
      * @return The compiled list.
      */
     public static ObservableList<String> createObsList(Object o){
-        // the ResultSet to store queries results
+
         // declaring the observable list array.
         ObservableList<String> oList= FXCollections.observableArrayList();
 
