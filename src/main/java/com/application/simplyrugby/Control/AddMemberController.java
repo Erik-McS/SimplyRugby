@@ -39,6 +39,7 @@ public class AddMemberController {
         bCancel.getStyleClass().add("bckg5");
         mainPane.getStyleClass().add("bckg2");
         secondPane.getStyleClass().add("bckg3");
+        cbRole.getStyleClass().add("bckg5");
 
         bCancel.setOnAction((event)->{
 

@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -28,6 +29,8 @@ public class ViewSquadsController {
     private Button bView,bExit;
     @FXML
     private Pane secondPane;
+    @FXML
+    private Label lSenior,lJunior;
     private Squad squad=null;
 
     public void initialize(){
@@ -37,17 +40,25 @@ public class ViewSquadsController {
         cbSenior.getStyleClass().add("bckg5");
 
         cbSenior.setOnAction((event)->{
-            if (cbSenior.getSelectionModel().getSelectedIndex()!=0)
+            if (cbSenior.getSelectionModel().getSelectedIndex()!=0) {
                 cbJunior.setVisible(false);
-            else
+                lJunior.setVisible(false);
+            }
+            else {
                 cbJunior.setVisible(true);
+                lJunior.setVisible(true);
+            }
         });
 
         cbJunior.setOnAction((event)->{
-            if (cbJunior.getSelectionModel().getSelectedIndex()!=0)
+            if (cbJunior.getSelectionModel().getSelectedIndex()!=0) {
                 cbSenior.setVisible(false);
-            else
+                lSenior.setVisible(false);
+            }
+            else {
                 cbSenior.setVisible(true);
+                lSenior.setVisible(true);
+            }
         });
 
         cbJunior.setItems(ObsListFactory.createObsList(new JuniorSquad()));

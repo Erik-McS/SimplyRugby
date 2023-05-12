@@ -290,3 +290,4 @@ INSERT INTO game_outcomes(outcome) VALUES ('Lost');
 INSERT INTO game_outcomes(outcome) VALUES ('Won by Forfeit');
 INSERT INTO game_outcomes(outcome) VALUES ('Lost by Forfeit');
 INSERT INTO game_outcomes(outcome) VALUES ('Cancelled');
+INSERT INTO game_outcomes(outcome) VALUES ('Tie');

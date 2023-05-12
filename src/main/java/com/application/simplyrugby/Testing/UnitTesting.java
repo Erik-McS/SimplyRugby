@@ -1,4 +1,4 @@
-package com.application.simplyrugby;
+package com.application.simplyrugby.Testing;
 
 import com.application.simplyrugby.System.*;
 import javafx.application.Application;

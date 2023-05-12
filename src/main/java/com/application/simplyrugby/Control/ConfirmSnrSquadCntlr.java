@@ -1,6 +1,7 @@
 package com.application.simplyrugby.Control;
 
 import com.application.simplyrugby.Model.*;
+import com.application.simplyrugby.System.CustomAlert;
 import com.application.simplyrugby.System.ObsListFactory;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -117,6 +118,8 @@ public class ConfirmSnrSquadCntlr {
         bCreate.getStyleClass().add("bckg5");
         bCreate.setOnAction((event)->{
             dSquad.saveSquad();
+            CustomAlert alert=new CustomAlert("Squad creation","The new Senior squad has been created successfully");
+            alert.showAndWait();
             Stage stage=(Stage) bCreate.getScene().getWindow();
             stage.close();
         });

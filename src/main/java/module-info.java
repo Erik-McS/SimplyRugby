@@ -4,6 +4,7 @@ module com.application.simplyrugby {
     requires java.sql;
     requires com.zaxxer.hikari;
     requires org.xerial.sqlitejdbc;
+    requires org.testng;
 
 
     opens com.application.simplyrugby to javafx.fxml;
@@ -14,4 +15,6 @@ module com.application.simplyrugby {
     opens com.application.simplyrugby.System to javafx.fxml;
     exports com.application.simplyrugby.Control;
     opens com.application.simplyrugby.Control to javafx.fxml;
+    exports com.application.simplyrugby.Testing;
+    opens com.application.simplyrugby.Testing to javafx.fxml;
 }

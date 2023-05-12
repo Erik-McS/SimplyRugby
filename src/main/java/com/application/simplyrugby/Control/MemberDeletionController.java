@@ -3,7 +3,9 @@ package com.application.simplyrugby.Control;
 import com.application.simplyrugby.Model.Member;
 import com.application.simplyrugby.Model.NonPlayer;
 import com.application.simplyrugby.Model.Player;
+import com.application.simplyrugby.System.CustomAlert;
 import com.application.simplyrugby.System.DBTools;
+import com.application.simplyrugby.System.ValidationException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,9 +33,27 @@ public class MemberDeletionController {
 
             lMemberName.setText(player.getFirstName()+" "+player.getSurname());
             bConfirmDeletion.setOnAction((event)->{
-                DBTools.executeUpdateQuery("DELETE FROM players WHERE player_id="+player.getPlayerID());
-                Stage stage=(Stage) bConfirmDeletion.getScene().getWindow();
-                stage.close();
+
+                try{
+                    // that the player is not assigned in a squad.
+                    if (!DBTools.playerIsAssignedToSquad(player.getPlayerID())){
+
+                        DBTools.executeUpdateQuery("DELETE FROM players WHERE player_id="+player.getPlayerID());
+                        Stage stage=(Stage) bConfirmDeletion.getScene().getWindow();
+                        stage.close();
+                    }
+                    else
+                        throw new ValidationException("This player is assigned to a Squad." +
+                                "\nYou will need to recreate the squad with his/her replacement first" +
+                                "\nbefore being able to delete this record.");
+                }catch (ValidationException e){
+                    CustomAlert alert =new CustomAlert("Delete Player Error:",e.getMessage());
+                    alert.showAndWait();
+                    Stage stage=(Stage) bConfirmDeletion.getScene().getWindow();
+                    stage.close();
+                }
+
+
             });
         }
 
