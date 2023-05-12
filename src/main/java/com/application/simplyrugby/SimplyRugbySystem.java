@@ -33,6 +33,8 @@ public class SimplyRugbySystem extends Application {
         stage.setTitle("Simply Rugby Club: Main Menu");
         // set the scene to the stage
         stage.setScene(scene);
+        // stop the menu to be resizable.
+        stage.setResizable(false);
         // show the main menu window.
         stage.show();
     }

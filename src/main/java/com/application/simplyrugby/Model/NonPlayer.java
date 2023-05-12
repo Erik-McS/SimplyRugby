@@ -60,16 +60,25 @@ public class NonPlayer implements Member{
      * Set the Member's role ID.
      * @param role_id Member's role ID, refer to the non_players_roles table for more info on roles
      */
-    public void setRole_id(int role_id) {
-        this.role_id = role_id;
+    public void setRole_id(int role_id) throws ValidationException{
+
+        if (role_id!=0)
+            this.role_id = role_id;
+        else
+            throw new ValidationException("Incorrect Role ID");
     }
 
     /**
      * Set the member_ID. Used by DBTools to create a member object from the DB.
      * @param member_id The member ID
      */
-    public void setMember_id(int member_id) {
-        this.member_id = member_id;
+    public void setMember_id(int member_id) throws ValidationException{
+
+        if (member_id!=0)
+            this.member_id = member_id;
+        else
+            throw new ValidationException("Incorrect Member ID");
+
     }
     /**
      * Function to get the surname.
@@ -202,19 +211,5 @@ public class NonPlayer implements Member{
             else
                 throw new ValidationException("Invalid email.");
         }
-    }
-
-
-    @Override
-    public String toString() {
-        return "NonPlayer{" +
-                "firstName='" + firstName + '\'' +
-                ", surname='" + surname + '\'' +
-                ", address='" + address + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", email='" + email + '\'' +
-                ", member_id=" + member_id +
-                ", role_id=" + role_id +
-                '}';
     }
 }

@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<Pane fx:id="secondPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="686.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.Control.ViewSquadsController">
+<Pane fx:id="secondPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="686.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.simplyrugby.Control.ViewSquadsController">
    <children>
       <Label layoutX="389.0" layoutY="58.0" text="Select a Squad to view" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="65.0" layoutY="156.0" text="Senior Squads" textFill="WHITE">
+      <Label fx:id="lSenior" layoutX="65.0" layoutY="156.0" text="Senior Squads" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="622.0" layoutY="156.0" text="Junior Squads" textFill="WHITE">
+      <Label fx:id="lJunior" layoutX="622.0" layoutY="156.0" text="Junior Squads" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
       <ComboBox fx:id="cbSenior" layoutX="65.0" layoutY="194.0" prefHeight="25.0" prefWidth="273.0" />
       <ComboBox fx:id="cbJunior" layoutX="622.0" layoutY="194.0" prefWidth="280.0" />
-      <Button fx:id="bView" layoutX="436.0" layoutY="280.0" mnemonicParsing="false" text="View Squad">
+      <Button fx:id="bView" layoutX="436.0" layoutY="280.0" mnemonicParsing="false" text="Show Squad">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

@@ -190,18 +190,24 @@ public class AddPlayerController {
         in the database, then get the correct doctor ID from it.
          */
         tbCreateNOK.setOnAction((event)->{
-            // adding the data from the textfields to the NoK object
-            nok1.setFirstName(txNameNOK.getText());
-            nok1.setSurname(txSurnameNOK.getText());
-            nok1.setTelephone(txTelNOK.getText());
-            // saving the record in the database, if ok, will set the NoK flag to true.
-            nokSelected=nok1.saveContact();
-            // we are recreating the NoK object by getting the record from the database, this will allow us to get the correct nok_ID assigned by the database to the new record.
-            nok1=(NextOfKin) DBTools.selectContact(nok1,"SELECT kin_id,name,surname,telephone FROM next_of_kin WHERE name='"+txNameNOK.getText()+"' AND surname='"+txSurnameNOK.getText()+"'");
-            // displaying a confirmation that the NoK record is now selected
-            lTitleNOK.setText("This Next of Kin is added to the player profile");
-            // hiding all the fields.
-            displayOfNOKFields(0);
+            try{
+
+                // adding the data from the textfields to the NoK object
+                nok1.setFirstName(txNameNOK.getText());
+                nok1.setSurname(txSurnameNOK.getText());
+                nok1.setTelephone(txTelNOK.getText());
+                // saving the record in the database, if ok, will set the NoK flag to true.
+                nokSelected=nok1.saveContact();
+                // we are recreating the NoK object by getting the record from the database, this will allow us to get the correct nok_ID assigned by the database to the new record.
+                nok1=(NextOfKin) DBTools.selectContact(nok1,"SELECT kin_id,name,surname,telephone FROM next_of_kin WHERE name='"+txNameNOK.getText()+"' AND surname='"+txSurnameNOK.getText()+"'");
+                // displaying a confirmation that the NoK record is now selected
+                lTitleNOK.setText("This Next of Kin is added to the player profile");
+                // hiding all the fields.
+                displayOfNOKFields(0);
+            }catch (ValidationException e){
+                CustomAlert alert=new CustomAlert("Error",e.getMessage());
+                alert.showAndWait();
+            }
         });
 
         /* this is the event for adding a Doctor from the ComboBox
@@ -224,16 +230,21 @@ public class AddPlayerController {
         in the database, then get the correct doctor ID from it.
         */
         tbCreateDoctor.setOnAction((event->{
-            // getting the info from the textfields
-            doc1.setFirstName(txNameDoctor.getText());
-            doc1.setSurname(txSurnameDoctor.getText());
-            doc1.setTelephone(txTelDoctor.getText());
-            // inserting the record in a database.
-            docSelected= doc1.saveContact();
-            doc1=(Doctor) DBTools.selectContact(doc1,"SELECT doctor_id,name,surname,telephone FROM player_doctors WHERE name='"+txNameDoctor.getText()+"' AND surname='"+txSurnameDoctor.getText()+"'");
-            // display confirmation
-            lTitleDoc.setText("This Doctor has been added to the player profile");
-            displayOfDocFields(0);
+            try{
+                // getting the info from the textfields
+                doc1.setFirstName(txNameDoctor.getText());
+                doc1.setSurname(txSurnameDoctor.getText());
+                doc1.setTelephone(txTelDoctor.getText());
+                // inserting the record in a database.
+                docSelected= doc1.saveContact();
+                doc1=(Doctor) DBTools.selectContact(doc1,"SELECT doctor_id,name,surname,telephone FROM player_doctors WHERE name='"+txNameDoctor.getText()+"' AND surname='"+txSurnameDoctor.getText()+"'");
+                // display confirmation
+                lTitleDoc.setText("This Doctor has been added to the player profile");
+                displayOfDocFields(0);
+            }catch (ValidationException e){
+                CustomAlert alert=new CustomAlert("Error",e.getMessage());
+                alert.showAndWait();
+            }
         }));
 
         bAddConsentForm.setOnAction((event)->{

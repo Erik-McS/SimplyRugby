@@ -27,7 +27,7 @@ public class UpdateGameController {
     @FXML
     private ComboBox <String>cbSeniorGame,cbJuniorGame;
     @FXML
-    private RadioButton rbWon,rbLost,rbWonForfeit,rbLostForfeit,rbCancelled;
+    private RadioButton rbWon,rbLost,rbWonForfeit,rbLostForfeit,rbCancelled,rbTie;
     @FXML
     private Spinner <Integer>spTry,spPenalty,spConversion,spDropGoal,spOppScore;
     @FXML
@@ -92,6 +92,7 @@ public class UpdateGameController {
         rbWon.setToggleGroup(gameOutcome);
         rbLostForfeit.setToggleGroup(gameOutcome);
         rbWonForfeit.setToggleGroup(gameOutcome);
+        rbTie.setToggleGroup(gameOutcome);
 
         // setting up the spinners to get a value between 0 and 100;
         ArrayList<Spinner<Integer>> spinners=new ArrayList<>();
@@ -137,9 +138,20 @@ public class UpdateGameController {
                         game.setNbPenalty(spPenalty.getValue());
                         game.setNbTry(spTry.getValue());
                         game.setOpponentScore(spOppScore.getValue());
+                        // in case of win, testing squad>opponent
                         if (game.getOutcome().equals("Won") && (game.getNbTry()*5+ game.getNbPenalty()*3+ game.getNbConversion()*2
                                 + game.getNbDropGoal()*3)<=spOppScore.getValue() )
-                            throw new ValidationException("The squad scores cannot be lower that the opponent score in case of a Win");
+                            throw new ValidationException("The squad's score cannot be lower that the opponent score in case of a Win");
+                        // in case of lost, testing squad>opponent
+                        if (game.getOutcome().equals("Lost") && (game.getNbTry()*5+ game.getNbPenalty()*3+ game.getNbConversion()*2
+                                + game.getNbDropGoal()*3)>=spOppScore.getValue() )
+                            throw new ValidationException("The squad's score cannot be higher that the opponent score in case of a Loss");
+                        // in case of tie, testing squad=opponent
+                        if (game.getOutcome().equals("Tie") && (game.getNbTry()*5+ game.getNbPenalty()*3+ game.getNbConversion()*2
+                                + game.getNbDropGoal()*3)!=spOppScore.getValue() )
+                            throw new ValidationException("The squad's score cannot be different that the opponent score in case of a Tie");
+
+
                         System.out.println(game.toString());
                     }
                     else

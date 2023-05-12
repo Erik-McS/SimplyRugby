@@ -273,7 +273,7 @@ public class DBTools {
                 nok.setSurname(rs.getString(3));
                 nok.setTelephone(rs.getString(4));
                 return nok;
-            } catch (SQLException e) {
+            } catch (ValidationException|SQLException e) {
                 // error message if any issues.
                 CustomAlert alert=new CustomAlert("Error",e.getMessage());
                 alert.showAndWait();
@@ -293,7 +293,7 @@ public class DBTools {
                 doc.setSurname(rs.getString(3));
                 doc.setTelephone(rs.getString(4));
                 return doc;
-            }catch (SQLException e){
+            }catch (ValidationException| SQLException e){
                 CustomAlert alert=new CustomAlert("Error",e.getMessage());
                 alert.showAndWait();
             }
@@ -330,7 +330,7 @@ public class DBTools {
                     return null;
                 }
                 return nok;
-            } catch (SQLException e) {
+            } catch (ValidationException| SQLException e) {
                 CustomAlert alert=new CustomAlert("Error",e.getMessage());
                 alert.showAndWait();
                 return null;
@@ -352,13 +352,15 @@ public class DBTools {
                     doc.setSurname(rs.getString(3));
                     doc.setTelephone(rs.getString(4));
                     return doc;
-                }catch (SQLException e){
+                }catch (ValidationException| SQLException e){
                     CustomAlert alert=new CustomAlert("Error",e.getMessage());
                     alert.showAndWait();
+                    return null;
                 }
             }catch (SQLException e){
                 CustomAlert alert=new CustomAlert("Error",e.getMessage());
                 alert.showAndWait();
+                return null;
             }
         }
         return null;

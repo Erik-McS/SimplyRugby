@@ -48,6 +48,11 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.40.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.7.0</version>
+        </dependency>
 
 
     </dependencies>
