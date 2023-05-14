@@ -236,7 +236,7 @@ public class TrainingProfile {
         }
 
     /**
-     * Method to return the level desciption based on the id
+     * Method to return the level description based on the id
      * @param level level id
      * @return level description
      */

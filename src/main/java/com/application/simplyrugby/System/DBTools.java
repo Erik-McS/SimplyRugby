@@ -1,7 +1,6 @@
 package com.application.simplyrugby.System;
 
 import com.application.simplyrugby.Model.*;
-
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.time.LocalDate;
@@ -84,8 +83,9 @@ public class DBTools {
         } catch (SQLException e) {
             CustomAlert alert=new CustomAlert("Error Executing Query: ",e.getMessage());
             alert.showAndWait();
+            return null;
         }
-        return null;
+        //return null;
     }
 
     /**
@@ -126,17 +126,28 @@ public class DBTools {
         // if it is a Player record:
         if (member instanceof Player player){
             // Execute the query and return a boolean.
-            return executeUpdateQuery("INSERT INTO players (first_name,surname,address,date_of_birth,gender,telephone,email,scrums_number,is_assigned_to_squad,doctor_id,kin_id) " +
-                    "VALUES " +
-                    "('"+player.getFirstName()+"','"+player.getSurname()+"','"+ player.getAddress()+"','"+player.getDateOfBirth()+"','"+player.getGender()+"','"+player.getTelephone()
-                    +"','"+player.getEmail()+"','"+player.getScrumsNumber()+"','"+player.isAssignedToSquad()+"','"+player.getDoctorID()+"','"+player.getKinID()+"')");
+            if (!memberExists(player)){
+
+                return executeUpdateQuery("INSERT INTO players (first_name,surname,address,date_of_birth,gender,telephone,email,scrums_number,is_assigned_to_squad,doctor_id,kin_id) " +
+                        "VALUES " +
+                        "('"+player.getFirstName()+"','"+player.getSurname()+"','"+ player.getAddress()+"','"+player.getDateOfBirth()+"','"+player.getGender()+"','"+player.getTelephone()
+                        +"','"+player.getEmail()+"','"+player.getScrumsNumber()+"','"+player.isAssignedToSquad()+"','"+player.getDoctorID()+"','"+player.getKinID()+"')");
+            }
+            else
+                return false;
+
         }
         // If it is a nonPlayer record:
         if (member instanceof NonPlayer nonPlayer){
+            boolean exists=memberExists(member);
             // execute the query
-            return executeUpdateQuery("INSERT INTO non_players (first_name,surname,address,telephone,email,role_id) " +
-                    "VALUES('"+nonPlayer.getFirstName()+"','"+nonPlayer.getSurname()+"','"+nonPlayer.getAddress()+"','"+nonPlayer.getTelephone()+
-                    "','"+nonPlayer.getEmail()+"','"+nonPlayer.getRole_id()+"')");
+            if (!exists){
+                return executeUpdateQuery("INSERT INTO non_players (first_name,surname,address,telephone,email,role_id) " +
+                        "VALUES('"+nonPlayer.getFirstName()+"','"+nonPlayer.getSurname()+"','"+nonPlayer.getAddress()+"','"+nonPlayer.getTelephone()+
+                        "','"+nonPlayer.getEmail()+"','"+nonPlayer.getRole_id()+"')");
+            }
+            else
+                return false;
         }
         // not used.
         return false;
@@ -1485,6 +1496,40 @@ public class DBTools {
             alert.showAndWait();
             return null;
         }
+    }
+
+    /**
+     * Method to test if a memeber already exists in the database
+     * @param member the member to test
+     * @return True or False
+     */
+    public static boolean memberExists(Member member){
+        if (member instanceof Player pl){
+            try(
+                    QueryResult qs=executeSelectQuery("SELECT player_id FROM players WHERE first_name='"+pl.getFirstName()+"' " +
+                            "AND surname='"+pl.getSurname()+"' AND date_of_birth='"+pl.getDateOfBirth()+"'")
+                    )
+            {
+                return qs.getResultSet().next();
+
+            }catch (ValidationException|SQLException e){
+                return false;
+            }
+        }
+        else if (member instanceof NonPlayer npl){
+
+                try(
+                        QueryResult qs=executeSelectQuery("SELECT member_id FROM non_players WHERE first_name='"+npl.getFirstName()+"' " +
+                                "AND surname='"+npl.getSurname()+"' AND telephone='"+npl.getTelephone()+"'")
+                )
+                {
+                    return qs.getResultSet().next();
+
+                }catch (ValidationException|SQLException e){
+                    return false;
+                }
+        }
+        return false;
     }
 // END OF CLASS
 }
