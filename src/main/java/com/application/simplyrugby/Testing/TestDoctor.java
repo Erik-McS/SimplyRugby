@@ -14,75 +14,87 @@ public class TestDoctor {
         doctor=new Doctor();
     }
 
-
+    // test sa valid name
     @Test
     public void testValidName() throws ValidationException{
         String name="Erik";
         doctor.setFirstName(name);
         Assert.assertEquals(doctor.getFirstName(),name);
     }
+    // test invalid format, exception expected
     @Test (expectedExceptions = ValidationException.class)
     public void testInvalidName()throws ValidationException{
         String name="Er1k";
         doctor.setFirstName(name);
         Assert.assertEquals(doctor.getFirstName(),name);
     }
+    // empty string, exception expected
     @Test(expectedExceptions = ValidationException.class)
     public void testEmptyName() throws ValidationException{
         doctor.setFirstName("");
         Assert.assertEquals(doctor.getFirstName(),"");
     }
+    // valid surname
     @Test
     public void testValidSurname() throws ValidationException{
         String surname="Mcseveney";
         doctor.setSurname(surname);
         Assert.assertEquals(doctor.getSurname(),surname);
     }
+    // invalid surname, exception expected
     @Test(expectedExceptions = ValidationException.class)
     public void testInvalidSurname() throws ValidationException{
         String surname="Mcs12mm";
         doctor.setSurname(surname);
         Assert.assertEquals(doctor.getSurname(),surname);
     }
+    // empty surname, exception expected
     @Test(expectedExceptions = ValidationException.class)
     public void testEmptySurname() throws ValidationException{
         doctor.setSurname("");
         Assert.assertEquals(doctor.getSurname(),"");
     }
+    // valid tel
     @Test
     public void testValidTelephone() throws ValidationException{
         String telephone="0772522223";
         doctor.setTelephone(telephone);
         Assert.assertEquals(doctor.getTelephone(),telephone);
     }
+    // invalid tel, exception expected
     @Test(expectedExceptions = ValidationException.class)
     public void testInvalidTelephone() throws ValidationException{
         String telephone="telephone";
         doctor.setTelephone(telephone);
         Assert.assertEquals(doctor.getTelephone(),telephone);
     }
+    // empty tel, exception expected
     @Test(expectedExceptions = ValidationException.class)
     public void testEmptyTelephone() throws ValidationException{
         doctor.setTelephone("");
         Assert.assertEquals(doctor.getTelephone(),"");
     }
+    // valid id
     @Test
     public void testCorrectDoctorID() throws ValidationException{
         int kinID=1;
         doctor.setDoctorID(kinID);
         Assert.assertEquals(doctor.getDoctorID(),kinID);
     }
+    // invalid id, exception expected
     @Test(expectedExceptions = ValidationException.class)
     public void testInvalidDoctorID()throws ValidationException{
         doctor.setDoctorID(0);
         Assert.assertEquals(doctor.getDoctorID(),0);
     }
-
+    // test if an object is loaded properly
+    // never used method, result irrelevant.
     @Test
     public void testLoadContactNullMethod(){
         Doctor nok=(Doctor) doctor.loadContact();
         Assert.assertNull(nok);
     }
+    // test the doctor is loaded properly from the DB.
     @Test
     public void testLoadContact(){
         Doctor nok=(Doctor) doctor.loadContact(1);

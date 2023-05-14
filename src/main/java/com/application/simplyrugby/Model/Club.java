@@ -2,6 +2,9 @@ package com.application.simplyrugby.Model;
 
 import com.application.simplyrugby.System.ValidationException;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * This call contains the information of an opponent club
  */
@@ -86,10 +89,17 @@ public class Club {
      * @throws ValidationException Error message
      */
     public void setTelephone(String telephone) throws ValidationException {
-        if(telephone.equals(""))
-            throw new ValidationException("The club telephone cannot be empty");
-        else
-            this.telephone=telephone;
+        if (telephone.equals(""))
+            throw new ValidationException("Telephone cannot be empty");
+        else{
+            // testing if the tel format is valid
+            String regex="[0-9]{9,11}";
+            if (telephone.matches(regex)) {
+                this.telephone = telephone;
+            }
+            else
+                throw new ValidationException("Phone numbers can only contains 9-11 digits");
+        }
     }
 
     /**
@@ -107,9 +117,17 @@ public class Club {
      */
     public void setEmail(String email) throws ValidationException{
         if (email.equals(""))
-            throw new ValidationException("The club telephone cannot be empty");
-        else
-            this.email=email;
+            throw new ValidationException("Email cannot be empty");
+        else{
+            String validation="^[\\w-\\.\\_]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+            Pattern pattern=Pattern.compile(validation);
+            Matcher matcher=pattern.matcher(email);
+            if (matcher.matches()) {
+                this.email = email;
+            }
+            else
+                throw new ValidationException("Invalid email Format");
+        }
     }
 
     /**
@@ -124,7 +142,11 @@ public class Club {
      * Set the ID of the club
      * @param club_id Club ID
      */
-    public void setClub_id(int club_id) {
-        this.club_id = club_id;
+    public void setClub_id(int club_id) throws ValidationException{
+
+        if (club_id!=0)
+            this.club_id = club_id;
+        else
+            throw new ValidationException("Incorrect Club ID");
     }
 }
