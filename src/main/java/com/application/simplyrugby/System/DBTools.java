@@ -234,11 +234,17 @@ public class DBTools {
         // testing the kind of record to insert. using pattern variable technique to cast.
         if (person instanceof NextOfKin nok){
             // inserting a Next of Kin record in DB
-            return executeUpdateQuery("INSERT INTO next_of_kin (name,surname,telephone) VALUES ('"+nok.getFirstName()+"','"+nok.getSurname()+"','"+nok.getTelephone()+"')");
+            if (!contactExists(nok))
+                return executeUpdateQuery("INSERT INTO next_of_kin (name,surname,telephone) VALUES ('"+nok.getFirstName()+"','"+nok.getSurname()+"','"+nok.getTelephone()+"')");
+            else
+                return false;
         }
         if (person instanceof Doctor doc){
             // inserting a Doctor record in DB
-            return executeUpdateQuery("INSERT INTO player_doctors (name,surname,telephone) VALUES ('"+doc.getFirstName()+"','"+doc.getSurname()+"','"+doc.getTelephone()+"')");
+            if (!contactExists(doc))
+                return executeUpdateQuery("INSERT INTO player_doctors (name,surname,telephone) VALUES ('"+doc.getFirstName()+"','"+doc.getSurname()+"','"+doc.getTelephone()+"')");
+            else
+                return false;
         }
         return false;
     }
@@ -627,7 +633,7 @@ public class DBTools {
                 club.setClub_id(club_id);
                 return club;
             }
-            catch (SQLException e){
+            catch (NullPointerException|SQLException e){
                 CustomAlert alert = new CustomAlert("Get Club error:", e.getMessage());
                 alert.showAndWait();
                 return null;
@@ -1528,6 +1534,34 @@ public class DBTools {
                 }catch (ValidationException|SQLException e){
                     return false;
                 }
+        }
+        return false;
+    }
+
+    /**
+     * Method to test if a doctor or next of kin already exists
+     * @param thirdParty the contact to test
+     * @return True or false
+     */
+    public static boolean contactExists(ThirdParty thirdParty){
+        if (thirdParty instanceof Doctor doctor){
+            try(
+                    QueryResult qs=executeSelectQuery("SELECT doctor_id FROM player_doctors WHERE name='"+doctor.getFirstName()+"' " +
+                            "AND surname='"+doctor.getSurname()+"' AND telephone='"+doctor.getTelephone()+"'")
+            )
+            {return qs.getResultSet().next();}catch (ValidationException|SQLException e){
+                return false;
+            }
+        }
+        if (thirdParty instanceof NextOfKin nextOfKin){
+            try(
+                    QueryResult qs=executeSelectQuery("SELECT kin_id FROM next_of_kin WHERE name='"+nextOfKin.getFirstName()+"' " +
+                            "AND surname='"+nextOfKin.getSurname()+"' AND telephone='"+nextOfKin.getTelephone()+"'")
+            )
+            { return qs.getResultSet().next(); }catch (ValidationException|SQLException e){
+                return false;
+            }
+
         }
         return false;
     }
