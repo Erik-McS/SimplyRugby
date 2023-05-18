@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 /**
  * Controller for the Confirm Game update window.
  */
-public class ConfirmGameUptCntlr {
+public class ConfirmGameUpdCntlr {
 
     @FXML
     private Pane upperPane,lowerPane;

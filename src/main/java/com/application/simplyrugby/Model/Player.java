@@ -194,7 +194,7 @@ public class Player implements Member{
                     return this;
                 }
                 else
-                    throw new ValidationException("Invalid email.");
+                    throw new ValidationException("Please enter a valid email");
             }
         }
         /**
@@ -219,7 +219,7 @@ public class Player implements Member{
          */
         public PlayerBuilder setDoB(String dateOfBirth) throws ValidationException{
             if (dateOfBirth.equals(""))
-                throw new ValidationException("Date of Birth needs to be set");
+                throw new ValidationException("A Date of Birth needs to be selected");
             else {
                 this.dateOfBirth=dateOfBirth;
                 return this;

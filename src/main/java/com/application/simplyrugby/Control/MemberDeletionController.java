@@ -61,9 +61,25 @@ public class MemberDeletionController {
 
             lMemberName.setText(nonPlayer.getFirstName()+" "+nonPlayer.getSurname());
             bConfirmDeletion.setOnAction((event)->{
-                DBTools.executeUpdateQuery("DELETE FROM non_players WHERE member_id="+nonPlayer.getMember_id());
-                Stage stage=(Stage) bConfirmDeletion.getScene().getWindow();
-                stage.close();
+
+                try{
+                    if (!DBTools.isPartOfTeam((NonPlayer) member)){
+                        DBTools.executeUpdateQuery("DELETE FROM non_players WHERE member_id="+nonPlayer.getMember_id());
+                        Stage stage=(Stage) bConfirmDeletion.getScene().getWindow();
+                        stage.close();
+                    }
+                    else
+                        throw new ValidationException("This Club member is assigned to a Squad." +
+                                "\nYou will need to recreate the squad with his/her replacement first" +
+                                "\nbefore being able to delete this record.");
+
+                }catch (ValidationException e){
+                    CustomAlert alert =new CustomAlert("Delete Player Error:",e.getMessage());
+                    alert.showAndWait();
+                    Stage stage=(Stage) bConfirmDeletion.getScene().getWindow();
+                    stage.close();
+                }
+
             });
         }
     }
