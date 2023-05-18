@@ -160,7 +160,7 @@ public class UpdateGameController {
                     FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/application/simplyrugby/confirmUpdateGame.fxml"));
                     Parent root=loader.load();
                     // passing the game to the next window controller.
-                    ConfirmGameUptCntlr controller=loader.getController();
+                    ConfirmGameUpdCntlr controller=loader.getController();
                     controller.receiveGame(game);
                     // setting up the next window.
                     Scene scene=new Scene(root);
@@ -202,7 +202,7 @@ public class UpdateGameController {
                     FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/application/simplyrugby/confirmUpdateGame.fxml"));
                     Parent root=loader.load();
                     // passing the game to the next window controller.
-                    ConfirmGameUptCntlr controller=loader.getController();
+                    ConfirmGameUpdCntlr controller=loader.getController();
                     controller.receiveGame(game);
                     // setting up the next window.
                     Scene scene=new Scene(root);

@@ -137,16 +137,19 @@ public class AddGameController {
             int location;
             DateTimeFormatter dt=DateTimeFormatter.ofPattern("dd/MM/yyyy");
             try{
-                // we check that team has been selected.
+                // we check which team has been selected.
                 if (cbSquadSenior.getSelectionModel().getSelectedIndex()==0 && cbSquadJunior.getSelectionModel().getSelectedIndex()==0)
                     throw new ValidationException("A Junior or Senior squad must be selected to create a game.");
                 // if a Senior squad is selected.
                 else if (cbSquadSenior.getSelectionModel().getSelectedIndex()!=0 && cbSquadJunior.getSelectionModel().getSelectedIndex()==0){
                     // testing a date has been picked
-                    if (dpDate.getValue()!=null)
-                        date=dpDate.getValue();
-                    else
-                        throw new ValidationException("A date for the game must be picked");
+                        if (dpDate.getValue()!=null) {
+                            date = dpDate.getValue();
+                            if (DBTools.isPlayingThatDay(date.format(dt),new SeniorSquad()))
+                                throw new ValidationException("The squad already have a game that day");
+                        }
+                        else
+                            throw new ValidationException("A date for the game must be picked");
                     // testing that a location has been picked
                     if(group.getSelectedToggle()!=null){
                         // getting the selected button
@@ -197,8 +200,11 @@ public class AddGameController {
                 else if (cbSquadJunior.getSelectionModel().getSelectedIndex()!=0)
                 {
                     // testing a date has been picked
-                    if (dpDate.getValue()!=null)
-                        date=dpDate.getValue();
+                    if (dpDate.getValue()!=null) {
+                        date = dpDate.getValue();
+                        if (DBTools.isPlayingThatDay(date.format(dt),new SeniorSquad()))
+                            throw new ValidationException("The squad already have a game that day");
+                    }
                     else
                         throw new ValidationException("A date for the game must be picked");
                     // testing that a location has been picked
@@ -295,8 +301,9 @@ public class AddGameController {
                         throw new ValidationException("Invalid email.");
                 }
                 // creating and saving the Club object.
-                Club club=new Club(clubName,clubAddress,telephone,clubEmail);
+                club=new Club(clubName,clubAddress,telephone,clubEmail);
                 DBTools.saveClub(club);
+                club.setClub_id(DBTools.getID("SELECT club_id FROM clubs WHERE name='"+club.getName()+"'"));
                 CustomAlert alert =new CustomAlert("Club Creation","The club '"+clubName+"' has been created");
                 alert.showAndWait();
                 clubIsInserted=true;
@@ -304,6 +311,7 @@ public class AddGameController {
                 txTelephone.setVisible(false);
                 txClub.setVisible(false);
                 taAddress.setVisible(false);
+                txEmail.setVisible(false);
                 bCreateClub.setVisible(false);
                 lClub2.setVisible(false);
                 lClub3.setVisible(false);

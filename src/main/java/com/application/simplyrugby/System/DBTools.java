@@ -1505,7 +1505,7 @@ public class DBTools {
     }
 
     /**
-     * Method to test if a memeber already exists in the database
+     * Method to test if a member already exists in the database
      * @param member the member to test
      * @return True or False
      */
@@ -1565,5 +1565,68 @@ public class DBTools {
         }
         return false;
     }
+
+    /**
+     * method to check ig a member is part of a coach or admin team.
+     * @param nonPlayer the member to check
+     * @return True or False.
+     */
+    public static boolean isPartOfTeam(NonPlayer nonPlayer){
+        // if it's a coach, check the squad coach table and return true if found
+        if (nonPlayer.getRole_id()==1){
+            try(
+                    QueryResult qs=executeSelectQuery("SELECT cogroup_id FROM squad_coaches " +
+                            "WHERE coach_1='"+nonPlayer.getMember_id()+"' OR coach_2='"+nonPlayer.getMember_id()+"' OR coach_3='"+nonPlayer.getMember_id()+"'")
+                    ){
+                return qs.getResultSet().next();
+            }catch (ValidationException | SQLException e){
+                return false;
+            }
+        }
+        else{
+            //check the admin table and return true if found.
+            try(
+                    QueryResult qs=executeSelectQuery("SELECT adteam_id FROM squad_admin_team " +
+                            "WHERE chairman='"+nonPlayer.getMember_id()+"' OR fixture_sec='"+nonPlayer.getMember_id()+"'")
+            ){
+                return qs.getResultSet().next();
+            }catch (ValidationException | SQLException e){
+                return false;
+            }
+        }
+    }
+
+    /**
+     * Method to test if a squad already has a game entered that day
+     * @param date date to check
+     * @param squad squad to check
+     * @return true or false
+     */
+    public static boolean isPlayingThatDay(String date,Squad squad){
+
+        if (squad instanceof SeniorSquad seniorSquad){
+
+            try(
+                    QueryResult qs=executeSelectQuery("SELECT game_id FROM senior_games_played WHERE date='"+date+"'")
+                    ){
+                return qs.getResultSet().next();
+            }catch (ValidationException | SQLException e){
+                return false;
+            }
+        }
+
+        if (squad instanceof JuniorSquad juniorSquad){
+
+            try(
+                    QueryResult qs=executeSelectQuery("SELECT game_id FROM junior_games_played WHERE date='"+date+"'")
+                    ){
+                return qs.getResultSet().next();
+            }catch (ValidationException | SQLException e){
+                return false;
+            }
+        }
+        return false;
+    }
+
 // END OF CLASS
 }

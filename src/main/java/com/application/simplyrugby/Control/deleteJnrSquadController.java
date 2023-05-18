@@ -41,6 +41,7 @@ public class deleteJnrSquadController {
         bCancel.getStyleClass().add("bckg5");
         cbSquad.getStyleClass().add("bckg5");
         cbSquad.setItems(ObsListFactory.createObsList(new JuniorSquad()));
+        cbSquad.getSelectionModel().select(0);
         // event handler to the cancel button
         bCancel.setOnAction((event)->{
             // https://9to5answer.com/how-to-close-a-java-window-with-a-button-click-javafx-project

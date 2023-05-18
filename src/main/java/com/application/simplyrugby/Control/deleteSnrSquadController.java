@@ -42,6 +42,7 @@ public class deleteSnrSquadController {
         cbSquad.getStyleClass().add("bckg5");
 
         cbSquad.setItems(ObsListFactory.createObsList(new SeniorSquad()));
+        cbSquad.getSelectionModel().select(0);
 
         bDeleteSquad.setOnAction((event)->{
 

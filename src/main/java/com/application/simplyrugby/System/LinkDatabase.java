@@ -32,6 +32,7 @@ public class LinkDatabase {
                 Statement statement= connection.createStatement();
                 statement.execute("PRAGMA journal_mode = wal;");
                 statement.execute("PRAGMA synchronous = NORMAL;");
+                statement.close();
             }catch (SQLException e){e.printStackTrace();}
         }
     }
@@ -42,13 +43,12 @@ public class LinkDatabase {
     private void insertData() {
 
         try {
-            int i=1;
+
             Scanner sc = new Scanner(new File("insertData.csv"));
             sc.useDelimiter(";");
             while (sc.hasNext()) {
                 String s = sc.next();
                 DBTools.executeUpdateQuery(s);
-                i++;
             }
         } catch (FileNotFoundException e) {
             e.getMessage();

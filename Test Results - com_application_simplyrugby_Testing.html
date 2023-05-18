@@ -572,9 +572,9 @@ jQuery.cookie = function(name, value, options) {
     <body>
         <div id="container">
             <div id="header">
-                <div class="time" xmlns="">325 ms</div>
+                <div class="time" xmlns="">409 ms</div>
                 <h1>
-                    com.application.simplyrugby.Testing: <strong><span class="total" xmlns="http://www.w3.org/1999/xhtml">58 total, </span><span class="passed">58 passed</span></strong>
+                    com.application.simplyrugby.Testing: <strong><span class="total" xmlns="http://www.w3.org/1999/xhtml">146 total, </span><span class="error">2 error, </span><span class="failed">2 failed, </span><span class="passed">142 passed</span></strong>
                 </h1>
                 <div id="treecontrol">
                     <ul>
@@ -591,29 +591,271 @@ jQuery.cookie = function(name, value, options) {
             </div>
             <div id="content">
                 <ul id="tree">
-                    C:\Users\Erik\.jdks\openjdk-19.0.2\bin\java.exe -ea -Didea.test.cyclic.buffer.size=1048576 "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\lib\idea_rt.jar=61837:C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\bin" --add-reads com.application.simplyrugby=ALL-UNNAMED --add-opens com.application.simplyrugby/com.application.simplyrugby.Testing=ALL-UNNAMED --add-modules com.application.simplyrugby -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath "C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\lib\idea_rt.jar;C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\plugins\testng\lib\testng-rt.jar;C:\Users\Erik\.m2\repository\org\openjfx\javafx-controls\19\javafx-controls-19.jar;C:\Users\Erik\.m2\repository\org\openjfx\javafx-graphics\19\javafx-graphics-19.jar;C:\Users\Erik\.m2\repository\org\openjfx\javafx-base\19\javafx-base-19.jar;C:\Users\Erik\.m2\repository\org\openjfx\javafx-fxml\19\javafx-fxml-19.jar;C:\Users\Erik\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.1\junit-jupiter-api-5.9.1.jar;C:\Users\Erik\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Erik\.m2\repository\org\junit\platform\junit-platform-commons\1.9.1\junit-platform-commons-1.9.1.jar;C:\Users\Erik\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Erik\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.1\junit-jupiter-engine-5.9.1.jar;C:\Users\Erik\.m2\repository\org\junit\platform\junit-platform-engine\1.9.1\junit-platform-engine-1.9.1.jar;C:\Users\Erik\.m2\repository\com\beust\jcommander\1.82\jcommander-1.82.jar;C:\Users\Erik\.m2\repository\org\webjars\jquery\3.6.1\jquery-3.6.1.jar" -p C:\Users\Erik\.m2\repository\com\zaxxer\HikariCP\5.0.1\HikariCP-5.0.1.jar;C:\Users\Erik\.m2\repository\org\openjfx\javafx-controls\19\javafx-controls-19-win.jar;C:\Users\Erik\.m2\repository\org\slf4j\slf4j-api\2.0.0-alpha1\slf4j-api-2.0.0-alpha1.jar;C:\Users\Erik\.m2\repository\org\xerial\sqlite-jdbc\3.40.1.0\sqlite-jdbc-3.40.1.0.jar;C:\Users\Erik\.m2\repository\org\testng\testng\7.7.0\testng-7.7.0.jar;C:\Users\Erik\IdeaProjects\SimplyRugby\target\classes;C:\Users\Erik\.m2\repository\org\openjfx\javafx-base\19\javafx-base-19-win.jar;C:\Users\Erik\.m2\repository\org\openjfx\javafx-graphics\19\javafx-graphics-19-win.jar;C:\Users\Erik\.m2\repository\org\openjfx\javafx-fxml\19\javafx-fxml-19-win.jar com.intellij.rt.testng.RemoteTestNGStarter -usedefaultlisteners false -socket61836 @w@C:\Users\Erik\AppData\Local\Temp\idea_working_dirs_testng.tmp -temp C:\Users\Erik\AppData\Local\Temp\idea_testng.tmp
+                    C:\Users\Erik\.jdks\openjdk-19.0.2\bin\java.exe -ea -javaagent:C:\Users\Erik\AppData\Local\JetBrains\IntelliJIdea2023.1\testAgent\intellij-coverage-agent-1.0.706.jar=C:\Users\Erik\AppData\Local\Temp\coverageargs -Didea.new.sampling.coverage=true -Dcoverage.ignore.private.constructor.util.class=true -Didea.test.cyclic.buffer.size=1048576 "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\lib\idea_rt.jar=60433:C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\bin" --add-reads com.application.simplyrugby=ALL-UNNAMED --add-opens com.application.simplyrugby/com.application.simplyrugby.Testing=ALL-UNNAMED --add-modules com.application.simplyrugby -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath "C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\lib\idea_rt.jar;C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.3\plugins\testng\lib\testng-rt.jar;C:\Users\Erik\.m2\repository\org\openjfx\javafx-controls\19\javafx-controls-19.jar;C:\Users\Erik\.m2\repository\org\openjfx\javafx-graphics\19\javafx-graphics-19.jar;C:\Users\Erik\.m2\repository\org\openjfx\javafx-base\19\javafx-base-19.jar;C:\Users\Erik\.m2\repository\org\openjfx\javafx-fxml\19\javafx-fxml-19.jar;C:\Users\Erik\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.1\junit-jupiter-api-5.9.1.jar;C:\Users\Erik\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Erik\.m2\repository\org\junit\platform\junit-platform-commons\1.9.1\junit-platform-commons-1.9.1.jar;C:\Users\Erik\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Erik\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.1\junit-jupiter-engine-5.9.1.jar;C:\Users\Erik\.m2\repository\org\junit\platform\junit-platform-engine\1.9.1\junit-platform-engine-1.9.1.jar;C:\Users\Erik\.m2\repository\com\beust\jcommander\1.82\jcommander-1.82.jar;C:\Users\Erik\.m2\repository\org\webjars\jquery\3.6.1\jquery-3.6.1.jar" -p C:\Users\Erik\.m2\repository\org\openjfx\javafx-fxml\19\javafx-fxml-19-win.jar;C:\Users\Erik\.m2\repository\org\slf4j\slf4j-api\2.0.0-alpha1\slf4j-api-2.0.0-alpha1.jar;C:\Users\Erik\.m2\repository\org\xerial\sqlite-jdbc\3.40.1.0\sqlite-jdbc-3.40.1.0.jar;C:\Users\Erik\IdeaProjects\SimplyRugby\target\classes;C:\Users\Erik\.m2\repository\org\openjfx\javafx-controls\19\javafx-controls-19-win.jar;C:\Users\Erik\.m2\repository\org\testng\testng\7.7.0\testng-7.7.0.jar;C:\Users\Erik\.m2\repository\org\openjfx\javafx-graphics\19\javafx-graphics-19-win.jar;C:\Users\Erik\.m2\repository\com\zaxxer\HikariCP\5.0.1\HikariCP-5.0.1.jar;C:\Users\Erik\.m2\repository\org\openjfx\javafx-base\19\javafx-base-19-win.jar com.intellij.rt.testng.RemoteTestNGStarter -usedefaultlisteners false -socket60432 @w@C:\Users\Erik\AppData\Local\Temp\idea_working_dirs_testng.tmp -temp C:\Users\Erik\AppData\Local\Temp\idea_testng.tmp
+---- IntelliJ IDEA coverage runner ---- 
+Line coverage ...
+include patterns:
+com\.application\.simplyrugby\.Testing\..*
+exclude patterns:
+exclude annotations patterns:
+.*Generated.*
 SLF4J: No SLF4J providers were found.
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#noProviders for further details.
 ===============================================
 Default Suite
-Total tests run: 52, Passes: 52, Failures: 0, Skips: 0
+Total tests run: 133, Passes: 129, Failures: 4, Skips: 0
 ===============================================
+Class transformation time: 0.0368579s for 1594 classes or 2.3122898368883312E-5s per class
 Process finished with exit code 0
 
-                    <li xmlns="" class="level top open">
+                    <li xmlns="" class="level top failed open">
                         <span><em class="time">
-                                <div class="time">325 ms</div>
+                                <div class="time">409 ms</div>
                             </em>SimplyRugby</span>
                         <ul>
                             <li class="level suite open">
                                 <span><em class="time">
-                                        <div class="time">121 ms</div>
+                                        <div class="time">8 ms</div>
+                                    </em>TestClub</span>
+                                <ul>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">6 ms</div>
+                                            </em><em class="status">passed</em>TestClub.testCorrectClub</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestClub.testEmptyAddress</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestClub.testEmptyEmail</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestClub.testEmptyName</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestClub.testEmptyTelephone</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestClub.testIncorrectClubID</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestClub.testIncorrectEmail</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestClub.testIncorrectTelephone</span>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="level suite failed open">
+                                <span><em class="time">
+                                        <div class="time">163 ms</div>
+                                    </em>TestDBTools</span>
+                                <ul>
+                                    <li class="level test failed open">
+                                        <span><em class="time">
+                                                <div class="time">124 ms</div>
+                                            </em><em class="status">failed</em>TestDBTools.testCorrectAdminTeam</span>
+                                        <ul>
+                                            <li class="text">
+                                                <span class="stderr">java.lang.AssertionError:<br/>	at org.testng@7.7.0/org.testng.Assert.fail(Assert.java:110)<br/>	at org.testng@7.7.0/org.testng.Assert.failNotEquals(Assert.java:1413)<br/>	at org.testng@7.7.0/org.testng.Assert.assertEqualsImpl(Assert.java:149)<br/>	at org.testng@7.7.0/org.testng.Assert.assertEquals(Assert.java:131)<br/>	at org.testng@7.7.0/org.testng.Assert.assertEquals(Assert.java:655)<br/>	at org.testng@7.7.0/org.testng.Assert.assertEquals(Assert.java:665)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Testing.TestDBTools.testCorrectAdminTeam(TestDBTools.java:251)<br/>	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)<br/>	at java.base/java.lang.reflect.Method.invoke(Method.java:578)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:677)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:221)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:969)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:194)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)<br/>	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)<br/>	at org.testng@7.7.0/org.testng.TestRunner.privateRun(TestRunner.java:829)<br/>	at org.testng@7.7.0/org.testng.TestRunner.run(TestRunner.java:602)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.runTest(SuiteRunner.java:437)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.runSequentially(SuiteRunner.java:431)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.privateRun(SuiteRunner.java:391)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.run(SuiteRunner.java:330)<br/>	at org.testng@7.7.0/org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)<br/>	at org.testng@7.7.0/org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuitesSequentially(TestNG.java:1256)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuitesLocally(TestNG.java:1176)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuites(TestNG.java:1099)<br/>	at org.testng@7.7.0/org.testng.TestNG.run(TestNG.java:1067)<br/>	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)<br/>	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)<br/></span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testCorrectExecuteSelectQuery</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">4 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testCorrectExecuteUpdateQuery</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testCorrectGetClub</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testCorrectGetID</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">3 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testCorrectNonPlayerInsertMember</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testCorrectNonPlayerLoadMember</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">8 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testCorrectPlayerInsertMember</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testCorrectPlayerLoadMember</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">12 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testCorrectSeniorLoadSquad</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testGetRoleChairman</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testGetRoleCoach</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testGetRoleFixtSec</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">2 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testIncorrectAdminTeam</span>
+                                        <ul>
+                                            <li class="text">
+                                                <span class="stderr">java.lang.NullPointerException: Cannot invoke "String.equals(Object)" because "firstName" is null<br/>	at com.application.simplyrugby/com.application.simplyrugby.Model.NonPlayer.setFirstName(NonPlayer.java:92)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Model.NonPlayer.<init>(NonPlayer.java:26)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Testing.DBToolsNoJavaFX.loadMember(DBToolsNoJavaFX.java:92)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Testing.DBToolsNoJavaFX.loadTeam(DBToolsNoJavaFX.java:360)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Testing.TestDBTools.testIncorrectAdminTeam(TestDBTools.java:255)<br/>	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)<br/>	at java.base/java.lang.reflect.Method.invoke(Method.java:578)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:677)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:221)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:969)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:194)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)<br/>	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)<br/>	at org.testng@7.7.0/org.testng.TestRunner.privateRun(TestRunner.java:829)<br/>	at org.testng@7.7.0/org.testng.TestRunner.run(TestRunner.java:602)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.runTest(SuiteRunner.java:437)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.runSequentially(SuiteRunner.java:431)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.privateRun(SuiteRunner.java:391)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.run(SuiteRunner.java:330)<br/>	at org.testng@7.7.0/org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)<br/>	at org.testng@7.7.0/org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuitesSequentially(TestNG.java:1256)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuitesLocally(TestNG.java:1176)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuites(TestNG.java:1099)<br/>	at org.testng@7.7.0/org.testng.TestNG.run(TestNG.java:1067)<br/>	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)<br/>	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)<br/></span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testIncorrectClub</span>
+                                        <ul>
+                                            <li class="text">
+                                                <span class="stderr">java.lang.NullPointerException: Cannot invoke "String.equals(Object)" because "name" is null<br/>	at com.application.simplyrugby/com.application.simplyrugby.Model.Club.setName(Club.java:52)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Model.Club.<init>(Club.java:32)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Testing.DBToolsNoJavaFX.getClub(DBToolsNoJavaFX.java:228)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Testing.TestDBTools.testIncorrectClub(TestDBTools.java:232)<br/>	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)<br/>	at java.base/java.lang.reflect.Method.invoke(Method.java:578)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:677)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:221)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:969)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:194)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)<br/>	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)<br/>	at org.testng@7.7.0/org.testng.TestRunner.privateRun(TestRunner.java:829)<br/>	at org.testng@7.7.0/org.testng.TestRunner.run(TestRunner.java:602)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.runTest(SuiteRunner.java:437)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.runSequentially(SuiteRunner.java:431)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.privateRun(SuiteRunner.java:391)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.run(SuiteRunner.java:330)<br/>	at org.testng@7.7.0/org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)<br/>	at org.testng@7.7.0/org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuitesSequentially(TestNG.java:1256)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuitesLocally(TestNG.java:1176)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuites(TestNG.java:1099)<br/>	at org.testng@7.7.0/org.testng.TestNG.run(TestNG.java:1067)<br/>	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)<br/>	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)<br/></span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testIncorrectExecuteSelectQuery</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testIncorrectExecuteUpdateQuery</span>
+                                        <ul>
+                                            <li class="text">
+                                                <span class="stderr">org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: clu)<br/>	at org.xerial.sqlitejdbc@3.40.1.0/org.sqlite.core.DB.newSQLException(DB.java:1179)<br/>	at org.xerial.sqlitejdbc@3.40.1.0/org.sqlite.core.DB.newSQLException(DB.java:1190)<br/>	at org.xerial.sqlitejdbc@3.40.1.0/org.sqlite.core.DB.throwex(DB.java:1150)<br/>	at org.xerial.sqlitejdbc@3.40.1.0/org.sqlite.core.NativeDB.prepare_utf8(Native Method)<br/>	at org.xerial.sqlitejdbc@3.40.1.0/org.sqlite.core.NativeDB.prepare(NativeDB.java:126)<br/>	at org.xerial.sqlitejdbc@3.40.1.0/org.sqlite.core.DB.prepare(DB.java:264)<br/>	at org.xerial.sqlitejdbc@3.40.1.0/org.sqlite.core.CorePreparedStatement.<init>(CorePreparedStatement.java:46)<br/>	at org.xerial.sqlitejdbc@3.40.1.0/org.sqlite.jdbc3.JDBC3PreparedStatement.<init>(JDBC3PreparedStatement.java:31)<br/>	at org.xerial.sqlitejdbc@3.40.1.0/org.sqlite.jdbc4.JDBC4PreparedStatement.<init>(JDBC4PreparedStatement.java:25)<br/>	at org.xerial.sqlitejdbc@3.40.1.0/org.sqlite.jdbc4.JDBC4Connection.prepareStatement(JDBC4Connection.java:34)<br/>	at org.xerial.sqlitejdbc@3.40.1.0/org.sqlite.jdbc3.JDBC3Connection.prepareStatement(JDBC3Connection.java:226)<br/>	at org.xerial.sqlitejdbc@3.40.1.0/org.sqlite.jdbc3.JDBC3Connection.prepareStatement(JDBC3Connection.java:206)<br/>	at com.zaxxer.hikari@5.0.1/com.zaxxer.hikari.pool.ProxyConnection.prepareStatement(ProxyConnection.java:327)<br/>	at com.zaxxer.hikari@5.0.1/com.zaxxer.hikari.pool.HikariProxyConnection.prepareStatement(HikariProxyConnection.java)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Testing.DBToolsNoJavaFX.executeUpdateQuery(DBToolsNoJavaFX.java:23)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Testing.TestDBTools.testIncorrectExecuteUpdateQuery(TestDBTools.java:34)<br/>	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)<br/>	at java.base/java.lang.reflect.Method.invoke(Method.java:578)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:677)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:221)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:969)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:194)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)<br/>	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)<br/>	at org.testng@7.7.0/org.testng.TestRunner.privateRun(TestRunner.java:829)<br/>	at org.testng@7.7.0/org.testng.TestRunner.run(TestRunner.java:602)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.runTest(SuiteRunner.java:437)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.runSequentially(SuiteRunner.java:431)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.privateRun(SuiteRunner.java:391)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.run(SuiteRunner.java:330)<br/>	at org.testng@7.7.0/org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)<br/>	at org.testng@7.7.0/org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuitesSequentially(TestNG.java:1256)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuitesLocally(TestNG.java:1176)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuites(TestNG.java:1099)<br/>	at org.testng@7.7.0/org.testng.TestNG.run(TestNG.java:1067)<br/>	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)<br/>	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)<br/></span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testIncorrectGetID</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testIncorrectNonPlayerInsertMember</span>
+                                    </li>
+                                    <li class="level test failed open">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">error</em>TestDBTools.testIncorrectNonPlayerLoadMember</span>
+                                        <ul>
+                                            <li class="text">
+                                                <span class="stderr">java.lang.NullPointerException: Cannot invoke "String.equals(Object)" because "firstName" is null<br/>	at com.application.simplyrugby/com.application.simplyrugby.Model.NonPlayer.setFirstName(NonPlayer.java:92)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Model.NonPlayer.<init>(NonPlayer.java:26)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Testing.DBToolsNoJavaFX.loadMember(DBToolsNoJavaFX.java:92)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Testing.TestDBTools.testIncorrectNonPlayerLoadMember(TestDBTools.java:134)<br/>	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)<br/>	at java.base/java.lang.reflect.Method.invoke(Method.java:578)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:677)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:221)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:969)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:194)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)<br/>	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)<br/>	at org.testng@7.7.0/org.testng.TestRunner.privateRun(TestRunner.java:829)<br/>	at org.testng@7.7.0/org.testng.TestRunner.run(TestRunner.java:602)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.runTest(SuiteRunner.java:437)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.runSequentially(SuiteRunner.java:431)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.privateRun(SuiteRunner.java:391)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.run(SuiteRunner.java:330)<br/>	at org.testng@7.7.0/org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)<br/>	at org.testng@7.7.0/org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuitesSequentially(TestNG.java:1256)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuitesLocally(TestNG.java:1176)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuites(TestNG.java:1099)<br/>	at org.testng@7.7.0/org.testng.TestNG.run(TestNG.java:1067)<br/>	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)<br/>	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)<br/></span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testIncorrectPlayerInsertMember</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testIncorrectPlayerLoadMember</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testIncorrectSeniorLoadSquad</span>
+                                        <ul>
+                                            <li class="text">
+                                                <span class="stderr">java.lang.NullPointerException: Cannot invoke "String.equals(Object)" because "firstName" is null<br/>	at com.application.simplyrugby/com.application.simplyrugby.Model.Player$PlayerBuilder.setFirstName(Player.java:108)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Testing.DBToolsNoJavaFX.loadMember(DBToolsNoJavaFX.java:67)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Testing.DBToolsNoJavaFX.loadSquad(DBToolsNoJavaFX.java:265)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Testing.TestDBTools.testIncorrectSeniorLoadSquad(TestDBTools.java:244)<br/>	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)<br/>	at java.base/java.lang.reflect.Method.invoke(Method.java:578)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:677)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:221)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:969)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:194)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)<br/>	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)<br/>	at org.testng@7.7.0/org.testng.TestRunner.privateRun(TestRunner.java:829)<br/>	at org.testng@7.7.0/org.testng.TestRunner.run(TestRunner.java:602)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.runTest(SuiteRunner.java:437)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.runSequentially(SuiteRunner.java:431)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.privateRun(SuiteRunner.java:391)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.run(SuiteRunner.java:330)<br/>	at org.testng@7.7.0/org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)<br/>	at org.testng@7.7.0/org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuitesSequentially(TestNG.java:1256)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuitesLocally(TestNG.java:1176)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuites(TestNG.java:1099)<br/>	at org.testng@7.7.0/org.testng.TestNG.run(TestNG.java:1067)<br/>	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)<br/>	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)<br/></span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testSelectCorrectDoctorByIndex</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testSelectCorrectDoctorFromQuery</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testSelectCorrectNextOfKinByIndex</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testSelectCorrectNextOfKinFromQuery</span>
+                                    </li>
+                                    <li class="level test failed open">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">failed</em>TestDBTools.testSelectIncorrectDoctorByIndex</span>
+                                        <ul>
+                                            <li class="text">
+                                                <span class="stderr">java.lang.AssertionError: expected object to not be null<br/>	at org.testng@7.7.0/org.testng.Assert.fail(Assert.java:110)<br/>	at org.testng@7.7.0/org.testng.Assert.assertNotNull(Assert.java:1319)<br/>	at org.testng@7.7.0/org.testng.Assert.assertNotNull(Assert.java:1303)<br/>	at com.application.simplyrugby/com.application.simplyrugby.Testing.TestDBTools.testSelectIncorrectDoctorByIndex(TestDBTools.java:187)<br/>	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)<br/>	at java.base/java.lang.reflect.Method.invoke(Method.java:578)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:677)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:221)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:969)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:194)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)<br/>	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)<br/>	at org.testng@7.7.0/org.testng.TestRunner.privateRun(TestRunner.java:829)<br/>	at org.testng@7.7.0/org.testng.TestRunner.run(TestRunner.java:602)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.runTest(SuiteRunner.java:437)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.runSequentially(SuiteRunner.java:431)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.privateRun(SuiteRunner.java:391)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.run(SuiteRunner.java:330)<br/>	at org.testng@7.7.0/org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)<br/>	at org.testng@7.7.0/org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuitesSequentially(TestNG.java:1256)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuitesLocally(TestNG.java:1176)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuites(TestNG.java:1099)<br/>	at org.testng@7.7.0/org.testng.TestNG.run(TestNG.java:1067)<br/>	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)<br/>	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)<br/></span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestDBTools.testSelectIncorrectNextOfKinByIndex</span>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="level suite open">
+                                <span><em class="time">
+                                        <div class="time">4 ms</div>
                                     </em>TestDoctor</span>
                                 <ul>
                                     <li class="level test">
                                         <span><em class="time">
-                                                <div class="time">3 ms</div>
+                                                <div class="time">0 ms</div>
                                             </em><em class="status">passed</em>TestDoctor.testConstructor</span>
                                     </li>
                                     <li class="level test">
@@ -638,17 +880,17 @@ Process finished with exit code 0
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
-                                                <div class="time">1 ms</div>
+                                                <div class="time">0 ms</div>
                                             </em><em class="status">passed</em>TestDoctor.testInvalidDoctorID</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
-                                                <div class="time">0 ms</div>
+                                                <div class="time">1 ms</div>
                                             </em><em class="status">passed</em>TestDoctor.testInvalidName</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
-                                                <div class="time">1 ms</div>
+                                                <div class="time">0 ms</div>
                                             </em><em class="status">passed</em>TestDoctor.testInvalidSurname</span>
                                     </li>
                                     <li class="level test">
@@ -658,7 +900,7 @@ Process finished with exit code 0
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
-                                                <div class="time">112 ms</div>
+                                                <div class="time">0 ms</div>
                                             </em><em class="status">passed</em>TestDoctor.testLoadContact</span>
                                     </li>
                                     <li class="level test">
@@ -683,14 +925,14 @@ Process finished with exit code 0
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
-                                                <div class="time">1 ms</div>
+                                                <div class="time">0 ms</div>
                                             </em><em class="status">passed</em>TestDoctor.testValidTelephone</span>
                                     </li>
                                 </ul>
                             </li>
                             <li class="level suite open">
                                 <span><em class="time">
-                                        <div class="time">168 ms</div>
+                                        <div class="time">189 ms</div>
                                     </em>TestNextOfKin</span>
                                 <ul>
                                     <li class="level test">
@@ -705,7 +947,7 @@ Process finished with exit code 0
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
-                                                <div class="time">0 ms</div>
+                                                <div class="time">1 ms</div>
                                             </em><em class="status">passed</em>TestNextOfKin.testEmptyName</span>
                                     </li>
                                     <li class="level test">
@@ -740,12 +982,12 @@ Process finished with exit code 0
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
-                                                <div class="time">0 ms</div>
+                                                <div class="time">1 ms</div>
                                             </em><em class="status">passed</em>TestNextOfKin.testLoadContact</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
-                                                <div class="time">165 ms</div>
+                                                <div class="time">186 ms</div>
                                             </em><em class="status">passed</em>TestNextOfKin.testLoadContactNonExistingID</span>
                                     </li>
                                     <li class="level test">
@@ -755,7 +997,7 @@ Process finished with exit code 0
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
-                                                <div class="time">2 ms</div>
+                                                <div class="time">1 ms</div>
                                             </em><em class="status">passed</em>TestNextOfKin.testSaveNextOfKin</span>
                                     </li>
                                     <li class="level test">
@@ -765,7 +1007,7 @@ Process finished with exit code 0
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
-                                                <div class="time">1 ms</div>
+                                                <div class="time">0 ms</div>
                                             </em><em class="status">passed</em>TestNextOfKin.testValidSurname</span>
                                     </li>
                                     <li class="level test">
@@ -775,115 +1017,354 @@ Process finished with exit code 0
                                     </li>
                                 </ul>
                             </li>
-                            <li class="level suite open">
+                            <li class="level suite failed open">
                                 <span><em class="time">
-                                        <div class="time">11 ms</div>
-                                    </em>TestNonPlayerClass</span>
+                                        <div class="time">5 ms</div>
+                                    </em>TestNonPlayer</span>
                                 <ul>
                                     <li class="level test">
                                         <span><em class="time">
-                                                <div class="time">1 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testConstructor</span>
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestNonPlayer.testConstructor</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testCorrectAddress</span>
-                                    </li>
-                                    <li class="level test">
-                                        <span><em class="time">
-                                                <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testCorrectMemberID</span>
-                                    </li>
-                                    <li class="level test">
-                                        <span><em class="time">
-                                                <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testCorrectRoleID</span>
-                                    </li>
-                                    <li class="level test">
-                                        <span><em class="time">
-                                                <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testCorrectTel</span>
-                                    </li>
-                                    <li class="level test">
-                                        <span><em class="time">
-                                                <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testEmptyAddress</span>
-                                    </li>
-                                    <li class="level test">
-                                        <span><em class="time">
-                                                <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testEmptyEmail</span>
-                                    </li>
-                                    <li class="level test">
-                                        <span><em class="time">
-                                                <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testEmptyName</span>
+                                            </em><em class="status">passed</em>TestNonPlayer.testCorrectAddress</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">1 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testEmptySurname</span>
+                                            </em><em class="status">passed</em>TestNonPlayer.testCorrectMemberID</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testEmptyTel</span>
+                                            </em><em class="status">passed</em>TestNonPlayer.testCorrectRoleID</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testIncorrectNameFormat</span>
+                                            </em><em class="status">passed</em>TestNonPlayer.testCorrectTel</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestNonPlayer.testEmptyAddress</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">1 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testIncorrectRoleID</span>
+                                            </em><em class="status">passed</em>TestNonPlayer.testEmptyEmail</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testIncorrectTel</span>
+                                            </em><em class="status">passed</em>TestNonPlayer.testEmptyName</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
-                                                <div class="time">5 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testInsertNonPlayer</span>
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestNonPlayer.testEmptySurname</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestNonPlayer.testEmptyTel</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestNonPlayer.testIncorrectNameFormat</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestNonPlayer.testIncorrectRoleID</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestNonPlayer.testIncorrectTel</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">1 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testInvalidEmail</span>
+                                            </em><em class="status">passed</em>TestNonPlayer.testInsertNonPlayer</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testInvalidMemberID</span>
+                                            </em><em class="status">passed</em>TestNonPlayer.testInvalidEmail</span>
                                     </li>
-                                    <li class="level test">
+                                    <li class="level test failed open">
                                         <span><em class="time">
-                                                <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testInvalidSurname</span>
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">error</em>TestNonPlayer.testInvalidMemberID</span>
+                                        <ul>
+                                            <li class="text">
+                                                <span class="stderr">org.testng.TestException: <br/>Method TestNonPlayer.testInvalidMemberID()[pri:0, instance:com.application.simplyrugby.Testing.TestNonPlayer@5b239d7d] should have thrown an exception of type class com.application.simplyrugby.System.ValidationException<br/>	at org.testng@7.7.0/org.testng.internal.invokers.ExpectedExceptionsHolder.noException(ExpectedExceptionsHolder.java:81)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.considerExceptions(TestInvoker.java:873)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:731)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:221)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:969)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:194)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)<br/>	at org.testng@7.7.0/org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)<br/>	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)<br/>	at org.testng@7.7.0/org.testng.TestRunner.privateRun(TestRunner.java:829)<br/>	at org.testng@7.7.0/org.testng.TestRunner.run(TestRunner.java:602)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.runTest(SuiteRunner.java:437)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.runSequentially(SuiteRunner.java:431)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.privateRun(SuiteRunner.java:391)<br/>	at org.testng@7.7.0/org.testng.SuiteRunner.run(SuiteRunner.java:330)<br/>	at org.testng@7.7.0/org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)<br/>	at org.testng@7.7.0/org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuitesSequentially(TestNG.java:1256)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuitesLocally(TestNG.java:1176)<br/>	at org.testng@7.7.0/org.testng.TestNG.runSuites(TestNG.java:1099)<br/>	at org.testng@7.7.0/org.testng.TestNG.run(TestNG.java:1067)<br/>	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)<br/>	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)<br/></span>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">1 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testLoadExistingmemeber</span>
+                                            </em><em class="status">passed</em>TestNonPlayer.testInvalidSurname</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testName</span>
+                                            </em><em class="status">passed</em>TestNonPlayer.testLoadExistingMember</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testSurname</span>
+                                            </em><em class="status">passed</em>TestNonPlayer.testName</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestNonPlayer.testSurname</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestNonPlayer.testValidEmail</span>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="level suite open">
+                                <span><em class="time">
+                                        <div class="time">3 ms</div>
+                                    </em>TestPlayer</span>
+                                <ul>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testCorrectPlayer</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testDummyPlayer</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">1 ms</div>
-                                            </em><em class="status">passed</em>TestNonPlayerClass.testValidEmail</span>
+                                            </em><em class="status">passed</em>TestPlayer.testEmptyAddress</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testEmptyDoB</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testEmptyEmail</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testEmptyGender</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testEmptyName</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testEmptySCRUMS</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testEmptySquadFlag</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testEmptySurname</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testEmptytelephone</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testHighLenghtTelephone</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testIncorrectDoctorID</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testIncorrectEmail</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testIncorrectKinID</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testIncorrectName</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testIncorrectSquadFlag</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testIncorrectSurname</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testInvalidTelephone</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestPlayer.testLowLenghtTelephone</span>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="level suite open">
+                                <span><em class="time">
+                                        <div class="time">3 ms</div>
+                                    </em>TestTrainingProfile</span>
+                                <ul>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testAdvancedLevelID</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testConstructor</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testDevelopingLevelID</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testEmptyDecision</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testEmptyLevelID</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testEmptyPassing</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testEmptyRunning</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testEmptySupport</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testEmptyTackling</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testIncorrectDecision</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testIncorrectPassing</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testIncorrectRunning</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testIncorrectSupport</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testIncorrectTackling</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testLeadingLevelID</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testLevelDesc1</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testLevelDesc2</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testLevelDesc3</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">1 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testLevelDesc4</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testLevelDesc5</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testPoorLevelID</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testProficientLevelID</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testWrongLevelDesc</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>TestTrainingProfile.testWrongLevelID</span>
                                     </li>
                                 </ul>
                             </li>
@@ -893,7 +1374,7 @@ Process finished with exit code 0
             </div>
         </div>
         <div id="footer">
-            <p>Generated by IntelliJ IDEA on 12/05/2023, 14:51</p>
+            <p>Generated by IntelliJ IDEA on 18/05/2023, 14:07</p>
         </div>
     </body>
 </html>

@@ -35,8 +35,8 @@ public class TestTrainingProfile {
 
     @Test (expectedExceptions = ValidationException.class)
     public void testIncorrectPassing() throws ValidationException{
-        tp.setPassingLevel("aaa");
-        Assert.assertEquals(tp.getPassingLevel(),"aaa");
+        tp.setPassingLevel("111");
+        Assert.assertEquals(tp.getPassingLevel(),"111");
     }
 
     @Test(expectedExceptions = ValidationException.class)

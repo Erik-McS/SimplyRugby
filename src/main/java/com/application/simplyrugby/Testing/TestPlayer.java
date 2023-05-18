@@ -1,6 +1,7 @@
 package com.application.simplyrugby.Testing;
 import com.application.simplyrugby.Model.Player;
 import com.application.simplyrugby.System.ValidationException;
+import org.testng.Reporter;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -20,6 +21,11 @@ public class TestPlayer {
         Assert.assertNotNull(pl);
         Assert.assertEquals(pl.getSurname(),"Dummy");
         Assert.assertEquals(pl.getFirstName(),"Dummy");
+        Assert.assertEquals(pl.getAddress(),"dummy");
+        Assert.assertEquals(pl.getDateOfBirth(),"");
+        Assert.assertEquals(pl.getGender(),"Male");
+        Assert.assertEquals(pl.getEmail(),"q@q.qqq");
+
     }
     // test the builder
     @Test
@@ -43,7 +49,7 @@ public class TestPlayer {
         Assert.assertEquals(pl.isAssignedToSquad(),"NO");
     }
 
-    // test empty name, exception expected
+    // test incorrect name, exception expected
     @Test(expectedExceptions = ValidationException.class)
     public void testIncorrectName() throws ValidationException{
         pl=new Player.PlayerBuilder().setPlayerID(1).setFirstName("Er1k").setSurname("Mcseveney").setAddress("123 Glasgow")
@@ -107,6 +113,15 @@ public class TestPlayer {
                 .setTelephone("").setGender("Male").setDoB("24/12/1974").setEmail("erik@erik.com")
                 .setKinID(1).setDoctorID(1).setScrumsNumber(111111).setIsAssignedToSquad("NO").Builder();
         Assert.assertEquals(pl.getTelephone(),"");
+    }
+
+    @Test(expectedExceptions = ValidationException.class)
+    public void testInvalidTelephone() throws ValidationException{
+        pl=new Player.PlayerBuilder().setPlayerID(1).setFirstName("Erik").setSurname("Mcseveney").setAddress("123 Glasgow")
+                .setTelephone("aaaaaa").setGender("Male").setDoB("24/12/1974").setEmail("erik@erik.com")
+                .setKinID(1).setDoctorID(1).setScrumsNumber(111111).setIsAssignedToSquad("NO").Builder();
+        Assert.assertEquals(pl.getTelephone(),"");
+
     }
 
     @Test(expectedExceptions = ValidationException.class)

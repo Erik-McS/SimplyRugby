@@ -1,6 +1,5 @@
 package com.application.simplyrugby.Testing;
 
-import com.application.simplyrugby.Model.Member;
 import com.application.simplyrugby.Model.NonPlayer;
 import com.application.simplyrugby.System.ValidationException;
 import org.testng.Assert;
@@ -11,7 +10,7 @@ import org.testng.annotations.Test;
 /**
  * Class to do automated test for the NonPlayer class
  */
-public class TestNonPlayerClass {
+public class TestNonPlayer {
 
     // an object of a class to test
     NonPlayer np;
@@ -150,7 +149,7 @@ public class TestNonPlayerClass {
 
     // testing the load member, checking we get the correct nonplayer from the database
     @Test
-    public void testLoadExistingmemeber(){
+    public void testLoadExistingMember(){
         //getting the nonplayer from DB with member ID 1
         NonPlayer nonPlayer=(NonPlayer) np.loadMember(new NonPlayer(),1);
         Assert.assertEquals(nonPlayer.getFirstName(),"Oliver");

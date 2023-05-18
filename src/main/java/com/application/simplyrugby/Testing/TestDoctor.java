@@ -112,8 +112,8 @@ public class TestDoctor {
     */
     @Test
     public void testSaveDoctor() throws ValidationException{
-        NextOfKin nextOfKin1=new NextOfKin("Frederic","Froment","0772533221");
-        Assert.assertTrue(nextOfKin1.saveContact());
+        Doctor doc1=new Doctor("Frederic","Froment","0772533221");
+        Assert.assertTrue(doc1.saveContact());
     }
     @Test
     public void testConstructor() throws ValidationException{

@@ -72,13 +72,8 @@ public class NonPlayer implements Member{
      * Set the member_ID. Used by DBTools to create a member object from the DB.
      * @param member_id The member ID
      */
-    public void setMember_id(int member_id) throws ValidationException{
-
-        if (member_id!=0)
+    public void setMember_id(int member_id) {
             this.member_id = member_id;
-        else
-            throw new ValidationException("Incorrect Member ID");
-
     }
     /**
      * Function to get the surname.
@@ -102,9 +97,7 @@ public class NonPlayer implements Member{
             String nameValidation="(\\p{Upper})(\\p{Lower}){1,12}";
             if (firstName.matches(nameValidation)){
                 this.firstName = firstName;
-
             }
-
             else
                 throw new ValidationException("Invalid Name format, please enter a valid name.");
         }
